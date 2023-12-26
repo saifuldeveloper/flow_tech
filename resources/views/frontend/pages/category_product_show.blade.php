@@ -113,20 +113,15 @@
                                 <span>Price Range</span>
                             </div>
                             <form action="{{ url('price/filter/category/' . $id) }}" method="post">
-                                {{-- <form action="{{ route( 'filter.price.category' . $id) }}" method="post"> --}}
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $id }}">
                                 <div class="pf-wrap">
-                                    {{-- <input type="hidden" name="min">
-               <input type="hidden" name="max"> --}}
                                     <div class="mb-2" id="slider-range"></div>
                                     <label class="range-label from"><input type="text" id="min" name="min"
-                                            value="0"></label>
+                                            readonly value="0"></label>
                                     <label class="range-label to"><input type="text" id="max" name="max"
-                                            value="{{ $productHighRange }}"></label>
+                                            readonly value="{{ $productHighRange }}"></label>
                                 </div>
-
-                                {{-- <input type="submit" class="btn btn-success" value="Filter Price"> --}}
                             </form>
                         </div>
                         <div class="filter-group ws-box show" data-group-type="status">
@@ -134,40 +129,21 @@
                                 <span>Availability</span>
                             </div>
                             <div class="items">
-                                <form action="{{ url('availability/filter/category/' . $id) }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $id }}">
-                                    <label class="filter">
-                                        <input type="checkbox" name="availability[]" value="In Stock" />
-                                        <span>In Stock</span>
-                                    </label>
-                                    <label class="filter">
-                                        <input type="checkbox" name="availability[]" value="Pre Order" />
-                                        <span>Pre Order</span>
-                                    </label>
-                                    <label class="filter">
-                                        <input type="checkbox" name="availability[]" value="Up Coming" />
-                                        <span>Up Coming</span>
-                                    </label>
-                                    <input type="submit" class="btn btn-success" value="Search Availability">
-                                </form>
+                                <input type="hidden" name="id" value="{{ $id }}">
+                                <label class="filter">
+                                    <input type="checkbox" name="availability[]" value="In Stock" class="availability" />
+                                    <span>In Stock</span>
+                                </label>
+                                <label class="filter">
+                                    <input type="checkbox" name="availability[]" value="Pre Order" class="availability" />
+                                    <span>Pre Order</span>
+                                </label>
+                                <label class="filter">
+                                    <input type="checkbox" name="availability[]" value="Up Coming" class="availability" />
+                                    <span>Up Coming</span>
+                                </label>
                             </div>
                         </div>
-                        {{-- <div class="filter-group ws-box show" data-group-id="305">
-      <div class="label">
-        <span>Brand</span>
-      </div>
-      <div class="items">
-            <label class="filter">
-          <input type="checkbox" name="filter" value="2094" />
-          <span>MaxGreen</span>
-        </label>
-            <label class="filter">
-          <input type="checkbox" name="filter" value="2095" />
-          <span>Others</span>
-        </label>
-          </div>
-    </div> --}}
                         @php
                             $brand = DB::table('brands')->get();
                         @endphp
@@ -176,17 +152,13 @@
                                 <span>Compatible Brand</span>
                             </div>
                             <div class="items">
-                                <form action="{{ url('brand/filter/category/' . $id) }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $id }}">
-                                    @foreach ($brand as $item)
-                                        <label class="filter">
-                                            <input type="checkbox" name="brandfilter[]" value="{{ $item->id }}" />
-                                            <span>{{ $item->brand_name }}</span>
-                                        </label>
-                                    @endforeach
-                                    <input type="submit" class="btn btn-success" value="Search Brand">
-                                </form>
+                                @foreach ($brand as $item)
+                                    <label class="filter">
+                                        <input type="checkbox" name="brandfilter[]" value="{{ $item->id }}"
+                                            class="brandfilter" />
+                                        <span>{{ $item->brand_name }}</span>
+                                    </label>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -219,8 +191,8 @@
                                     <div class="custom-select">
                                         <select id="input-sort">
                                             <option value="">Default</option>
-                                            <option value="p.price-ASC">Price (Low &gt; High)</option>
-                                            <option value="p.price-DESC">Price (High &gt; Low)</option>
+                                            <option value="price_asc">Price (Low &gt; High)</option>
+                                            <option value="price_desc">Price (High &gt; Low)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -229,7 +201,7 @@
 
                     </div>
                     <!-- product list item start -->
-                    <div class=" p-items-wrap" id="productList_p">
+                    <div class="p-items-wrap" id="productList_p">
                         <!-- product item start -->
                         @foreach ($category_all as $item)
                             <div class="p-item">
@@ -285,73 +257,6 @@
             </div>
 
         </div>
-        {{-- <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="category-description p-15 ws-box">
-          <h2>Buy original branded Laptop in BD</h2>
-    
-     <table class="table-responsive table-bordered">
-  
-  
-              <tr>
-                <th class="txt-left">Laptop List</th>
-                <th class="text-right">Price in BD</th>
-              </tr>
-              <tr class="latest-product">
-                <td class="product-name">
-                <a href="">Acer TravelMate TMP215-53 Core i3 11th Gen 1TB HDD 15.6&quot; FHD Laptop</a>
-              </td>
-              <td class="product-price text-right">0৳</td>
-            </tr>
-            <tr class="latest-product"><td class="product-name">
-              <a href="">Acer TravelMate TMP214-54 Core i7 12th Gen 14&quot; FHD Laptop</a></td>
-              <td class="product-price text-right">0৳</td>
-            </tr>
-            <tr class="latest-product"><td class="product-name">
-              <a href="">Acer TravelMate TMP214-54 Core i5 12th Gen 14&quot; FHD Laptop</a>
-            </td>
-            <td class="product-price text-right">0৳</td>
-          </tr>
-          <tr class="latest-product">
-            <td class="product-name">
-              <a href="">Acer TravelMate TMP214-54 Core i3 12th Gen 14&quot; HD Laptop</a></td>
-              <td class="product-price text-right">0৳</td>
-            </tr>
-            <tr class="latest-product">
-              <td class="product-name">
-                <a href="">Lenovo IdeaPad Slim 3i Core i7 11th Gen 15.6&quot; FHD Laptop Abyss Blue</a>
-              </td>
-              <td class="product-price text-right">0৳</td>
-            </tr>
-            <tr class="latest-product">
-              <td class="product-name">
-                <a href="">Dell Latitude 3420 Core i7 11th Gen MX350 2GB Graphics 14&quot; FHD Laptop</a>
-              </td>
-              <td class="product-price text-right">92,500৳</td>
-            </tr>
-            <tr class="latest-product"><td class="product-name">
-              <a href="">Dell Latitude 3520 Core i5 11th Gen MX550 2GB Graphics 15.6&quot; FHD Laptop</a>
-            </td>
-            <td class="product-price text-right">78,500৳</td>
-          </tr>
-          <tr class="latest-product"><td class="product-name">
-            <a href="">Lenovo IdeaPad Slim 3i Core i3 11th Gen 512GB SSD 15.6&quot; FHD Laptop</a>
-          </td>
-          <td class="product-price text-right">53,500৳</td>
-        </tr>          
-      </table>
-          <h2>How to Find The Best Laptop Easily</h2>
-          Our user-friendly official site and App lets you search for a 
-            <a href="" target="">laptop </a> 
-            inyour price range. You can also check brand-wise laptops such as <a href="" target="">Razer</a>,
-            <a href="" target="">Apple</a>, Asus, Acer, <a href="" target="">HP</a>,
-               
-           </div>
-      </div>
-    </div>
-  </div> --}}
-
     </section>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -452,47 +357,16 @@
         });
     </script>
 
-    {{-- <script>
-  function formatSliderValues(value) {
-    if (value == null) return 'Any';
-    return value;
-  }
 
-  var stepSize = 100; // Set your desired step size
-  var maxSliderValue = 500000; 
-  var values = Array.from({ length: (maxSliderValue / stepSize) + 1 }, (_, i) => i * stepSize);
 
-  $("#slider-range").slider({
-    range: true,
-    max: values.length - 1,
-    values: [0, values.length - 1],
-    slide: function (event, ui) {
-      var min = values[ui.values[0]];
-      var max = values[ui.values[1]];
-      $("[name=min]").val(min);
-      $("[name=max]").val(max);
-      $("#min").val(formatSliderValues(min));
-      $("#max").val(formatSliderValues(max));
-    }
-  });
-
-  /* show initial values */
-  var min = values[$("#slider-range").slider("values", 0)];
-  var max = values[$("#slider-range").slider("values", 1)];
-  $("[name=min]").val(min);
-  $("[name=max]").val(max);
-  $("#min").val(formatSliderValues(min));
-  $("#max").val(formatSliderValues(max));
-</script> --}}
 
     <script>
         function formatSliderValues(value) {
-            if (value == null) return 'Any';
-            return value;
+            return value == null ? 'Any' : value;
         }
 
         var stepSize = 1;
-        var maxSliderValue = 5000;
+        var maxSliderValue = 50000;
         var values = Array.from({
             length: (maxSliderValue / stepSize) + 1
         }, (_, i) => i * stepSize);
@@ -504,32 +378,108 @@
             slide: function(event, ui) {
                 var min = values[ui.values[0]];
                 var max = values[ui.values[1]];
+
+                // Update the displayed values
                 $("[name=min]").val(min);
                 $("[name=max]").val(max);
                 $("#min").val(formatSliderValues(min));
                 $("#max").val(formatSliderValues(max));
-
                 updatePrices(min, max);
             }
         });
 
+        // Set initial values for min and max
+        var initialMin = values[$("#slider-range").slider("values", 0)];
+        var initialMax = values[$("#slider-range").slider("values", 1)];
 
-        var min = values[$("#slider-range").slider("values", 0)];
-        var max = values[$("#slider-range").slider("values", 1)];
-        $("[name=min]").val(min);
-        $("[name=max]").val(max);
-        $("#min").val(formatSliderValues(min));
-        $("#max").val(formatSliderValues(max));
+        $("[name=min]").val(initialMin);
+        $("[name=max]").val(initialMax);
 
-        // {{ url('price/filter/category/' . $id) }}
+        initialMin = parseInt(initialMin);
+        initialMax = parseInt(initialMax);
+        $("#min").val(formatSliderValues(initialMin));
+        $("#max").val(formatSliderValues(initialMax));
 
+        jQuery(document).ready(function($) {
+            var availability = [];
+            var brand = [];
+            function getCheckedValues(selector) {
+                return $(selector + ":checked").map(function() {
+                    return $(this).val();
+                }).get();
+            }
+            $("#slider-range").slider({
+                range: true,
+                max: values.length - 1,
+                values: [0, values.length - 1],
+                slide: function(event, ui) {
+                    var min = values[ui.values[0]];
+                    var max = values[ui.values[1]];
 
-        function updatePrices(min, max) {
+                    // Update the displayed values
+                    $("[name=min]").val(min);
+                    $("[name=max]").val(max);
+                    $("#min").val(formatSliderValues(min));
+                    $("#max").val(formatSliderValues(max));
+
+                    // Collect the selected values dynamically
+                    updatePrices(min, max, availability);
+                }
+            });
+
+            $(".availability").on("click", function() {
+                availability = getCheckedValues(".availability");
+                var sliderValues = $("#slider-range").slider("values");
+                var min = values[sliderValues[0]];
+                var max = values[sliderValues[1]];
+                updatePrices(min, max, availability);
+            });
+
+            $(".brandfilter").on("click", function() {
+                var brand = getCheckedValues(".brandfilter");
+                var availability = getCheckedValues(".availability");
+                var limitProduct = getCheckedValues("#input-limit");
+                var sliderValues = $("#slider-range").slider("values");
+                var min = values[sliderValues[0]];
+                var max = values[sliderValues[1]];
+
+                updatePrices(min, max, availability, brand);
+            });
+
+            $("#input-limit").change(function() {
+                var limitProduct = $(this).val();
+                var selectedSortOption = $("#input-sort").val();
+                var sliderValues = $("#slider-range").slider("values");
+                var availability = getCheckedValues(".availability");
+                var brand = getCheckedValues(".brandfilter");
+                var min = values[sliderValues[0]];
+                var max = values[sliderValues[1]];
+                updatePrices(min, max, availability, brand, limitProduct, selectedSortOption);
+            });
+
+            $("#input-sort").change(function() {
+                var selectedSortOption = $(this).val();
+                var limitProduct = $("#input-limit").val();
+                var availability = getCheckedValues(".availability");
+                var brand = getCheckedValues(".brandfilter");
+                var sliderValues = $("#slider-range").slider("values");
+                var min = values[sliderValues[0]];
+                var max = values[sliderValues[1]];
+                updatePrices(min, max, availability, brand, limitProduct, selectedSortOption);
+            });
+        });
+
+        function updatePrices(min, max, availability, brand, limitProduct, selectedSortOption) {
             $.post('{{ url('price/filter/category/' . $id) }}', {
                 "_token": '{{ csrf_token() }}',
                 min: min,
                 max: max,
+                availability: availability,
+                brand: brand,
+                limitProduct: limitProduct,
+                selectedSortOption: selectedSortOption,
             }, function(data) {
+                console.log(data);
                 $('#productList_p').html(data);
             });
         };
