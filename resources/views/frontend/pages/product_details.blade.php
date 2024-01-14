@@ -667,7 +667,15 @@
                                     this product from expert.</p>
                             </div>
                             <div class="q-action">
-                                <a href="" class="btn st-outline">Ask Question</a>
+                                {{-- <a href="{{ route('question/{$product->id}') }}" class="btn st-outline">Ask Question</a> --}}
+                                @if (Auth::user())
+                                <a href="{{ route('question', ['id' => $product->id]) }}" class="btn st-outline">Ask Question</a>
+
+                                    {{-- <a href="{{ route('review') }}" class="btn st-outline">Write a Review</a> --}}
+                                @else
+                                    <a href="{{ route('login') }}" class="btn st-outline">Write a Review</a>
+                                @endif
+
                             </div>
                         </div>
                         <div id="question">
@@ -690,7 +698,13 @@
                                 </div>
                             </div>
                             <div class="q-action">
-                                <a href="" class="btn st-outline">Write a Review</a>
+                                @if (Auth::user())
+
+                                    <a href="{{ route('review', ['id' => $product->id]) }}" class="btn st-outline">Write a Review</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="btn st-outline">Write a Review</a>
+                                @endif
+
                             </div>
                         </div>
                         <div id="review">
