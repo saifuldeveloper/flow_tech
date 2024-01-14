@@ -5,30 +5,13 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Cart;
 use Session;
 
 class PaymentController extends Controller
 {
     public function PaymentProcess(Request $request){
-
-        // $payment = $request->payment;
-        // echo "$payment";
-
-        // $data = array();
-        // $data['name'] = $request->name;
-        // $data['phone'] = $request->phone;
-        // $data['address'] = $request->address;
-        // $data['city'] = $request->city;
-        // $data['notes'] = $request->notes;
-        // $data['payment'] = $request->payment;
-       
-        // dd($data);
-
-        // if($request->payment == 'cash_on_delivery'){
-
-        //     return view('frontend.pages.payment.cash_on_delivery');
-        // }
 
         $data = array();
         $data['user_id'] = $request->user_id;
@@ -43,10 +26,14 @@ class PaymentController extends Controller
         $data['year'] = date('Y');
         $data['created_at'] = now();
         $order_id = DB::table('orders')->insertGetId($data);
-        
+
         // Insert Shipping Table
+        $invoice_id = IdGenerator::generate(['table' => 'shippings',
+        'field'=>'invoice_num', 'length' => 7, 'prefix' => 'Inv-']);
+
         $shipping = array();
         $shipping['order_id'] = $order_id;
+        $shipping['invoice_num'] = $invoice_id;
         $shipping['name'] = $request->name;
         $shipping['phone'] = $request->phone;
         $shipping['email'] = $request->email;
@@ -80,7 +67,7 @@ class PaymentController extends Controller
         if(Session::has('coupon')){
             Session::forget('coupon');
         }
-      
+
          return Redirect()->route('user.congratulations')->with('success', 'Order Process Successfully!');
 
     } // End Method
