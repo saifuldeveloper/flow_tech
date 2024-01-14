@@ -11,15 +11,16 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\LeadManagementController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ComboController;
+use App\Http\Controllers\Backend\ChildCategoryContoller;
 use App\Http\Controllers\Frontend\SubscribeController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Backend\SettingController;
-use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\ComboController;
-use App\Http\Controllers\Backend\ChildCategoryContoller;
-
+use App\Http\Controllers\Backend\UserReviewController;
+use App\Http\Controllers\Frontend\UserReviewController as FrontendUserReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -266,6 +267,11 @@ Route::get('/online/delivery', [App\Http\Controllers\HomeController::class, 'del
 Route::get('/emi', [App\Http\Controllers\HomeController::class, 'emi'])->name('emi');
 Route::get('/privacy/policy', [App\Http\Controllers\HomeController::class, 'policy'])->name('policy');
 Route::get('/terms/condition', [App\Http\Controllers\HomeController::class, 'condition'])->name('condition');
+// Write a Review
+Route::get('/user/product/review/{id}', [FrontendUserReviewController::class, 'review'])->name('review');
+Route::post('/user/product/review/form', [FrontendUserReviewController::class, 'reviewSection'])->name('review.section');
+Route::get('/user/product/question/{id}',[FrontendUserReviewController::class, 'question'])->name('question');
+Route::post('/user/product/question/form',[FrontendUserReviewController::class, 'questionSection'])->name('question.section');
 // Route::get('/login', [App\Http\Controllers\HomeController::class, 'login'])->name('login');
 // Route::get('/registration', [App\Http\Controllers\HomeController::class, 'register'])->name('register');
 
