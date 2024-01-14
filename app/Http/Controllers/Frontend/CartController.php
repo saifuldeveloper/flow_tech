@@ -78,7 +78,6 @@ class CartController extends Controller
          $id =$request->id;
         $product = DB::table('products')->where('id',$id)->first();
         $data = array();
-
         if($product){
             $data['id'] = $product->id;
             $data['name'] = $product->product_name;
@@ -92,10 +91,10 @@ class CartController extends Controller
             $url = route('user.checkout.rediect');
             return \Response::json(['success' => 'Successfully Added on your Cart!' ,'url'=> $url]);
         }
+        return view('frontend.pages.checkout');
 
-         
-
-    } // End Method
+    
+    } 
 
     public function CheckoutRedirect(){
         return view('frontend.pages.checkout');

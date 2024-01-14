@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,48 +25,46 @@
     <main class="container invoice-wrapper" id="download-section">
         <!-- invoice Description -->
         <div class="card-body pt-20 mt-30">
-            <div class="row">
-                <div class="col-md-6 col-sm-4">
-                    @php
-                        $setting = DB::table('settings')->first();
-                    @endphp
-                    <img style="height: 50px; margin-left: -45px" src="{{ URL($setting->logo) }}" title="invoice"
-                        alt="invoice" />
-                </div>
-                <div class="col-md-6 col-sm-8">
-                    <div class="invoice-details mb-20">
-                        <div class="row">
-                            <div class="col-md-7 col-sm-7">
-                                <div class="invoice-details-inner mt-2">
-                                    <p>{{ $setting->address }}</p>
-                                    <p>Hotline: {{ $setting->phone }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-5 col-sm-5">
-                                <div class="invoice-details-inner mt-2">
-                                    <br /><br />
-                                    <p>VAT Registration No.</p>
-                                    <p>0 0 3 1 3 1 7 1 4 - 0 4 0 1</p>
-                                </div>
-                            </div>
+            @php
+                $setting = DB::table('settings')->first();
+            @endphp
+            <div class="invoice-details mb-20">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <div class="invoice-details-inner mt-2">
+                            <img style="height: 50px; margin-left:12px" src="{{ URL($setting->logo) }}"
+                                title="invoice" alt="invoice" />
                         </div>
                     </div>
+                    <div class="col-md-6 col-sm-3">
+                        <div class="invoice-details-inner mt-2">
+                            <p>{{ $setting->address }}</p>
+                            <p>Hotline: {{ $setting->phone }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+
+                    </div>
                 </div>
+            </div>
+
+
+            <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="invoice-details mb-20">
                         <h5 class="mb-10 text-18 text-capitalize">
                             <b>Delivery Address</b>
                         </h5>
                         <h5 class="mb-0 text-15 text-capitalize">
-                            Name: <b>{{ $order_shippings->name }}</b>
+                            Name: <b>{{ $shipping['name'] }}</b>
                         </h5>
                         <h5 class="mb-0 text-15 text-capitalize">
-                            Address: <b>{{ $order_shippings->address }}</b>
+                            Address: <b>{{ $shipping['address'] }}</b>
                         </h5>
 
                         <div class="invoice-details-inner mt-2">
                             <h5 class="mb-10 text-15 text-capitalize">
-                                Number: <b>{{ $order_shippings->phone }}</b>
+                                Number: <b>{{ $shipping['phone'] }}</b>
                             </h5>
                         </div>
                     </div>
@@ -79,7 +78,7 @@
                             <p>Invoice ID:</p>
                         </div>
                         <div class="col-md-9 col-sm-9">
-                            <p>{{ $order_shippings->invoice_num }}</p>
+                            <p>{{ $shipping['invoice_num'] }}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -87,7 +86,7 @@
                             <p>Date:</p>
                         </div>
                         <div class="col-md-9 col-sm-9">
-                            <p>{{ $order_shippings->created_at }}</p>
+                            <p>{{ $shipping['created_at'] }}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -96,13 +95,13 @@
                         </div>
                         <div class="col-md-9 col-sm-9">
                             <h2>
-                                <p>{{ $order_shippings->payment }}</p>
+                                <p>sd</p>
                             </h2>
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <img class="barcode-image"
                                 style="height: 50px; width: 320px;margin-button:15px; margin-top:10px;"
-                                src="data:image/png;base64,{{ DNS1D::getBarcodePNG($order_shippings->invoice_num, 'C39', 1, 30) }}"
+                                src="data:image/png;base64,{{ DNS1D::getBarcodePNG($shipping['invoice_num'], 'C39', 1, 30) }}"
                                 alt="Barcode">
                         </div>
                     </div>
@@ -120,7 +119,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($order_details as $key => $row)
+                                @foreach ($shipping['order_details'] as $key => $row)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $row->product_name }}</td>
@@ -135,28 +134,17 @@
                 </div>
             </div>
         </div>
-        </div>
-        @php
-            $productamount = 0;
-        @endphp
-        @foreach ($order_details as $row)
-            @php
-                $productamount += $row->singleprice * $row->quantity;
-            @endphp
-        @endforeach
         <div class="row" style="margin-top: -30px;">
-            <div class="col-lg-4 col-md-4 col-sm-4"></div>
-            <div class="col-lg-8 col-md-8 col-sm-8 ms-auto">
+            <div class="col-12 text-end">
                 <table class="table">
                     <tbody>
-                        <tr>
+                        <tr class="tex-end">
                             <td class="border-bottom-0">
                                 <h3 class="text-end"><strong>Sub Total: BDT
-                                        {{ $productamount }}</strong></h3>
-                                <h4 class="text-end font-10">Shipping Fee: BDT {{ $order_charge->shipping }}</h4>
-                                {{-- <h4 class="text-end">Discount: BDT {{ $posSale->discount }}</h4></br> --}}
+                                        {{ $shipping['subtotal'] }}</strong></h3>
+                                <h4 class="text-end font-10">Shipping Fee: BDT {{ $shipping['shipping'] }}</h4>
                                 <h3 class="text-end"><strong>Total: BDT
-                                        {{ $productamount + $order_charge->shipping }}</strong></h3>
+                                        {{ $shipping['total'] }}</strong></h3>
                                 <h4 class="text-end">(Including VAT)</h4>
                             </td>
                         </tr>
@@ -176,7 +164,7 @@
         </div>
     </main>
     <!-- invoice Bottom  -->
-    <div class="text-center mt-5 mb-4 regular-button">
+    {{-- <div class="text-center mt-5 mb-4 regular-button">
         <div class="d-print-none d-flex justify-content-center gap-10 mt-5">
             <button id="bill-download" class="btn-primary-outline">
                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
@@ -191,21 +179,15 @@
                     <path
                         d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
                         fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"></path>
-                    <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
-                        fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"></rect>
+                    <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32" fill="none"
+                        stroke="currentColor" stroke-linejoin="round" stroke-width="32"></rect>
                     <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none"
                         stroke="currentColor" stroke-linejoin="round" stroke-width="32"></path>
                     <circle cx="392" cy="184" r="24" fill="currentColor"></circle>
                 </svg>
             </a>
         </div>
-    </div>
-    <!-- jquery-->
-    <script src="{{ asset('invoice/assets/js/jquery-3.7.0.min.js') }}"></script>
-    <!-- Plugin -->
-    <script src="{{ asset('invoice/assets/js/plugin.js') }}"></script>
-    <!-- Main js-->
-    <script src="{{ asset('invoice/assets/js/mian.js') }}"></script>
+    </div> --}}
 </body>
 
 </html>
