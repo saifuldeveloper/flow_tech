@@ -225,30 +225,31 @@ class ProductDetailsController extends Controller
     {
         $HeadSlug = $category_slug;
 
+        $category = Category::where('category_slug',$category_slug)->first();
         $category_all = DB::table('products')
-        ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-        ->where('categories.category_slug',$category_slug)
+        ->where('category_id',$category->id)
         ->paginate(20);
-        $category = DB::table('categories')
-        // ->leftJoin('sub_categories', 'categories.id', '=', 'sub_categories.category_id')
-        ->where('categories.category_slug',$category_slug)
-        ->first();
+
+        // $category = DB::table('categories')
+        // // ->leftJoin('sub_categories', 'categories.id', '=', 'sub_categories.category_id')
+        // ->where('categories.category_slug',$category_slug)
+        // ->first();
         $categoryloop = DB::table('categories')
         ->leftJoin('sub_categories', 'categories.id', '=', 'sub_categories.category_id')
-        ->where('categories.category_slug',$category_slug)
+        ->where('categories.category_slug',$category->category_slug)
         ->get();
 
         return view('frontend.pages.category_product_show', compact('category_all','HeadSlug', 'category', 'categoryloop'));
     } // End Method
     public function SubCategoryView($subcategory_slug)
     {
+
         $HeadSlug = $subcategory_slug;
+
+
+        $subcategory = SubCategory::where('subcategory_slug',$subcategory_slug)->first();
         $category_all = DB::table('products')
-        // ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-        ->leftJoin('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
-        // ->leftJoin('chlild_categories', 'products.childcategory_id', '=', 'chlild_categories.id')
-        // ->where('category_id', $id)
-        ->where('sub_categories.subcategory_slug',$subcategory_slug)
+        ->where('subcategory_id',$subcategory->id)
         ->paginate(20);
         $category = DB::table('sub_categories')
         ->leftJoin('chlild_categories', 'sub_categories.id', '=', 'chlild_categories.sub_category_id')
@@ -264,17 +265,11 @@ class ProductDetailsController extends Controller
     public function ChildCategoryView($childcategory_slug)
     {
         $HeadSlug = $childcategory_slug;
+
+        $childcategory = DB::table('chlild_categories')->where('childcategory_slug',$childcategory_slug)->first();
         $category_all = DB::table('products')
-        // ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-        // ->leftJoin('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
-        ->leftJoin('chlild_categories', 'products.childcategory_id', '=', 'chlild_categories.id')
-        // ->where('category_id', $id)
-        // ->where('sub_categories.slug',$slug)
-        ->where('chlild_categories.childcategory_slug',$childcategory_slug)
+        ->where('childcategory_id',$childcategory->id)
         ->paginate(20);
-        // $category_all = DB::table('products')->where('category_id',$id)->get();
-        // $category_all = Product::where('child_category_id', $id)->
-        // where('subcategory_id', $id)->paginate(20);
         return view('frontend.pages.childcategory_product_show', compact('category_all','HeadSlug'));
 
     } // End Method

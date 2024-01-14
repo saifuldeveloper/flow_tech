@@ -203,6 +203,7 @@
                     <div class="p-items-wrap" id="productList_p">
                         <!-- product item start -->
                         @foreach ($category_all as $item)
+                      
                             <div class="p-item">
                                 @include('frontend.pages.product_item')
                             </div>
