@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @php
-        // Retrieving data from the "sliders" table, skipping the first two records
         $slider = DB::table('sliders')->get();
         $siteslider = DB::table('indexsitesliders')->first();
         $setting = DB::table('settings')->first();
@@ -122,10 +121,8 @@
             </div>
         </div>
         <!-- top reated product section end -->
-
     </div>
     <!-- product end -->
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {
