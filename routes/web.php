@@ -18,6 +18,7 @@ use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\ComboController;
+use App\Http\Controllers\Backend\ChildCategoryContoller;
 
 
 /*
@@ -33,11 +34,6 @@ use App\Http\Controllers\Backend\ComboController;
 // fontend routes
 
 
-
-
-
-
-
 // Add To Cart Routes
 Route::get('/add/to/cart/{id}', [CartController::class, 'addCart']);
 Route::get('/product/cart', [CartController::class, 'showCart'])->name('show.cart');
@@ -49,27 +45,32 @@ Route::post('/user/payment/process/', [PaymentController::class, 'PaymentProcess
 Route::get('/user/congratulations/', [PaymentController::class, 'congratulations'])->name('user.congratulations');
 
 // fontend checkout and wishlist, cupon
-Route::get('/user/checkout', [CartController::class, 'Checkout'])->name('user.checkout');
+Route::get('/user/checkout/add', [CartController::class, 'Checkout'])->name('user.checkout');
+Route::get('/user/checkout', [CartController::class, 'CheckoutRedirect'])->name('user.checkout.rediect');
 // Route::get('/user/wishlist', [CartController::class, 'Wishlist'])->name('user.wishlist');
-
 
 Route::post('/user/apply/coupon/', [CartController::class, 'applyCoupon'])->name('apply.coupon');
 Route::get('/user/coupon/remove/', [CartController::class, 'CouponRemove'])->name('coupon.remove');
 
 // Product Details Page
-Route::get('/allcategory/{id}', [ProductDetailsController::class, 'categoryView']);
+// Route::get('/allcategory/{id}', [ProductDetailsController::class, 'categoryView']);
 Route::get('/product/show', [ProductDetailsController::class, 'AllproductView'])->name('allProduct.show');
-Route::get('/product/show/filter', [ProductDetailsController::class, 'AllproductView'])->name('shop.filter');
-Route::get('/product/details/{id}/{product_name}', [ProductDetailsController::class, 'productView']);
+// Route::get('/product/details/{id}/{product_name}', [ProductDetailsController::class, 'productView']);
+Route::get('/product/{product_slug}', [ProductDetailsController::class, 'productView']);
 
 Route::get('/latest/offer/page', [ProductDetailsController::class, 'LatestOfferPage'])->name('latest.offer.page');
-
 // Category wise product view
-Route::get('category/product/details/{id}', [ProductDetailsController::class, 'SubCategoryView']);
+// Route::get('/category/{slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
+// Route::get('/category/{slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
+// Route::get('/category/{id}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
+Route::get('/category/{category_slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
 
+
+Route::get('/subcategory/{subcategory_slug}', [ProductDetailsController::class, 'SubCategoryView'])->name('subcategory.view');
+Route::get('/childcategory/{childcategory_slug}', [ProductDetailsController::class, 'ChildCategoryView'])->name('childcategory.view');
 
 // Product search controller
-Route::get('product-list', [ProductDetailsController::class, 'ProductListAjax']);
+Route::get('/product-list', [ProductDetailsController::class, 'ProductListAjax']);
 Route::post('/product/search', [ProductDetailsController::class, 'Search'])->name('product.search');
 
 // Product filter
@@ -77,19 +78,15 @@ Route::post('product/brand/filter', [ProductDetailsController::class, 'BrandFilt
 Route::post('product/availability/filter', [ProductDetailsController::class, 'AvailabilityFilter'])->name('filter.availability');
 Route::post('product/price/filter', [ProductDetailsController::class, 'PriceFilter'])->name('filter.price');
 
-// Limon Super Filter
-Route::post('product/filter/brand', [ProductDetailsController::class, 'SuperFilterbrand'])->name('filter.brand');
-Route::post('product/filter/available', [ProductDetailsController::class, 'SuperFilteravailable'])->name('filter.available');
-
 // Product filter with category
 Route::post('brand/filter/category/{id}', [ProductDetailsController::class, 'BrandFilterCategory']);
 Route::post('availability/filter/category/{id}', [ProductDetailsController::class, 'AvailabilityFiltercategory'])->name('filter.availability.category');
 Route::post('price/filter/category/{id}', [ProductDetailsController::class, 'PriceFiltercategory'])->name('filter.price.category');
 
 // Cart Routes
-Route::post('/cart/product/add/{id}', [ProductDetailsController::class, 'addCart']);
-Route::post('/cart/combo/add/{id}', [ProductDetailsController::class, 'addCartCombo']);
-Route::post('/cart/product/add/buy/{id}', [ProductDetailsController::class, 'addCartBuy']);
+Route::post('/cart/product/add/{slug}', [ProductDetailsController::class, 'addCart']);
+Route::post('/cart/combo/add/{slug}', [ProductDetailsController::class, 'addCartCombo']);
+Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'addCartBuy']);
 
  // backend routes
  Route::get('/admin/login', [AdminController::class, 'adminLoginForm'])->name('admin.login.form');
@@ -155,6 +152,15 @@ Route::post('/cart/product/add/buy/{id}', [ProductDetailsController::class, 'add
     Route::post('/admin/update/subcategory/{id}',[SubCategoryController::class,'updateSubCategory'])->name('update.subcategory');
     Route::get('/admin/details/subcategory/{id}',[SubCategoryController::class,'detailsSubCategory'])->name('details.subcategory');
 
+
+    Route::get('/admin/list/childcategory',[ChildCategoryContoller::class,'listchildCategory'])->name('list.childcategory');
+    Route::get('/admin/add/childcategory',[ChildCategoryContoller::class,'addchildCategory'])->name('add.childcategory');
+    Route::post('/admin/store/childcategory',[ChildCategoryContoller::class,'storechildCategory'])->name('store.childcategory');
+    Route::get('/admin/delete/childcategory/{id}',[ChildCategoryContoller::class,'deletechildCategory'])->name('delete.childcategory');
+    Route::get('/admin/edit/childcategory/{id}',[ChildCategoryContoller::class,'editchildCategory'])->name('edit.childcategory');
+    Route::post('/admin/update/childcategory/{id}',[ChildCategoryContoller::class,'updatechildCategory'])->name('update.childcategory');
+    Route::get('/admin/details/childcategory/{id}',[ChildCategoryContoller::class,'detailschildCategory'])->name('details.childcategory');
+
     // shipments
     Route::get('/admin/list/shipments',[SubCategoryController::class,'listShipments'])->name('list.shipments');
     Route::get('/admin/add/shipments',[SubCategoryController::class,'addShipments'])->name('add.shipments');
@@ -214,6 +220,7 @@ Route::post('/cart/product/add/buy/{id}', [ProductDetailsController::class, 'add
      Route::get('inactive/product/{id}',[ProductController::class,'inactive']);
      Route::get('active/product/{id}',[ProductController::class,'active']);
      Route::get('get/subcategory/{category_id}',[ProductController::class,'GetSubcat']);
+     Route::get('get/childcategory/{category_id}',[ProductController::class,'GetChildcat']);
 
      // Setting
        Route::get('/admin/list/setting',[SettingController::class,'listSetting'])->name('list.setting');
@@ -225,10 +232,7 @@ Route::post('/cart/product/add/buy/{id}', [ProductDetailsController::class, 'add
 
     // this controller must be change
      Route::get('/admin/list/subscribe/', [SubscribeController::class, 'listSubscribe'])->name('list.subscribe');
-    // Trackin List
-    Route::get('/admin/list/track',[LeadManagementController::class,'listTrack'])->name('list.track');
-    Route::get('inactive/track/{id}',[LeadManagementController::class,'inactiveTrack']);
-    Route::get('active/track/{id}',[LeadManagementController::class,'activeTrack']);
+
       // Order List
       Route::get('/admin/list/order',[LeadManagementController::class,'listOrder'])->name('list.order');
       Route::post('/admin/status/update/{id}', [LeadManagementController::class, 'statusUpdate'])->name('admin.status.update');
@@ -249,7 +253,6 @@ Route::post('/cart/product/add/buy/{id}', [ProductDetailsController::class, 'add
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'UserDashboard'])->name('user.dashboard');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'Home'])->name('homePage');
 // this section for all page detials
 Route::get('/about/us', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('aboutUs');
@@ -262,11 +265,6 @@ Route::get('/online/delivery', [App\Http\Controllers\HomeController::class, 'del
 Route::get('/emi', [App\Http\Controllers\HomeController::class, 'emi'])->name('emi');
 Route::get('/privacy/policy', [App\Http\Controllers\HomeController::class, 'policy'])->name('policy');
 Route::get('/terms/condition', [App\Http\Controllers\HomeController::class, 'condition'])->name('condition');
-
-
-Route::post('/user/order/track', [PaymentController::class, 'OrderTrack'])->name('check.order');
-
-
 // Route::get('/login', [App\Http\Controllers\HomeController::class, 'login'])->name('login');
 // Route::get('/registration', [App\Http\Controllers\HomeController::class, 'register'])->name('register');
 

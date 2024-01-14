@@ -42,7 +42,7 @@
 		<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 		<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		
+
 		<link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 <style>
@@ -210,10 +210,10 @@ border-radius: 4px;
 		</div>
 	</div>
 	<!--end switcher-->
-	
+
 	<!-- Bootstrap JS -->
 	<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-	
+
 	<!--plugins-->
 	<script src="{{asset('assets/js/jquery.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
@@ -233,7 +233,7 @@ border-radius: 4px;
 	  </script>
 	  <script src="{{asset('assets/js/index.js')}}"></script>
 	<!--app JS-->
-	
+
 	<script src="{{asset('assets/js/app.js')}}"></script>
 	@yield('footer')
 </body>

@@ -23,10 +23,14 @@
               <thead>
                 <tr>
                   <th>Sl</th>
+                  <th class="wd-15p">Sub Category Image</th>
                   <th>Category Name</th>
                   <th>Sub Category Name</th>
+                  <th>Sub Category Slug</th>
+                  <th>Meta Tag</th>
+                  <th>Meta Description</th>
                   <th class="d-flex justify-content-end">Action</th>
-        
+
                 </tr>
               </thead>
               <tbody>
@@ -34,8 +38,12 @@
                 @foreach($subcat as $key => $row)
                 <tr>
                   <td>{{ $key+1}}</td>
+                  <td> <img src="{{ URL::to($row->subcategory_img)}}" height="50px;" width="50px;"> </td>
                   <td>{{ $row->category_name }}</td>
                   <td>{{ $row->subcategory_name }}</td>
+                  <td>{{ $row->subcategory_slug }}</td>
+                  <td>{{ $row->meta_tag}}</td>
+                  <td>{{ $row->meta_description}}</td>
                   <td class="d-flex justify-content-end">
 
                     <a href="{{ route('details.subcategory',$row->id)}}" class="btn btn-success">View</a>&nbsp;
@@ -43,7 +51,7 @@
                     <a href="{{ route('delete.subcategory',$row->id)}}" class="btn btn-danger" id="delete">Delete</a>
 
                   </td>
-                 
+
                 </tr>
                 @endforeach
 
@@ -62,7 +70,7 @@
         toastr.success("{{ session("success") }}");
     </script>
     @endif
-   
+
     @if(Session::has('error'))
     <script>
         toastr.error("{{ session("error") }}");
@@ -77,7 +85,7 @@
                 'csv', 'excel', 'pdf' , 'print'
             ]
         } );
-      
+
         </script>
 
 <script>

@@ -50,7 +50,7 @@
         // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
         $id = request()->segment(4); // Adjust the segment number based on your URL structure
         $slider = DB::table('sliders')->first();
-        $category = DB::table('categories')->get();
+        // $category = DB::table('categories')->get();
         $productHighRange = DB::table('products')->min('selling_price');
     @endphp
     <!-- category banner start -->
@@ -72,7 +72,16 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div class="shop-banner">
-                        <img src="{{ asset($slider->slider_img) }}" width="100%" height="200px" alt="">
+                        {{-- @dd($category[0]->category_banner_img); --}}
+                        {{-- category->category_banner_img --}}
+                        @if (isset($category->category_banner_img))
+
+                            <img src="{{ asset($category->category_banner_img) }}" width="100%" height="200px" alt="">
+                        @else
+                            <!-- Handle the case where category_banner_text is null or not set -->
+                            Img not available
+                        @endif
+                        {{-- <img src="{{ asset($category->category_banner_img) }}" width="100%" height="200px" alt=""> --}}
                     </div>
 
                 </div>
@@ -85,12 +94,24 @@
     <section class="after-header p-tb-10">
         <div class="container c-intro">
             <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-                <h1>Cateogry Product</h1>
+                {{-- <h1>Cateogry Product</h1> --}}
+                {{-- head text --}}
+                @php
+                    // dd($category);
+                @endphp
+                @if (isset($category->category_banner_text))
+                    {!! $category->category_banner_text !!}
+                @else
+                    <!-- Handle the case where category_banner_text is null or not set -->
+                    {{-- Text not available --}}
+                @endif
+
             </ul>
             <div class="child-list">
                 <a href="{{ Route('allcategory') }}">All category</a>
-                @foreach ($category as $category)
-                    <a href="{{ url('category/product/details/' . $category->id) }}">{{ $category->category_name }}</a>
+                @foreach ($categoryloop as $category)
+                    <a
+                        href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}">{{ $category->subcategory_name }}</a>
                 @endforeach
 
             </div>
@@ -165,13 +186,12 @@
                 </column>
                 <!-- category filter end -->
                 <!-- product list start -->
-
                 <div id="content" class="col-xs-12 col-md-9 col-lg-9 product-listing">
                     <div class="top-bar ws-box">
                         <div class="row">
                             <div class="col-sm-4 col-xs-2 actions">
                                 <button class="tool-btn" id="lc-toggle"><i class="material-icons"></i> Filter</button>
-                                <label class="page-heading m-hide">Drones</label>
+                                <label class="page-heading m-hide">{{ strtoupper($HeadSlug) }}</label>
                             </div>
                             <div class="col-sm-8 col-xs-10 show-sort">
                                 <div class="form-group rs-none">
@@ -206,17 +226,17 @@
                         @foreach ($category_all as $item)
                             <div class="p-item">
                                 <div class="p-item-inner">
-                                    <div class="p-item-img"><a
-                                            href="{{ url('product/details/' . $item->id . '/' . $item->product_name) }}"><img
+                                    <div class="p-item-img"><a href="{{ url('product/' . $item->product_slug) }}"><img
                                                 src="{{ asset($item->image_one) }}" alt="{{ $item->product_name }}"
-                                                width="228" height="228"></a></div>
+                                                width="228" height="228"></a>
+                                    </div>
                                     <div class="p-item-details">
                                         <h4 class="p-item-name"> <a
-                                                href="{{ url('product/details/' . $item->id . '/' . $item->product_name) }}">{{ $item->product_name }}</a>
+                                                href="{{ url('product/' . $item->product_slug) }}">{{ $item->product_name }}</a>
                                         </h4>
                                         <div class="p-item-price">
-                                            <span>{{ $item->selling_price }}৳</span>
-                                            <span class="price-old">{{ $item->discount_price }}৳</span>
+                                            <span>{{ $item->selling_price - $item->discount_price }}৳</span>
+                                            <span class="price-old">{{ $item->selling_price }}৳</span>
                                         </div>
                                         <div class="actions">
                                             <a href="" data-id="{{ $item->id }}"
@@ -258,6 +278,24 @@
 
         </div>
     </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="category-description p-15 ws-box">
+                    @php
+                        // dd($category);
+                    @endphp
+                    @if (isset($category) && isset($category->category_footer_text))
+                        {!! $category->category_footer_text !!}
+                        {{-- {{htmlspecialchars($category->category_footer_text) }} --}}
+                    @else
+                        {{-- Text not available --}}
+                    @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {
@@ -403,6 +441,7 @@
         jQuery(document).ready(function($) {
             var availability = [];
             var brand = [];
+
             function getCheckedValues(selector) {
                 return $(selector + ":checked").map(function() {
                     return $(this).val();

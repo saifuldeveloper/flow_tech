@@ -8,7 +8,6 @@
       <h3 class="page-title"> List Category</h3>
 
 
-
       <nav aria-label="breadcrumb">
         <a href="{{ route('add.category')}}" class="btn btn-primary">Add Category</a>
       </nav>
@@ -24,10 +23,11 @@
                   <th>Sl</th>
                   <th class="wd-15p">Category Image</th>
                   <th>Category Name</th>
+                  <th>Category Slug</th>
                   <th>Meta Tag</th>
                   <th>Meta Description</th>
                   <th class="d-flex justify-content-end">Action</th>
-        
+
                 </tr>
               </thead>
               <tbody>
@@ -37,6 +37,7 @@
                   <td>{{ $key+1}}</td>
                   <td> <img src="{{ URL::to($category->category_img)}}" height="50px;" width="50px;"> </td>
                   <td>{{ $category->category_name }}</td>
+                  <td>{{ $category->category_slug }}</td>
                   <td>{{ $category->meta_tag}}</td>
                   <td>{{ $category->meta_description}}</td>
                   <td class="d-flex justify-content-end">
@@ -44,7 +45,7 @@
                     <a href="{{ route('edit.category',$category->id)}}" class="btn btn-primary">Edit</a>&nbsp;
                     <a href="{{ route('delete.category',$category->id)}}" class="btn btn-danger" id="delete">Delete</a>
                   </td>
-                 
+
                 </tr>
                 @endforeach
 
@@ -60,7 +61,7 @@
         toastr.success("{{ session("success") }}");
     </script>
     @endif
-   
+
     @if(Session::has('error'))
     <script>
         toastr.error("{{ session("error") }}");
@@ -75,7 +76,7 @@
                 'csv', 'excel', 'pdf' , 'print'
             ]
         } );
-      
+
         </script>
 
 <script>

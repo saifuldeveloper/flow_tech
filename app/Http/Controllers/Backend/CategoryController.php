@@ -9,152 +9,125 @@ use App\Models\Category;
 
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
+
 class CategoryController extends Controller
 {
-    
-    public function listCategory()
-    {
-        $categories= Category::latest()->get();
-        return view('backend.admin.category.list', compact('categories'));
-    } // End method
 
-    public function addCategory()
-    {
-        return view('backend.admin.category.add');
-    } // End method
+  public function listCategory()
+  {
+    $categories = Category::latest()->get();
+    return view('backend.admin.category.list', compact('categories'));
+  } // End method
 
-    public function storeCategory(Request $request)
-    {
+  public function addCategory()
+  {
+    return view('backend.admin.category.add');
+  } // End method
 
-    //   $category_id = Category::insertGetId([
-    //     'category_name'=>$request->category_name,
-    //     'created_at'=>Carbon::now(),
-    // ]);
-    // $category_image=$request->category_img;
-    // $extention=$category_image->getClientOriginalExtension();
-    // $file_name=$category_id.'.'.$extention;
-    // Image::make($category_image)->resize(680,680)->save(public_path('media/category/'.$file_name));
-
-    // Category::find($category_id)->update([
-    //     'category_img'=>$file_name,
-    // ]);
-
-
-    // return back()->with('success','Category Added Successfully');
-
-
-
-      // this is main code 
-        $request->validate([
-            'category_name' => 'required|unique:categories',
-          
-        ]);
-        
-         if($request->hasFile('category_img')){
-        $imag = $request->file('category_img'); 
-
-        $name_gen = hexdec(uniqid()).'.'.$imag->getClientOriginalExtension();
-        Image::make($imag)->resize(270,270)->save(public_path('media/category/'.$name_gen));       
-        $img_url = 'media/category/'.$name_gen;
-    }else{
-      $img_url = Null;
-    }
-    
-      Category::create([
-          'category_name' => $request->category_name,
-          'meta_tag' => $request->meta_tag,
-          'meta_description' => $request->meta_description,
-          
-          'category_img' => $img_url,
-          
-      ]);
-        // Category::insert([
-        //     'category_name' => $request->category_name,
-        //     'category_img' => $request->category_img,
-        //     'created_at' => Carbon::now(),
-        // ]);
-
-
-       // $data = array();
-     //   $data['category_name'] = $request->category_name;
-       // $image = $request->file('category_img');
-        
-        
-
-       // $image_name = date('dmy_H_s_i');
-      //  $ext = strtolower($image->getClientOriginalExtension());
-       // $image_full_name = $image_name.'.'.$ext;
-        // $upload_path =  public_path('/media/brand/');
-       // $upload_path = 'media/category/';
-      //  $image_url = $upload_path.$image_full_name;
-      //  $image->move($upload_path,$image_full_name);
-
-       // $data['category_img'] = $image_url;
-
-     //   Category::create($data);
-
-        return Redirect()->route('list.category')->with('success', 'Category Added Successfully!');
-    } // End method
-
-    public function deleteCategory($id)
-    {
-
-    //   $serve_cate =  Category::findOrFail($id);
-    //   $serve_cate->delete();
-
-    //   $data = DB::table('categories')->where('id',$id)->first();
-    //   $image = $data->category_img;
-    //   unlink($image);
-
-        DB::table('categories')->where('id',$id)->delete();
-
-      return Redirect()->back()->with('error', 'Successfully Deleted');
-    } // End method
-
-    public function editCategory($id){
-
-        $categories = Category::findOrFail($id);
-        return view('backend.admin.category.edit',compact('categories'));
-    } // End method
-
-
-
-    public function updateCategory(Request $request, $id){
-
-                $id = $request->id;
-
-        $product = Category::findOrFail($id);
-
-      if($request->hasFile('category_img')){
-         $imag = $request->file('category_img');
-
-      
-        $name_gen = hexdec(uniqid()).'.'.$imag->getClientOriginalExtension();
-        Image::make($imag)->resize(270,270)->save(public_path('media/category/'.$name_gen));       
-        $img_url = 'media/category/'.$name_gen;
-
-      }else{
-        $img_url = $product->image;
-      }
-
-    $product->Update([
-        'category_name' => $request->category_name, 
-        'meta_tag' => $request->meta_tag,
-        'meta_description' => $request->meta_description,
-        'category_img' => $img_url,
+  public function storeCategory(Request $request)
+  {
+    // dd($request->all());
+    $request->validate([
+      'category_name' => 'required|unique:categories',
     ]);
 
-    return Redirect()->route('list.category')->with('success', 'Category Successfully Updated');
-            
-        } // End method
+    if ($request->hasFile('category_banner_img')) {
+      $imag1 = $request->file('category_banner_img');
+
+      $name_gen1 = hexdec(uniqid()) . '.' . $imag1->getClientOriginalExtension();
+      Image::make($imag1)->resize(270, 270)->save(public_path('media/category/' . $name_gen1));
+      $img_url1 = 'media/category/' . $name_gen1;
+    }
+    if ($request->hasFile('category_img')) {
+      $imag = $request->file('category_img');
+
+      $name_gen = hexdec(uniqid()) . '.' . $imag->getClientOriginalExtension();
+      Image::make($imag)->resize(270, 270)->save(public_path('media/category/' . $name_gen));
+      $img_url = 'media/category/' . $name_gen;
+    }
+    else {
+      $img_url = Null;
+      $img_url1 = Null;
+    }
+
+    Category::create([
+      'category_name' => $request->category_name,
+      'category_slug' => $request->category_slug,
+      'meta_tag' => $request->meta_tag,
+      'meta_description' => $request->meta_description,
+      'category_banner_text'  => $request->category_banner_text,
+      'category_footer_text'  => $request->category_footer_text,
+      'category_banner_img'  => $img_url1,
+
+      'category_img' => $img_url,
+
+    ]);
+    return Redirect()->route('list.category')->with('success', 'Category Added Successfully!');
+  } // End method
+
+  public function deleteCategory($id)
+  {
+    DB::table('categories')->where('id', $id)->delete();
+    return Redirect()->back()->with('error', 'Successfully Deleted');
+  } // End method
+
+  public function editCategory($id)
+  {
+    $categories = Category::findOrFail($id);
+    return view('backend.admin.category.edit', compact('categories'));
+  } // End method
 
 
-        
 
-        public function detailsCategory(Request $request, $id){
+public function updateCategory(Request $request, $id)
+{
+    // You can remove the line $id = $request->id; as $id is already passed as a parameter
 
-            $categories = Category::findOrFail($id);
-            return view('backend.admin.category.details',compact('categories'));
-            } // End method
+    // Find the category by its ID or throw a 404 error if not found
+    $category = Category::findOrFail($id);
+
+    // Check if the request has a file named 'category_img'
+    if ($request->hasFile('category_img')) {
+        $image = $request->file('category_img');
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        Image::make($image)->resize(270, 270)->save(public_path('media/category/' . $name_gen));
+        $img_url = 'media/category/' . $name_gen;
+    } else {
+        // If 'category_img' is not present in the request, use the existing image URL
+        $img_url = $category->category_img; // Assuming 'category_img' is the field name in your database
+    }
+
+    // Similarly, handle the 'category_img' or 'category_img1' for banner image
+    if ($request->hasFile('category_banner_img')) {
+        $image1 = $request->file('category_banner_img');
+        $name_gen1 = hexdec(uniqid()) . '.' . $image1->getClientOriginalExtension();
+        Image::make($image1)->resize(270, 270)->save(public_path('media/category/' . $name_gen1));
+        $img_url1 = 'media/category/' . $name_gen1;
+    } else {
+        $img_url1 = $category->category_banner_img; // Assuming 'category_banner_img' is the field name in your database
+    }
+
+    // Update the category with the new information
+    $category->update([
+        'category_name' => $request->category_name,
+        'category_slug' => $request->category_slug,
+        'meta_tag' => $request->meta_tag,
+        'meta_description' => $request->meta_description,
+        'category_banner_text' => $request->category_banner_text,
+        'category_footer_text' => $request->category_footer_text,
+        'category_img' => $img_url,
+        'category_banner_img' => $img_url1,
+    ]);
+
+    return redirect()->route('list.category')->with('success', 'Category Successfully Updated');
+}
+
+
+  public function detailsCategory(Request $request, $id)
+  {
+
+    $categories = Category::findOrFail($id);
+    return view('backend.admin.category.details', compact('categories'));
+  } // End method
 
 }

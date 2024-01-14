@@ -28,7 +28,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                             </a>
                         </div>
                         @endforeach
-                       
+
                         {{-- <div class="slide">
                             <a href="">
                                 <img
@@ -82,14 +82,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     <div class="cat-items-wrap">
                         @foreach ($category as $category)
                         <div class="cat-item">
-                            <a href="{{url('allcategory/'.$category->id)}}" class="cat-item-inner">
+                            <a href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}" class="cat-item-inner">
                                 <span class="cat-icon"><img src="{{ asset($category->category_img) }}" alt="Drone" width="48"
                                         height="48"></span>
                                 <p>{{$category->category_name}}</p>
                             </a>
                         </div>
                         @endforeach
-                       
+
                         {{-- <div class="cat-item">
                             <a href="category.html" class="cat-item-inner">
                                 <span class="cat-icon"><img src="image/drone.png" alt="Drone" width="48"
@@ -156,16 +156,16 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                         @foreach ($product as $product )
                         <div class="p-item">
                             <div class="p-item-inner">
-                                <div class="p-item-img"><a href="{{url('product/details/'.$product->id.'/'.$product->product_name)}}"><img src="{{ asset($product->image_one) }}"
+                                <div class="p-item-img"><a href="{{url('product/'.$product->product_slug)}}"><img src="{{ asset($product->image_one) }}"
                                             alt="{{$product->product_name}}" width="228" height="228"></a>
                                 </div>
                                 <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="{{url('product/details/'.$product->id.'/'.$product->product_name)}}">{{$product->product_name}}</a>
+                                    <h4 class="p-item-name"> <a href="{{url('product/'.$product->product_slug)}}">{{$product->product_name}}</a>
                                     </h4>
                                     <div class="p-item-price">
                                         {{-- <span>{{$product->selling_price}}</span> --}}
-                                        <span>{{$product->selling_price}}৳</span>  
-                                        <span class="price-old">{{$product->discount_price}}৳</span>  
+                                        <span>{{$product->selling_price - $product->discount_price}}৳</span>
+                                        <span class="price-old">{{$product->selling_price}}৳</span>
                                     </div>
                                     <div class="actions">
                                         <a href="" data-id="{{ $product->id}}" class=" addcart btn submit-btn " id="button-cart"
@@ -180,560 +180,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                             </div>
                         </div>
                         @endforeach
-                     
-                        {{-- <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
 
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-item">
-                            <div class="p-item-inner">
-                                <div class="p-item-img"><a href="product.html"><img src="image/cmt.webp"
-                                            alt="DJI Mini 3 Drone Fly More Combo" width="228" height="228"></a>
-                                </div>
-                                <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a>
-                                    </h4>
-                                    <div class="p-item-price">
-                                        <span>100,000৳</span>
-                                        <span class="price-old">61,000৳</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add
-                                            To Cart</a>
-                                        <a href="" class="btn submit-btn " id="button-cart"
-                                            style="width: 100%;">Buy Now</a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-  --}}
 
 
                         <!-- product item end -->
@@ -757,15 +204,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                         @foreach ($productbest_sell as $productbest_sell )
                         <div class="p-item">
                             <div class="p-item-inner">
-                                <div class="p-item-img"><a href="{{url('product/details/'.$productbest_sell->id.'/'.$productbest_sell->product_name)}}"><img src="{{ asset($product->image_one) }}"
+                                <div class="p-item-img"><a href="{{url('product/'.$productbest_sell->product_slug)}}"><img src="{{ asset($product->image_one) }}"
                                             alt="{{$productbest_sell->product_name}}" width="228" height="228"></a>
                                 </div>
                                 <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="{{url('product/details/'.$productbest_sell->id.'/'.$productbest_sell->product_name)}}">{{$product->product_name}}</a>
+                                    <h4 class="p-item-name"> <a href="{{url('product/'.$productbest_sell->product_slug)}}">{{$product->product_name}}</a>
                                     </h4>
                                     <div class="p-item-price">
-                                        <span>{{$productbest_sell->selling_price}}৳</span>  
-                                        <span class="price-old">{{$productbest_sell->discount_price}}৳</span>  
+                                        <span>{{$productbest_sell->selling_price - $productbest_sell->discount_price}}৳</span>
+                                        <span class="price-old">{{$productbest_sell->selling_price}}৳</span>
                                     </div>
                                     <div class="actions">
                                         <a href="" data-id="{{ $productbest_sell->id}}" class="addcart btn submit-btn " id="button-cart"
@@ -786,14 +233,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -804,14 +251,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -822,14 +269,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -840,14 +287,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -858,14 +305,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -876,14 +323,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -894,14 +341,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -912,14 +359,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -930,14 +377,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -948,14 +395,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -966,14 +413,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -984,14 +431,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1002,14 +449,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1020,14 +467,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1038,14 +485,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1056,14 +503,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1074,14 +521,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1092,14 +539,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1110,14 +557,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1128,14 +575,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1146,14 +593,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1164,14 +611,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1182,14 +629,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1200,14 +647,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
               <div class="p-item-details">
                   <h4 class="p-item-name"> <a href="product.html">DJI Mini 3 Drone Fly More Combo</a></h4>
                                         <div class="p-item-price">
-                                            <span>100,000৳</span>  
-                                            <span class="price-old">61,000৳</span>                  
+                                            <span>100,000৳</span>
+                                            <span class="price-old">61,000৳</span>
                                           </div>
                                         <div class="actions">
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%; margin: 5px 0px; background-color: crimson; border: none;">Add To Cart</a>
                                             <a href="" class="btn submit-btn " id="button-cart" style="width: 100%;">Buy Now</a>
-                                       
-                                               
+
+
                   </div>
               </div>
           </div>
@@ -1239,9 +686,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     </div>
     <!-- product end -->
-    
+
 <script type="text/javascript">
-    
+
     $(document).ready(function(){
       $('.addcart').on('click', function(){
         event.preventDefault();
@@ -1270,15 +717,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                         icon: "success",
                         title: "Add Card Successfully"
                         });
-    
+
               if ($.isEmptyObject(data.error)) {
- 
+
                  Toast.fire({
                    icon: 'success',
                    title: data.success
                  })
 
-              
+
               }
               else{
                   Toast.fire({
@@ -1286,13 +733,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                    title: data.error
                  })
 
-          
+
               }
-  
- 
+
+
                  },
              });
- 
+
          }else{
              alert('danger');
          }
@@ -1310,15 +757,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                  type:"GET",
                  dataType:"json",
                  success:function(data){
-    
+
               if ($.isEmptyObject(data.error)) {
- 
+
                  Toast.fire({
                    icon: 'success',
                    title: data.success
                  })
 
-              
+
               }
               else{
                   Toast.fire({
@@ -1326,21 +773,21 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                    title: data.error
                  })
 
-          
+
               }
-  
- 
+
+
                  },
              });
- 
+
          }else{
              alert('danger');
          }
 
       });
     });
- 
- 
+
+
  </script>
 
 @endsection

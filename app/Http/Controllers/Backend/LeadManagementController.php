@@ -10,34 +10,6 @@ use App\Models\LeadManagement;
 
 class LeadManagementController extends Controller
 {
-    //TRACK LIST
-    public function listTrack(){
-
-        $tracks = DB::table('orders_details')
-                ->leftJoin('orders', 'orders_details.order_id', '=', 'orders.id')
-                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
-                ->leftJoin('shippings', 'orders.id', '=', 'shippings.order_id')
-                ->leftJoin('trackings', 'shippings.invoice_num', '=', 'trackings.invoice_num')
-                ->whereNotNull('trackings.invoice_num')
-                ->get();
-
-    return view('backend.admin.track.list',compact('tracks'));
-
-    } // End method
-    //track list active inactive
-    public function inactiveTrack($id){
-        DB::table('trackings')->where('id',$id)->update(['status'=>0]);
-
-            return Redirect()->back()->with('success', 'On processing Shiping!');
-    }
-
-
-    public function activeTrack($id){
-        DB::table('trackings')->where('id',$id)->update(['status'=>1]);
-
-            return Redirect()->back()->with('success', 'Delivery Successfully!');
-    }
-    //TRACK LIST <END></END>
     // Order List
     public function listOrder(){
 
@@ -62,7 +34,7 @@ class LeadManagementController extends Controller
     public function inactiveOrder($id){
 
         DB::table('orders')->where('id',$id)->update(['status'=>0]);
-
+      
             return Redirect()->back()->with('success', 'Order Stop Successfully!');
     }
 
@@ -70,15 +42,15 @@ class LeadManagementController extends Controller
     {
         $id = $request->id;
         $status = $request->status;
-
+        
         DB::table('orders')->where('id',$id)->update(['status'=>$status]);
 
         return response()->json([
           "msg"=>'success',
       ]);
-
+      
     }
-
+    
     // end***
     public function detailsOrder(Request $request, $id){
 
@@ -95,7 +67,7 @@ class LeadManagementController extends Controller
         //             ->join('brands','products.brand_id','brands.id')
         //             ->select('products.*','categories.category_name','brands.brand_name','sub_categories.subcategory_name')
         //             ->where('products.id',$id)
-        //
+        //  
                 //    ->first();
         // return view('backend.admin.order.details',compact('product'));
         return view('backend.admin.order.details',compact('order'));

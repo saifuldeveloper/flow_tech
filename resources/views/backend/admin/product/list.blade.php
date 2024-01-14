@@ -24,13 +24,17 @@
                 <tr>
                   <th>Sl</th>
                   <th>Image</th>
+                  <th>Product Banner</th>
                   <th>Product Code</th>
                   <th>Product Name</th>
+                  <th>Slug</th>
                   <th>Category</th>
+                  <th>Sub Category</th>
+                  <th>Child Category</th>
                   <th>Quantity</th>
                   <th>Status</th>
                   <th >Action</th>
-        
+
                 </tr>
               </thead>
               <tbody>
@@ -39,16 +43,20 @@
                 <tr>
                   <td>{{ $key+1}}</td>
                   <td> <img src="{{ URL::to($row->image_one) }}" height="50px;" width="50px;"> </td>
+                  <td> <img src="{{ URL::to($row->product_banner) }}" height="50px;" width="50px;"> </td>
                   <td>{{ $row->product_code }}</td>
                   <td>{{ $row->product_name }}</td>
+                  <td>{{ $row->product_slug }}</td>
                   <td>{{ $row->category_name }}</td>
+                  <td>{{ $row->subcategory_name }}</td>
+                  <td>{{ $row->childcategory_name }}</td>
                   <td>{{ $row->product_quantity }}</td>
 
                   <td >
-                        
+
                     @if($row->status == 1)
                        <span class="badge text-success">Active</span>
-                    @else 
+                    @else
                        <span class="badge text-danger">Inactive</span>
                     @endif
 
@@ -67,7 +75,7 @@
                     <a href="{{ route('delete.product',$row->id)}}" class="btn btn-danger" id="delete">Delete</a>
 
                   </td>
-                 
+
                 </tr>
                 @endforeach
 
@@ -86,7 +94,7 @@
         toastr.success("{{ session("success") }}");
     </script>
     @endif
-   
+
     @if(Session::has('error'))
     <script>
         toastr.error("{{ session("error") }}");
@@ -101,7 +109,7 @@
                 'csv', 'excel', 'pdf' , 'print'
             ]
         } );
-      
+
         </script>
 
 <script>

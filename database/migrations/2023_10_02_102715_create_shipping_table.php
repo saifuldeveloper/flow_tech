@@ -16,7 +16,6 @@ class CreateShippingTable extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
             $table->string('oredr_id')->nullable();
-            $table->string('invoice_num')->nullable();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

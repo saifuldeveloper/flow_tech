@@ -12,36 +12,33 @@ use Session;
 
 class CartController extends Controller
 {
-    public function addCart($id){
-
-        $product = DB::table('products')->where('id',$id)->first();
-
+    public function addCart(Request $request ,$id){
+        $product = DB::table('products')->where('id',$id)->first();;
         $data = array();
-
         if($product->discount_price == 0){
             $data['id'] = $product->id;
             $data['name'] = $product->product_name;
-            $data['qty'] = 1;
+            $data['qty'] = $request->quantity;
             $data['price'] = $product->selling_price;
             $data['weight'] = 1;
             $data['options']['image'] = $product->image_one;
             $data['options']['color'] = '';
             $data['options']['size'] = '';
             Cart::add($data);
-
-            return \Response::json(['success' => 'Successfully Added on your Cart!']);
+            $totalQuantity = Cart::count();
+            return \Response::json(['success' => 'Successfully Added on your Cart!' ,'totalCart'=> $totalQuantity]);
         }else{
             $data['id'] = $product->id;
             $data['name'] = $product->product_name;
-            $data['qty'] = 1;
+            $data['qty'] = $request->quantity;
             $data['price'] = $product->discount_price;
             $data['weight'] = 1;
             $data['options']['image'] = $product->image_one;
             $data['options']['color'] = '';
             $data['options']['size'] = '';
             Cart::add($data);
-
-            return \Response::json(['success' => 'Successfully Added on your Cart!']);
+            $totalQuantity = Cart::count();
+            return \Response::json(['success' => 'Successfully Added on your Cart!' ,'totalCart'=> $totalQuantity]);
         }
 
     } // End Method
@@ -77,12 +74,33 @@ class CartController extends Controller
 
     } // End Method
 
-    public function Checkout(){
+    public function Checkout(Request $request){
+         $id =$request->id;
+        $product = DB::table('products')->where('id',$id)->first();
+        $data = array();
 
-           $cart = Cart::content();
-            return view('frontend.pages.checkout',compact('cart'));
+        if($product){
+            $data['id'] = $product->id;
+            $data['name'] = $product->product_name;
+            $data['qty'] = $request->quantity;
+            $data['price'] = $product->selling_price;
+            $data['weight'] = 1;
+            $data['options']['image'] = $product->image_one;
+            $data['options']['color'] = '';
+            $data['options']['size'] = '';
+            Cart::add($data);
+            $url = route('user.checkout.rediect');
+            return \Response::json(['success' => 'Successfully Added on your Cart!' ,'url'=> $url]);
+        }
+
+         
 
     } // End Method
+
+    public function CheckoutRedirect(){
+        return view('frontend.pages.checkout');
+
+    }
 
     public function Wishlist(){
 

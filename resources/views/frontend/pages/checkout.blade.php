@@ -47,7 +47,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                 <div class="form-group">
                                     <label class="control-label" for="input-telephone">Mobile</label>
                                     <input type="tel" id="input-telephone" name="phone" value=""
-                                        class="form-control" placeholder="Telephone*">
+                                        class="form-control" placeholder="Telephone*" required>
                                 </div>
                                 <div class="form-group" for="input-email">
                                     <label class="control-label">Email</label>
@@ -57,7 +57,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                 <div class="form-group">
                                     <label class="control-label" for="input-address">Address</label>
                                     <input type="text" id="input-address" name="address" value=""
-                                        class="form-control" placeholder="Address*">
+                                        class="form-control" placeholder="Address*" required>
                                 </div>
                                 <div class="multiple-form-group">
                                     <div class="form-group" for="input-city">

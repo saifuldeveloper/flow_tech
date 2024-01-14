@@ -14,6 +14,9 @@ class SubCategory extends Model
     protected $fillable = [
         'category_id',
         'subcategory_name',
-   
+        'subcategory_slug',
+        'subcategory_img',
+        'meta_description',
+        'meta_tag',
     ];
 }

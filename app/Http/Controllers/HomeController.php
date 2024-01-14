@@ -30,10 +30,6 @@ class HomeController extends Controller
     {
         return view('frontend.pages.home');
     }
-    public function UserDashboard()
-    {
-        return view('frontend.user.home');
-    }
     public function aboutUs()
     {
         return view('frontend.pages.aboutus');

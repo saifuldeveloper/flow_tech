@@ -13,7 +13,7 @@
 
 
 
-     
+
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
@@ -34,9 +34,9 @@
                   <th>Total Amount</th>
                   <th>Complted Or Pending </th>
                   {{-- <th>Declined Or Delivery</th> --}}
-                 
+
                   <th >Action</th>
-        
+
                 </tr>
               </thead>
               <tbody>
@@ -45,7 +45,7 @@
                 <tr data-order-id="{{ $row->id }}">
 
                 <td class="order_id" data-order-id="{{ $row->id }}">{{ $key+1}}</td>
-                
+
                 <td class="order_status" data-status="{{ $row->status }}">
                     @if($row->status == 0)
                        <span class="text-warning fw-bold">Order Pending</span>
@@ -75,7 +75,7 @@
                 @elseif ($row->status == 3)
                     <option selected disabled class="fw-bold text-success">Delivered</option>
                 @endif
-        
+
                 <option value="0">Pending</option>
                 <option value="1">Completed</option>
                 <option value="2">Decline</option>
@@ -103,7 +103,7 @@
         toastr.success("{{ session("success") }}");
     </script>
     @endif
-   
+
     @if(Session::has('error'))
     <script>
         toastr.error("{{ session("error") }}");
@@ -118,11 +118,11 @@
                 'csv', 'excel', 'pdf' , 'print'
             ]
         } );
-      
+
         </script>
 
 <script>
-  
+
     $(document).on("click","#delete", function(e){
      e.preventDefault();
      var link = $(this).attr("href");
@@ -150,7 +150,7 @@
 
            jQuery(document).on('change','.delivery_section',function(){
             var status = $(this).val();
-            var id = $(this).closest('tr').find('.order_id').data('order-id'); 
+            var id = $(this).closest('tr').find('.order_id').data('order-id');
            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -165,10 +165,10 @@
                     'id': id,
                     'status': status,
                 },
-                success:function(result){   
+                success:function(result){
 
                               // Update the order_status cell class based on the new status
-                              
+
                  var orderStatusCell = $('tr[data-order-id="' + id + '"] .order_status');
                       orderStatusCell.removeClass().addClass('order_status');
 
@@ -188,7 +188,7 @@
                           default:
                               break;
                       }
-                                          // After update show this message 
+                                          // After update show this message
 
                   const Toast = Swal.mixin({
                         toast: true,
@@ -205,7 +205,7 @@
                         icon: 'success',
                         title: ' Update Successfully'
                         });
-                         
+
                         // Update the dropdown options based on the updated status
                           var dropdown = $('tr[data-order-id="' + id + '"] .delivery_section');
                           dropdown.removeClass().addClass('form-select delivery_section'); // Reset all classes
@@ -230,7 +230,7 @@
                           dropdown.val(status);
                           dropdown.find('option[value="' + status + '"]').attr('selected', 'selected').attr('disabled', 'disabled'); // Disable and select the updated status option
                       }
-                                          
+
 
             });
 
