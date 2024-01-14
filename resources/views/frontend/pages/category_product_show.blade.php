@@ -75,8 +75,8 @@
                         {{-- @dd($category[0]->category_banner_img); --}}
                         {{-- category->category_banner_img --}}
                         @if (isset($category->category_banner_img))
-
-                            <img src="{{ asset($category->category_banner_img) }}" width="100%" height="200px" alt="">
+                            <img src="{{ asset($category->category_banner_img) }}" width="100%" height="200px"
+                                alt="">
                         @else
                             <!-- Handle the case where category_banner_text is null or not set -->
                             Img not available
@@ -225,7 +225,8 @@
                         <!-- product item start -->
                         @foreach ($category_all as $item)
                             <div class="p-item">
-                                <div class="p-item-inner">
+                                @include('frontend.pages.product_item')
+                                {{-- <div class="p-item-inner">
                                     <div class="p-item-img"><a href="{{ url('product/' . $item->product_slug) }}"><img
                                                 src="{{ asset($item->image_one) }}" alt="{{ $item->product_name }}"
                                                 width="228" height="228"></a>
@@ -250,7 +251,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         @endforeach
                     </div>
@@ -296,21 +297,24 @@
             </div>
         </div>
     </div>
+ 
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {
-
-                var id = $(this).data('id');
                 event.preventDefault();
-                // alert(id);
-
+                var id = $(this).data('id');
+                var quantity = $('#input-quantity').val();
                 if (id) {
                     $.ajax({
                         url: " {{ url('/add/to/cart/') }}/" + id,
                         type: "GET",
+                        data: {
+                            quantity: quantity
+                        },
                         datType: "json",
                         success: function(data) {
 
+                            console.log(data);
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: "center",
@@ -327,74 +331,55 @@
                                 title: "Add Card Successfully"
                             });
 
+                            const responseData = JSON.parse(data);
+                            let totalCart = responseData.totalCart;
+                            $(".totalCartDisplay").text(totalCart);
 
                             if ($.isEmptyObject(data.error)) {
-
                                 Toast.fire({
                                     icon: 'success',
                                     title: data.success
                                 })
-
-
                             } else {
                                 Toast.fire({
                                     icon: 'error',
                                     title: data.error
                                 })
-
-
                             }
-
-
                         },
                     });
-
                 } else {
                     alert('danger');
                 }
-
             });
-            $('.buynow').on('click', function() {
-                var id = $(this).data('id');
-                // alert(id);
 
+            $('.buynow').on('click', function(event) {
+                event.preventDefault();
+                const id = $(this).data('id');
+                var quantity = $('#input-quantity').val();
                 if (id) {
                     $.ajax({
-                        url: " {{ url('/add/to/cart/') }}/" + id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-                            if ($.isEmptyObject(data.error)) {
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: data.success
-                                })
-
-
-                            } else {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: data.error
-                                })
-
-
-                            }
-
-
+                        url: "{{ route('user.checkout') }}",
+                        type: 'GET',
+                        data: {
+                            id: id,
+                            quantity: quantity
                         },
+                        dataType: 'json',
+                        success: function(data) {
+                            window.location.href = data.url;
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error:', xhr.responseText);
+                        }
                     });
-
                 } else {
-                    alert('danger');
+                    console.error('Invalid ID');
                 }
-
             });
 
         });
     </script>
-
 
 
 

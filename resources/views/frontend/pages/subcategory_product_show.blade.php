@@ -204,33 +204,7 @@
                         <!-- product item start -->
                         @foreach ($category_all as $item)
                             <div class="p-item">
-                                <div class="p-item-inner">
-                                    <div class="p-item-img"><a
-                                            href="{{url('product/'.$item->product_slug)}}"><img
-                                                src="{{ asset($item->image_one) }}" alt="{{ $item->product_name }}"
-                                                width="228" height="228"></a>
-                                    </div>
-                                    <div class="p-item-details">
-                                        <h4 class="p-item-name"> <a
-                                                href="{{url('product/'.$item->product_slug)}}">{{ $item->product_name }}</a>
-                                        </h4>
-                                        <div class="p-item-price">
-                                            <span>{{ $item->selling_price - $item->discount_price }}৳</span>
-                                            <span class="price-old">{{ $item->selling_price }}৳</span>
-                                        </div>
-                                        <div class="actions">
-                                            <a href="" data-id="{{ $item->id }}"
-                                                class="btn submit-btn addcart" id="button-cart"
-                                                style="width: 100%; margin:  0px 10px 5px 0px; background-color: crimson; border: none;">Add
-                                                To Cart</a>
-                                            <a href="{{ route('user.checkout') }}" data-id="{{ $item->id }}"
-                                                class="buynow btn submit-btn " id="button-cart" style="width: 100%;">Buy
-                                                Now</a>
-
-
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('frontend.pages.product_item')
                             </div>
                         @endforeach
                     </div>
@@ -261,18 +235,20 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {
-
-                var id = $(this).data('id');
                 event.preventDefault();
-                // alert(id);
-
+                var id = $(this).data('id');
+                var quantity = $('#input-quantity').val();
                 if (id) {
                     $.ajax({
                         url: " {{ url('/add/to/cart/') }}/" + id,
                         type: "GET",
+                        data: {
+                            quantity: quantity
+                        },
                         datType: "json",
                         success: function(data) {
 
+                            console.log(data);
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: "center",
@@ -289,69 +265,51 @@
                                 title: "Add Card Successfully"
                             });
 
+                            const responseData = JSON.parse(data);
+                            let totalCart = responseData.totalCart;
+                            $(".totalCartDisplay").text(totalCart);
 
                             if ($.isEmptyObject(data.error)) {
-
                                 Toast.fire({
                                     icon: 'success',
                                     title: data.success
                                 })
-
-
                             } else {
                                 Toast.fire({
                                     icon: 'error',
                                     title: data.error
                                 })
-
-
                             }
-
-
                         },
                     });
-
                 } else {
                     alert('danger');
                 }
-
             });
-            $('.buynow').on('click', function() {
-                var id = $(this).data('id');
-                // alert(id);
 
+            $('.buynow').on('click', function(event) {
+                event.preventDefault();
+                const id = $(this).data('id');
+                var quantity = $('#input-quantity').val();
                 if (id) {
                     $.ajax({
-                        url: " {{ url('/add/to/cart/') }}/" + id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-                            if ($.isEmptyObject(data.error)) {
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: data.success
-                                })
-
-
-                            } else {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: data.error
-                                })
-
-
-                            }
-
-
+                        url: "{{ route('user.checkout') }}",
+                        type: 'GET',
+                        data: {
+                            id: id,
+                            quantity: quantity
                         },
+                        dataType: 'json',
+                        success: function(data) {
+                            window.location.href = data.url;
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error:', xhr.responseText);
+                        }
                     });
-
                 } else {
-                    alert('danger');
+                    console.error('Invalid ID');
                 }
-
             });
 
         });
