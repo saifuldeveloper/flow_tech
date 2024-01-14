@@ -84,6 +84,7 @@
                 </td>
                 <td >
                   <a href="{{ route('details.order',$row->id)}}" class="btn btn-sm btn-success" >View</a>&nbsp;
+                  <a href="{{ route('invoice.orderlist', $row->id) }}" class="btn btn-sm btn-info">Invoice</a>&nbsp;
                 </td>
               </tr>
               @endforeach
