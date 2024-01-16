@@ -57,3 +57,4 @@ class UserReviewController extends Controller
         return view('frontend.pages.query_success');
     } // End method
 }
+

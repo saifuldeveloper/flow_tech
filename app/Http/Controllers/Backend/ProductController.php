@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Image;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Visibility;
 use Stringable;
 use Illuminate\Support\Str;
 
@@ -80,6 +82,7 @@ class ProductController extends Controller
     // }
 
     public function storeProduct(Request $request){
+        // dd($request->all());
 
         // $title = $request->product_name;
         // $slug = Str::slug($title, '-');
@@ -114,6 +117,40 @@ class ProductController extends Controller
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;
         $data['status'] = 1;
+        $data['firmware'] = $request->firmware;
+        $data['manual'] = $request->manual;
+
+
+        $pdfFile = $request->file('catalouge');
+        $filename = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
+
+        // $pdfFile->storeAs('media/pdfs', $filename, 'public');
+        $pdfFile->storeAs('media/pdfs', $filename, 'public');
+
+
+        // Save the PDF to storage
+        // Storage::put(public_path('media/product/pdfs/' . $filename, $pdfFile));
+        // Storage::putFile('media/product/pdfs', $pdfFile, $filename);
+        // Storage::putFileAs('media/product/pdfs', $pdfFile, $filename, 'public');
+
+        // $pdfFile->storeAs('media/product/pdfs/', $filename, $pdfFile);
+        $data['catalouge'] = 'media/product/pdfs/'.$pdfFile;
+
+        $pdfFile2 = $request->file('drivers');
+        $filename2 = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
+
+        $pdfFile2->storeAs('media/pdfs', $filename2, 'public');
+        // $pdfFile->storeAs('media/pdfs', $filename, 'public');
+
+
+        // Save the PDF to storage
+        // Storage::put(public_path('media/product/pdfs/' . $filename2, $pdfFile2));
+        // Storage::putFile('media/product/pdfs', $pdfFile2, $filename2);
+        // Storage::putFileAs('media/product/pdfs', $pdfFile2, $filename2, 'public');
+
+        // $pdfFile2->storeAs('media/product/pdfs/', $filename2, 'public');
+        $data['drivers'] = 'media/product/pdfs/'.$pdfFile2;
+
 
         // dd($data);
 

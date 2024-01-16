@@ -175,13 +175,13 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                            <label >Meta tag</label><br>
-                            <input type="text" name="meta_tag" class="form-control" id="size" data-role="tagsinput" required>
+                                <label >Meta tag</label><br>
+                                <input type="text" name="meta_tag" class="form-control" id="size" data-role="tagsinput" required>
 
-                            <span style="color: red;">
-                                @error('meta_tag')
-                                    {{$message}}
-                                @enderror
+                                <span style="color: red;">
+                                    @error('meta_tag')
+                                        {{$message}}
+                                    @enderror
                                 </span>
 
                             </div>
@@ -239,6 +239,64 @@
                                     {{ $message }}
                                 @enderror
                             </span>
+                        </div>
+                    </div>
+                    {{--
+    Catalouge
+    Drivers
+    Firmware
+    Manual
+ --}}
+                    <div class="col-md-3">
+                        <div class="form-group">
+                        <label>Catalouge</label><br>
+                        <input type="file" name="catalouge" class="form-control" accept=".pdf">
+
+                        <span style="color: red;">
+                            @error('catalouge')
+                                {{$message}}
+                            @enderror
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                        <label>Drivers</label><br>
+                        <input type="file" name="drivers" class="form-control" accept=".pdf">
+
+                        <span style="color: red;">
+                            @error('drivers')
+                                {{$message}}
+                            @enderror
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                        <label>Firmware Link*</label><br>
+                        <input type="text" name="firmware" class="form-control" >
+
+                        <span style="color: red;">
+                            @error('firmware')
+                                {{$message}}
+                            @enderror
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                        <label>Manual Link*</label><br>
+                        <input type="text" name="manual" class="form-control" >
+
+                        <span style="color: red;">
+                            @error('manual')
+                                {{$message}}
+                            @enderror
+                            </span>
+
                         </div>
                     </div>
 
