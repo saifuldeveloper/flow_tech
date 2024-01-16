@@ -46,5 +46,10 @@ class Product extends Model
         'specification',
         'long_description',
         'status',
+    'catalouge',
+    'drivers',
+    'firmware',
+    'manual',
+
     ];
 }
