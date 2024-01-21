@@ -38,6 +38,7 @@ class PaymentController extends Controller
         $shipping['phone'] = $request->phone;
         $shipping['email'] = $request->email;
         $shipping['address'] = $request->address;
+        $shipping['shipping_address'] = $request->shipping_address;
         $shipping['city'] = $request->city;
         $shipping['zone'] = $request->zone;
         $shipping['notes'] = $request->notes;

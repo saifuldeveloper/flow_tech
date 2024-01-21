@@ -259,9 +259,16 @@
             <div class="container">
                 <div class="pd-q-actions">
                     <div class="share-on">
+                        @php
+                            $currentUrl = url()->current();
+
+                        @endphp
                         <span class="share">Share:</span>
-                        <span class="icon-sprite share-ico fb-dark" data-type="facebook"></span>
-                        <span class="icon-sprite share-ico pinterest-dark" data-type="pinterest"></span>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ $currentUrl }}&display=popup"><span class="icon-sprite share-ico fb-dark" data-type="facebook"></span></a>
+                        <a href="https://www.pinterest.com/pin/create/button/?url={{ $currentUrl }}&media=SourceImageUrl&display=popup"><span class="icon-sprite share-ico pinterest-dark" data-type="pinterest"></span></a>
+
+                        {{-- <span class="icon-sprite share-ico fb-dark" data-type="facebook"></span>
+                        <span class="icon-sprite share-ico pinterest-dark" data-type="pinterest"></span> --}}
                     </div>
                 </div>
                 <div class="basic row">
@@ -270,10 +277,21 @@
                             $product_images = [];
 
                             if ($product) {
-                                $product_images = [$product->image_one, $product->image_two, $product->image_three, $product->image_four, $product->image_five, $product->image_six];
+                                // $product_images = [$product->image_one, $product->image_two, $product->image_three, $product->image_four, $product->image_five, $product->image_six];
+                                $product_images = array(
+                                    array('image' => $product->image_one, 'tag' => $product->image_one_tag),
+                                    array('image' => $product->image_two, 'tag' => $product->image_two_tag),
+                                    array('image' => $product->image_three, 'tag' => $product->image_three_tag),
+                                    array('image' => $product->image_four, 'tag' => $product->image_four_tag),
+                                    array('image' => $product->image_five, 'tag' => $product->image_five_tag),
+                                    array('image' => $product->image_six, 'tag' => $product->image_six_tag),
+                                );
                                 $product_images = array_filter($product_images, fn($value) => $value !== null);
                             }
                         @endphp
+                        {{-- @foreach ($product_images as $item)
+                        <img src = "{{ asset($item[image_one]) }}" alt = "{{$item[image_one_tag]}}">
+                    @endforeach --}}
 
                         {{-- @php
                             $product_images = [$product->image_one, $product->image_two, $product->image_three, $product->image_four, $product->image_five, $product->image_six];
@@ -283,24 +301,29 @@
                             <div class = "img-display">
                                 <div class = "img-showcase">
                                     @foreach ($product_images as $item)
-                                        <img src = "{{ asset($item) }}" alt = "shoe image">
+                                        {{-- <img src = "{{ asset($item) }}" alt = "shoe image"> --}}
+                                        <img src="{{ asset($item['image']) }}" alt="{{ $item['tag'] }}">
                                     @endforeach
+
                                 </div>
                             </div>
                             <div class = "img-select">
                                 @foreach ($product_images as $key => $image)
                                     <div class="img-item">
                                         <a href="#" data-id="{{ $key + 1 }}">
-                                            <img src="{{ asset($image) }}" alt="shoe image">
+                                            {{-- <img src="{{ asset($image) }}" alt="shoe image"> --}}
+                                        <img src="{{ asset($image['image']) }}" alt="{{ $image['tag'] }}">
+
                                         </a>
                                     </div>
                                 @endforeach
+
                             </div>
                         </div>
                         <div class="product-banner">
                             @if (isset($product->product_banner))
                                 {{-- {!! $category->category_banner_text !!} --}}
-                                <img src="{{ asset($product->product_banner) }}" alt="product banner">
+                                <img src="{{ asset($product->product_banner) }}" alt="{{$product->product_banner_tag}}">
                             @else
                             @endif
                         </div>
@@ -440,7 +463,7 @@
             # code...
             $id = $product->id;
             $combo = DB::table('combos')
-                ->where('product_id', $id)
+            ->where('product_id', $id)
                 ->get();
         }
     @endphp
@@ -542,6 +565,14 @@
                     </div>
 
                 </div>
+                {{-- combo --}}
+                {{-- @if (isset($product->video_link))
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{ $product->video_link }}"
+                                allowfullscreen></iframe>
+                        </div>
+                        @else
+                        @endif --}}
                 @if ($combo)
                     <div class="col-md-6 ">
 
@@ -578,6 +609,7 @@
                                                                 style=" margin: 4px 5px; background-color: crimson; border: none;">Add
                                                                 To Cart</button>
                                                         </div>
+                                                    </div>
                                             </form>
                                         </div>
                                     </div>
@@ -586,6 +618,8 @@
                         </div>
 
                     </div>
+
+
                 @endif
 
         </div>
@@ -649,20 +683,32 @@
                         </div>
 
                         @if (isset($product->video_link))
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="{{ $product->video_link }}"
-                                allowfullscreen></iframe>
-                        </div>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="{{ $product->video_link }}"
+                                    allowfullscreen></iframe>
+                            </div>
                         @else
+
                         @endif
 
 
 
                     </section>
+                    @php
+                        $Id = $product->id;
+                        $question = DB::table('user_questions')
+                            ->where('product_id', $Id)
+                            ->get();
+                        $review = DB::table('ratings')
+                            ->where('product_id', $Id)
+                            ->get();
+                            $totalQuestion =  DB::table('user_questions')->where('product_id', $Id)->count();
+                            $totalReview =  DB::table('ratings')->where('product_id', $Id)->count();
+                    @endphp
                     <section class="ask-question q-n-r-section bg-white m-tb-15" id="ask-question">
                         <div class="section-head">
                             <div class="title-n-action">
-                                <h2>Questions (0)</h2>
+                                <h2>Questions ({{$totalQuestion}})</h2>
                                 <p class="section-blurb">Have question about this product? Get specific details about
                                     this product from expert.</p>
                             </div>
@@ -679,11 +725,45 @@
                             </div>
                         </div>
                         <div id="question">
+                            {{-- if --}}
+                            {{-- <div class="question-wrap">
+                                <p class="author"><span class="name">Ahsan</span> on 31 Aug 2020</p>
+                                <h3 class="question"><span class="hint">Q:</span> Does this come with an HDMI cable? Or do I have to buy one separately? </h3>
+                                <p class="answer"><span class="hint">A:</span> Sir, you get an HDMI cable with LG 22MK430H-B 22" Full HD IPS LED Monitor with AMD FreeSync.</p>
+                                <p class="author answerer"><span class="fade">By</span> <span>Star Tech Support</span> <span class="fade">31 Aug 2020</span></p>
+                            </div> --}}
+                            {{-- else --}}
+
+                            {{-- question --}}
+                            @if ($question)
+                            {{-- jdfkj --}}
+
+                                @foreach ($question as $key => $row)
+                                <div class="question-wrap">
+                                    <p class="author"><span class="name">row->user->name</span> on {{ $row->created_at->format('d M Y') }}</p>
+                                    <h3 class="question"><span class="hint">Q: </span> {{ $row->question }}</h3>
+                                    <p class="answer"><span class="hint">A: </span> Sir, you get an HDMI cable with LG 22MK430H-B 22" Full HD IPS LED Monitor with AMD FreeSync.</p>
+                                    <p class="author answerer"><span class="fade">By</span> <span>Flow Tech Support</span> <span class="fade">{{ $row->created_at->format('d M Y') }}</span></p>
+                                </div>
+                                    {{-- <div class="col-md-12 mt-3" style="border-bottom: 1px blue solid;">
+
+                                        <h4 class="font-weight-bold" style="color: rgb(8, 8, 8);">{{ $key + 1 }}. Name: {{ $row->name }}</h4>
+                                        <h5 class="text-dark">Rating:<span style="color: rgb(255, 232, 21);"> @for ($i =1; $i <= $row->rating; $i++)
+                                            ⭐
+                                        @endfor</span>
+                                        </h5>
+
+                                        <p class="font-italic" style="color: rgb(0, 0, 0);">Comments: {{ $row->comments }}</p>
+                                    </div> --}}
+                                @endforeach
+                            @else
                             <div class="empty-content">
                                 <span class="icon material-icons"></span>
                                 <div class="empty-text">There are no questions asked yet. Be the first one to ask a
                                     question.</div>
                             </div>
+                            @endif
+
                         </div>
                     </section>
 
@@ -691,7 +771,7 @@
                     <section class="review  q-n-r-section bg-white m-tb-15" id="write-review">
                         <div class="section-head">
                             <div class="title-n-action">
-                                <h2>Reviews (0)</h2>
+                                <h2>Reviews ({{$totalReview}})</h2>
                                 <p class="section-blurb">Get specific details about this product from customers who own
                                     it.</p>
                                 <div class="average-rating">
@@ -708,11 +788,55 @@
                             </div>
                         </div>
                         <div id="review">
+                            @if ($review)
+                            {{-- jdfkj --}}
+
+                                @foreach ($review as $key => $row)
+                                <div class="review-wrap">
+                                    <div class="review-author">
+                                      <span class="rating">
+                                        @for ($i =1; $i <= $row->ratting; $i++)
+                                            ⭐
+                                        @endfor
+                                      </span>
+                                    </div>
+                                    <p class="review">
+                                      {{$row->comments}}
+                                    </p>
+                                    <p class="author">
+                                      By <span class="name">{{ $row->user->name }}</span> on {{ $row->created_at->format('d M Y') }}
+                                    </p>
+                                </div>
+                                @endforeach
+                            @else
                             <div class="empty-content">
                                 <span class="icon material-icons"></span>
                                 <div class="empty-text">This product has no reviews yet. Be the first one to write a
                                     review.</div>
                             </div>
+                            @endif
+                            {{-- if --}}
+                            {{-- <div class="review-wrap">
+                                <div class="review-author">
+                                  <span class="rating">
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                  </span>
+                                </div>
+                                <p class="review">
+                                  A very good monitor at this price range. I am very much satisfied with
+                                  this monitor.
+                                </p>
+                                <p class="author">
+                                  By <span class="name">Syed Najmul Hasan</span> on 16 Nov 2020
+                                </p>
+                            </div> --}}
+                            {{-- else --}}
+
+
                         </div>
                     </section>
                     <section class="download bg-white m-tb-15" id="download">
@@ -720,16 +844,19 @@
                             <h2>Download</h2>
                             <ul class="navbar-nav">
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="">Catalouge</a>
+                                    {{-- <a class="nav-link" href="{{url('/download',$product->catalouge)}}">Catalouge</a> --}}
+                                    <a class="nav-link" href="{{ url('/download/'.($product->catalouge)) }}">Catalouge</a>
+                                    {{-- <a class="nav-link" href="{{ url('/download', urlencode($product->catalouge)) }}">Catalouge</a> --}}
+
                                 </li>
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="">Drivers</a>
+                                    <a class="nav-link" href="{{url('/download',urlencode($product->drivers))}}">Drivers</a>
                                 </li>
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="">Firmware</a>
+                                    <a class="nav-link" href="{{($product->firmware)}}">Firmware</a>
                                 </li>
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="">Manual</a>
+                                    <a class="nav-link" href="{{($product->manual)}}">Manual</a>
                                 </li>
 
                             </ul>

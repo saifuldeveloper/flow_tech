@@ -119,37 +119,29 @@ class ProductController extends Controller
         $data['status'] = 1;
         $data['firmware'] = $request->firmware;
         $data['manual'] = $request->manual;
+        $data['product_banner_tag'] = $request->product_banner_tag;
+        $data['image_one_tag'] = $request->image_one_tag;
+        $data['image_one_tag'] = $request->image_one_tag;
+        $data['image_two_tag'] = $request->image_two_tag;
+        $data['image_three_tag'] = $request->image_three_tag;
+        $data['image_four_tag'] = $request->image_four_tag;
+        $data['image_five_tag'] = $request->image_five_tag;
+        $data['image_six_tag'] = $request->image_six_tag;
+
 
 
         $pdfFile = $request->file('catalouge');
-        $filename = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
+        $filename = time() . '.' . $pdfFile->getClientOriginalExtension();
+        $request->file('catalouge')->move('media/pdfs',$filename);
 
-        // $pdfFile->storeAs('media/pdfs', $filename, 'public');
-        $pdfFile->storeAs('media/pdfs', $filename, 'public');
-
-
-        // Save the PDF to storage
-        // Storage::put(public_path('media/product/pdfs/' . $filename, $pdfFile));
-        // Storage::putFile('media/product/pdfs', $pdfFile, $filename);
-        // Storage::putFileAs('media/product/pdfs', $pdfFile, $filename, 'public');
-
-        // $pdfFile->storeAs('media/product/pdfs/', $filename, $pdfFile);
-        $data['catalouge'] = 'media/product/pdfs/'.$pdfFile;
+        $data['catalouge'] = 'media/pdfs/'.$filename;
 
         $pdfFile2 = $request->file('drivers');
         $filename2 = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
-
-        $pdfFile2->storeAs('media/pdfs', $filename2, 'public');
-        // $pdfFile->storeAs('media/pdfs', $filename, 'public');
+        $request->file('drivers')->move('media/pdfs',$filename2);
 
 
-        // Save the PDF to storage
-        // Storage::put(public_path('media/product/pdfs/' . $filename2, $pdfFile2));
-        // Storage::putFile('media/product/pdfs', $pdfFile2, $filename2);
-        // Storage::putFileAs('media/product/pdfs', $pdfFile2, $filename2, 'public');
-
-        // $pdfFile2->storeAs('media/product/pdfs/', $filename2, 'public');
-        $data['drivers'] = 'media/product/pdfs/'.$pdfFile2;
+        $data['drivers'] = 'media/pdfs/'.$filename2;
 
 
         // dd($data);
@@ -167,7 +159,10 @@ class ProductController extends Controller
        // return response()->json($data);
 
 
-
+//  ive to edit file and new field here#################################################################################################
+//  ive to edit file and new field here#################################################################################################
+//  ive to edit file and new field here#################################################################################################
+//  ive to edit file and new field here#################################################################################################
 
        if ($image_one) {
         $image_one_name = hexdec(uniqid()).'.'.$image_one->getClientOriginalExtension();
@@ -271,6 +266,18 @@ class ProductController extends Controller
         $data['what_is_the'] = $request->what_is_the;
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;
+
+        $data['firmware'] = $request->firmware;
+        $data['manual'] = $request->manual;
+
+        $data['product_banner_tag'] = $request->product_banner_tag;
+        $data['image_one_tag'] = $request->image_one_tag;
+        $data['image_one_tag'] = $request->image_one_tag;
+        $data['image_two_tag'] = $request->image_two_tag;
+        $data['image_three_tag'] = $request->image_three_tag;
+        $data['image_four_tag'] = $request->image_four_tag;
+        $data['image_five_tag'] = $request->image_five_tag;
+        $data['image_six_tag'] = $request->image_six_tag;
 
         DB::table('products')->where('id',$id)->update($data);
 

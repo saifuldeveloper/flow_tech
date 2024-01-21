@@ -21,6 +21,7 @@ class CreateShippingTable extends Migration
             $table->string('email')->nullable();
             $table->string('notes')->nullable();
             $table->string('address')->nullable();
+            $table->string('shipping_address')->nullable();
             $table->string('city')->nullable();
             $table->string('notes')->nullable();
             $table->string('payment')->nullable();

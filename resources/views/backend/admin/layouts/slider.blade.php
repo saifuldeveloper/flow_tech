@@ -24,13 +24,13 @@
             <li> <a href="{{ route('list.slider')}}"><i class="bx bx-right-arrow-alt"></i>List Slider</a>
             </li>
 
-           
-           
+
+
             <li> <a href="{{ route('list.slider.twosite')}}"><i class="bx bx-right-arrow-alt"></i>List Two Slider</a>
             </li>
         </ul>
     </li>
-    
+
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="fadeIn animated bx bx-slider"></i>
@@ -38,14 +38,14 @@
             <div class="menu-title">Home Page Slider</div>
         </a>
         <ul>
-        
+
             <li> <a href="{{ route('list.indexslider')}}"><i class="bx bx-right-arrow-alt"></i>List Slider</a>
             </li>
             <li> <a href="{{ route('list.slider.site')}}"><i class="bx bx-right-arrow-alt"></i>List One Slider</a>
             </li>
         </ul>
     </li>
-   
+
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="fadeIn animated bx bx-slider"></i>
@@ -57,7 +57,7 @@
                  {{-- <li class="nav-item" style="margin-bottom: -10px;"> <a class="nav-link" href="">Add Slider</a></li> --}}
             {{-- <li class="nav-item"> <a class="nav-link" href="">List Slider</a></li> --}}
             </li>
-     
+
         </ul>
     </li>
 
@@ -80,12 +80,12 @@
     </li>
     {{-- <li>
         <a href="javascript:;" class="has-arrow">
-            <div class="parent-icon"><i class="fa-solid fa-grip"></i>   
+            <div class="parent-icon"><i class="fa-solid fa-grip"></i>
             </div>
             <div class="menu-title">SubCategory</div>
         </a>
         <ul>
-          
+
             <li> <a href="{{ route('add.subcategory')}}"><i class="bx bx-right-arrow-alt"></i>Add Category</a>
             </li>
             <li> <a href="{{ route('list.subcategory')}}"><i class="bx bx-right-arrow-alt"></i>List Category</a>
@@ -152,10 +152,10 @@
             <div class="menu-title"> Cupon </div>
         </a>
         <ul>
-            <li> 
+            <li>
                 <a href="{{ route('add.coupon')}}"><i class="bx bx-right-arrow-alt"></i>Add Cupon </a>
             </li>
-            <li> 
+            <li>
                 <a href="{{ route('list.coupon')}}"><i class="bx bx-right-arrow-alt"></i>List Cupon</a>
             </li>
         </ul>
@@ -190,11 +190,27 @@
             <div class="menu-title"> Setting </div>
         </a>
         <ul>
-            {{-- <li> 
+            {{-- <li>
                 <a href="{{ route('add.setting')}}"><i class="bx bx-right-arrow-alt"></i>Add Setting </a>
             </li> --}}
-            <li> 
+            <li>
                 <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>Update Setting </a>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div class="menu-title"> Q&A </div>
+        </a>
+        <ul>
+            {{-- <li>
+                <a href="{{ route('add.setting')}}"><i class="bx bx-right-arrow-alt"></i>Add Setting </a>
+            </li> --}}
+            <li>
+                <a href="{{ route('list.question')}}"><i class="bx bx-right-arrow-alt"></i>Questions </a>
             </li>
         </ul>
     </li>
@@ -207,5 +223,5 @@
             <div class="menu-title">Widgets</div>
         </a>
     </li> --}}
-  
+
 </ul>

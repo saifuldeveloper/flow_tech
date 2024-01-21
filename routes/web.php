@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\DashboardController;
 
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\QuestionAnswerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
@@ -59,6 +60,10 @@ Route::get('/product/show', [ProductDetailsController::class, 'AllproductView'])
 // Route::get('/product/details/{id}/{product_name}', [ProductDetailsController::class, 'productView']);
 Route::get('/product/{product_slug}', [ProductDetailsController::class, 'productView']);
 
+//   Download file
+Route::get('/download/{file}',[ProductDetailsController::class,'DownloadFile'])->name('download.file');
+
+
 Route::get('/latest/offer/page', [ProductDetailsController::class, 'LatestOfferPage'])->name('latest.offer.page');
 // Category wise product view
 // Route::get('/category/{slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
@@ -88,6 +93,9 @@ Route::post('price/filter/category/{id}', [ProductDetailsController::class, 'Pri
 Route::post('/cart/product/add/{slug}', [ProductDetailsController::class, 'addCart']);
 Route::post('/cart/combo/add/{slug}', [ProductDetailsController::class, 'addCartCombo']);
 Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'addCartBuy']);
+
+
+
 
  // backend routes
  Route::get('/admin/login', [AdminController::class, 'adminLoginForm'])->name('admin.login.form');
@@ -189,6 +197,9 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
   Route::post('/admin/update/blog/{id}',[BlogController::class,'updateBlog'])->name('update.blog');
   Route::get('/admin/details/blog/{id}',[BlogController::class,'detailsBlog'])->name('details.blog');
 
+
+
+
   //blog Commments
   Route::post('/admin/store/blog/comments',[BlogController::class,'storeBlogComments'])->name('store.blog.comments');
 
@@ -239,6 +250,12 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
       Route::post('/admin/status/update/{id}', [LeadManagementController::class, 'statusUpdate'])->name('admin.status.update');
       Route::get('/admin/details/order/{id}',[LeadManagementController::class,'detailsOrder'])->name('details.order');
       Route::get('/admin/order/invoice/{id}', [LeadManagementController::class, 'invoiceOrder'])->name('invoice.orderlist');
+
+      // Q@A List
+      Route::get('/admin/list/question',[QuestionAnswerController::class,'listQuestion'])->name('list.question');
+    //   Route::post('/admin/status/update/{id}', [LeadManagementController::class, 'statusUpdate'])->name('admin.status.update');
+    //   Route::get('/admin/details/order/{id}',[LeadManagementController::class,'detailsOrder'])->name('details.order');
+    //   Route::get('/admin/order/invoice/{id}', [LeadManagementController::class, 'invoiceOrder'])->name('invoice.orderlist');
 
 
            // Coupon

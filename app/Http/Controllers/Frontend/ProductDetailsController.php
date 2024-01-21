@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChlildCategory;
 use Cart;
+use Illuminate\Support\Facades\Storage;
 
 class ProductDetailsController extends Controller
 {
@@ -17,7 +18,6 @@ class ProductDetailsController extends Controller
     {
 
         // dd($slug);
-
         $product = DB::table('products')
             ->join('categories', 'products.category_id', 'categories.id')
             ->join('sub_categories', 'products.subcategory_id', 'sub_categories.id')
@@ -527,5 +527,28 @@ class ProductDetailsController extends Controller
     //     }
 
     // }
+
+    // public function DownloadFile(Request $request, $file)
+    // {
+
+    //     return response()->download(public_path('media/pdfs/'.$file));
+    // }
+    // use Illuminate\Support\Facades\Storage;
+
+    public function DownloadFile(Request $request, $file)
+    {
+        dd($file);
+        $decodedFileName = urldecode($file);
+        $filePath = '/media/pdfs/' . $decodedFileName;
+
+        if (Storage::exists($filePath)) {
+            // return response()->download(storage_path($filePath));
+            return response()->file($filePath);
+
+        } else {
+            return "File not found: " . $decodedFileName;
+        }
+    }
+
 
 }

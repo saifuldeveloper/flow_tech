@@ -51,5 +51,13 @@ class Product extends Model
     'firmware',
     'manual',
 
+    'product_banner_tag',
+    'image_one_tag',
+    'image_two_tag',
+    'image_three_tag',
+    'image_four_tag',
+    'image_five_tag',
+    'image_six_tag',
+
     ];
 }

@@ -32,7 +32,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     @auth
                     <input name="user_id" type="hidden" class="form-control" value="{{ Illuminate\Support\Facades\Auth::id() }}">
                 @endauth
-                
+
                     <div class="col-md-4 col-sm-12">
                         <div class="page-section ws-box">
                             <div class="section-head">
@@ -47,7 +47,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                 <div class="form-group">
                                     <label class="control-label" for="input-telephone">Mobile</label>
                                     <input type="tel" id="input-telephone" name="phone" value=""
-                                        class="form-control" placeholder="Telephone*" required>
+                                        class="form-control" placeholder="Telephone*">
                                 </div>
                                 <div class="form-group" for="input-email">
                                     <label class="control-label">Email</label>
@@ -57,7 +57,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                 <div class="form-group">
                                     <label class="control-label" for="input-address">Address</label>
                                     <input type="text" id="input-address" name="address" value=""
-                                        class="form-control" placeholder="Address*" required>
+                                        class="form-control" placeholder="Address*">
                                 </div>
                                 <div class="multiple-form-group">
                                     <div class="form-group" for="input-city">
@@ -79,6 +79,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label" for="input-address">Shipping Address</label>
+                                    <input type="text" id="input-shipping_address" name="shipping_address" value=""
+                                        class="form-control" placeholder="Optional*">
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label">Comment</label>
                                     <textarea class="form-control" name="notes" value="" placeholder="Comment" rows="6"></textarea>
                                 </div>
@@ -93,36 +98,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                         <h2><span>2</span>Payment Method</h2>
                                     </div>
                                     <p>Select a payment method</p>
-                                    {{-- <label class="radio-inline">
-                                        <input type="radio" name="payment" value=" Cash on Delivery"  />
-                                        Cash on Delivery </label><br> --}}
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="payment_method" type="checkbox" value="Cash on Deliver" id="CashonDelivery">
-                                            <label class="form-check-label" for="CashonDelivery">
-                                                Cash on Delivery
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="payment_method" type="checkbox" value="POS on Delivery" id="POSonDelivery">
-                                            <label class="form-check-label" for="POSonDelivery">
-                                                POS on Delivery
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="payment_method" type="checkbox" value="Online Payment" id="Online Payment">
-                                            <label class="form-check-label" for="Online Payment">
-                                                Online Payment
-                                            </label>
-                                        </div>
-                                        {{-- <label class="radio-inline">
-                                            <input type="checkbox" name="payment_method" value="Cash on Delivery" />
-                                            Cash on Delivery </label><br> --}}
-                                    {{-- <label class="radio-inline">
-                                        <input type="checkbox" name="payment_method" value="pod" />
-                                        POS on Delivery </label><br> --}}
-                                    {{-- <label class="radio-inline">
-                                        <input type="checkbox" name="payment_method" value="online" />
-                                        Online Payment </label><br> --}}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="payment_method" value=" Cash on Delivery" checked="checked" />
+                                        Cash on Delivery </label><br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="payment_method" value="pod" />
+                                        POS on Delivery </label><br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="payment_method" value="online" />
+                                        Online Payment </label><br>
                                     {{-- <div class="accepted-logo">
                                         <h5>We Accept : </h5>
                                         <a href="#"><img class="logo logo-visa"
@@ -138,16 +122,16 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                     </div>
                                     <p>Select a delivery method</p>
                                     <label class="radio-inline">
-                                        <input type="checkbox" class="delivery" name="payment_method" value="Home Delivery" />
+                                        <input type="radio" class="delivery" name="shipping_method" value="Home Delivery" checked="checked"/>
                                         Home Delivery - {{$shipments->home_delivery}} ৳ </label><br>
                                     <label class="radio-inline">
-                                        <input type="checkbox" class="delivery" name="payment_method" value="Store Pickup" />
+                                        <input type="radio" class="delivery" name="shipping_method" value="Store Pickup" />
                                         Store Pickup - {{$shipments->store_pickup}}৳ </label><br>
                                     <input type="hidden" name="pickup.pickup.title" value="Store Pickup">
                                     <label class="radio-inline">
-                                        <input type="checkbox" class="delivery" name="payment_method" value="Request Express" />
+                                        <input type="radio" class="delivery" name="shipping_method" value="Request Express" />
                                         Request Express - {{$shipments->request_express}}৳ </label><br>
-                                    <input type="hidden" name="express.express.title" value="Request Express"> 
+                                    <input type="hidden" name="express.express.title" value="Request Express">
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12">
@@ -206,7 +190,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                                 <td class="price text-right">{{number_format($carditem->qty *  $carditem->price)}} </td>
                                             </tr>
                                             @endforeach
-                                           
+
                                             <tr class="total">
                                                 <td colspan="2" class="text-right"><strong>Sub-Total:</strong></td>
                                                 <td class="text-right"><span class="amount">{{number_format(Cart::Subtotal())}}৳</span></td>
@@ -230,8 +214,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                                 <td colspan="2" class="text-right"><strong>Discount:</strong></td>
                                                 <td class="text-right"><span class="amount">{{$discount}}৳</span></td>
                                             </tr>
-                                            
-                                         
+
+
                                             <tr class="total">
                                                 <td colspan="2" class="text-right"><strong>Total:</strong></td>
                                                 <td class="text-right"><span class="amount subtotalAmount">{{$subtotal}}</span></td>
@@ -241,7 +225,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                                     </table>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 {{-- <input  type="hidden" name="shipping" id="shipping_charge" class="form-control" value="{{ $charge}}">
@@ -286,170 +270,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
           toastr.error("{{ session('error') }}");
       </script>
   @endif
-  
-  {{-- <script>
-    $(document).ready(function () {
-                $('.deliveryCharge').text('{{$shipments->home_delivery}}'+'৳');
-                $('.subtotalAmount').text('{{number_format($shipments->home_delivery+$subtotal)}}'+'৳');
-                $('#shipping_charge').val('{{$shipments->home_delivery}}');
-                $('#SubtotalAmount').val('{{$shipments->home_delivery+$subtotal}}');
-        // Attach a click event handler to the radio buttons with class "delivery"
-        $('.delivery').on('click', function () {
-            // Get the selected value
-            var selectedValue = $(this).val();
 
-            // Update the text content of the element with class "amount" based on the selected value
-            if (selectedValue === 'Home Delivery') {
-                $('.deliveryCharge').text('{{$shipments->home_delivery}}'+'৳');
-                $('.subtotalAmount').text('{{number_format($shipments->home_delivery+$subtotal)}}'+'৳');
-                $('#shipping_charge').val('{{$shipments->home_delivery}}');
-                $('#SubtotalAmount').val('{{$shipments->home_delivery+$subtotal}}');
-
-            } else if (selectedValue === 'Store Pickup') {
-                $('.deliveryCharge').text('{{$shipments->store_pickup}}'+'৳');
-                $('.subtotalAmount').text('{{number_format($shipments->store_pickup+$subtotal)}}'+'৳');
-                $('#shipping_charge').val('{{$shipments->store_pickup}}');
-                $('#SubtotalAmount').val('{{$shipments->store_pickup+$subtotal}}');
-            } else if (selectedValue === 'Request Express') {
-                $('.deliveryCharge').text('{{$shipments->request_express}}'+'৳');
-                $('.subtotalAmount').text('{{number_format($shipments->request_express+$subtotal)}}'+'৳');
-                $('#shipping_charge').val('{{$shipments->request_express}}');
-                $('#SubtotalAmount').val('{{$shipments->request_express+$subtotal}}');
-            } else {
-                $('.deliveryCharge').text('{{ 0 }}'+'৳');
-                $('.subtotalAmount').text('{{number_format($shipments->request_express+$subtotal)}}'+'৳');
-                $('#shipping_charge').val('{{$shipments->request_express}}');
-                $('#SubtotalAmount').val('{{$shipments->request_express+$subtotal}}');
-            } else {
-
-            }
-
-        });
-    });
-</script> --}}
-
-{{-- <script>
-    const checkboxes = document.querySelectorAll('.form-check-input');
-  
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        if (this.checked) {
-          checkboxes.forEach(otherCheckbox => {
-            if (otherCheckbox !== this) {
-              otherCheckbox.checked = false;
-            }
-          });
-        }
-      });
-    });
-</script>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('.delivery');
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    checkboxes.forEach(otherCheckbox => {
-                        if (otherCheckbox !== this) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const formCheckboxes = document.querySelectorAll('.form-check-input');
-        const deliveryCheckboxes = document.querySelectorAll('.delivery');
-
-        formCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    formCheckboxes.forEach(otherCheckbox => {
-                        if (otherCheckbox !== this) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-                    deliveryCheckboxes.forEach(deliveryCheckbox => {
-                        deliveryCheckbox.checked = false;
-                    });
-                }
-            });
-        });
-
-        deliveryCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    deliveryCheckboxes.forEach(otherCheckbox => {
-                        if (otherCheckbox !== this) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-                    formCheckboxes.forEach(formCheckbox => {
-                        formCheckbox.checked = false;
-                    });
-                }
-            });
-        });
-    });
-</script>
-
-
-{{-- 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('.form-check-input');
-        const deliveryCheckboxes = document.querySelectorAll('.delivery');
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    checkboxes.forEach(otherCheckbox => {
-                        if (otherCheckbox !== this) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-
-                    // Enable/disable corresponding delivery checkbox based on form-check-input state
-                    const correspondingDeliveryCheckbox = document.querySelector(`.delivery[data-option="${this.dataset.option}"]`);
-                    if (correspondingDeliveryCheckbox) {
-                        correspondingDeliveryCheckbox.disabled = !this.checked;
-                        correspondingDeliveryCheckbox.checked = this.checked && correspondingDeliveryCheckbox.checked;
-                    }
-                }
-            });
-        });
-
-        deliveryCheckboxes.forEach(deliveryCheckbox => {
-            deliveryCheckbox.addEventListener('change', function () {
-                // Disable all other form-check-input checkboxes if this delivery checkbox is checked
-                if (this.checked) {
-                    checkboxes.forEach(checkbox => {
-                        checkbox.checked = false;
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
-
-{{-- 2nd --}}
-
-
-<script>
     $(document).ready(function () {
-        $('.deliveryCharge').text('0৳');
-        // $('.deliveryCharge').text('{{$shipments->home_delivery}}'+'৳');
-        $('.subtotalAmount').text('{{number_format($shipments->home_delivery+$subtotal)}}'+'৳');
-        $('#shipping_charge').val('{{$shipments->home_delivery}}');
-        $('#SubtotalAmount').val('{{$shipments->home_delivery+$subtotal}}');
-
+                $('.deliveryCharge').text('{{$shipments->home_delivery}}'+'৳');
+                $('.subtotalAmount').text('{{number_format($shipments->home_delivery+$subtotal)}}'+'৳');
+                $('#shipping_charge').val('{{$shipments->home_delivery}}');
+                $('#SubtotalAmount').val('{{$shipments->home_delivery+$subtotal}}');
         // Attach a click event handler to the radio buttons with class "delivery"
         $('.delivery').on('click', function () {
             // Get the selected value
@@ -473,52 +300,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 $('#shipping_charge').val('{{$shipments->request_express}}');
                 $('#SubtotalAmount').val('{{$shipments->request_express+$subtotal}}');
             }
-            else {
-                // Set shipping_charge to 0 and get the subtotal amount
-                $('.deliveryCharge').text('0৳'); // You may adjust this based on your needs
-                $('.subtotalAmount').text('{{number_format($subtotal)}}' + '৳');
-                $('#shipping_charge').val('0');
-                $('#SubtotalAmount').val('{{$subtotal}}');
-            }
-        });
-
-        $('.form-check-input').on('click', function () {
-            // Get the selected value
-            var selectedValue = $(this).val();
-
-            // Update the text content of the element with class "amount" based on the selected value
-            if (selectedValue === 'Cash on Deliver') {
-                $('.deliveryCharge').text('0৳'); // You may adjust this based on your needs
-                $('.subtotalAmount').text('{{number_format($subtotal)}}' + '৳');
-                $('#shipping_charge').val('0');
-                $('#SubtotalAmount').val('{{$subtotal}}');
-
-            }
-            else if (selectedValue === 'POS on Delivery') {
-                $('.deliveryCharge').text('0৳'); // You may adjust this based on your needs
-                $('.subtotalAmount').text('{{number_format($subtotal)}}' + '৳');
-                $('#shipping_charge').val('0');
-                $('#SubtotalAmount').val('{{$subtotal}}');
-
-            }
-            else if (selectedValue === 'Online Payment') {
-                $('.deliveryCharge').text('0৳'); // You may adjust this based on your needs
-                $('.subtotalAmount').text('{{number_format($subtotal)}}' + '৳');
-                $('#shipping_charge').val('0');
-                $('#SubtotalAmount').val('{{$subtotal}}');
-
-            }
-            else {
-                // Set shipping_charge to 0 and get the subtotal amount
-                $('.deliveryCharge').text('0৳'); // You may adjust this based on your needs
-                $('.subtotalAmount').text('{{number_format($subtotal)}}' + '৳');
-                $('#shipping_charge').val('0');
-                $('#SubtotalAmount').val('{{$subtotal}}');
-            }
         });
     });
 </script>
-
-
-
 @endsection

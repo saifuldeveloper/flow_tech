@@ -52,7 +52,7 @@ class LeadManagementController extends Controller
                     ->where('orders.id',$id)
                     ->first();
         return view('backend.admin.order.details',compact('order'));
-        } // End method
+    } // End method
 
         public function invoiceOrder(Request $request,$id){
             $order_shippings = DB::table('shippings')

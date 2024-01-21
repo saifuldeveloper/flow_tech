@@ -13,4 +13,9 @@ class Rating extends Model
         'comments',
 
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
