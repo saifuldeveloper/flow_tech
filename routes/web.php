@@ -123,6 +123,18 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
     Route::get('/admin/details/slider/site/{id}',[SliderController::class,'detailsSiteSlider'])->name('details.slider.site');
     Route::get('/admin/edit/slider/site/{id}',[SliderController::class,'editSiteSlider'])->name('edit.slider.site');
     Route::post('/admin/update/slider/site/{id}',[SliderController::class,'updateSiteSlider'])->name('update.slider.site');
+    // home popup image section
+
+    Route::get('/admin/list/popup',[SliderController::class,'listPopup'])->name('list.popup');
+    Route::get('/admin/add/popup',[SliderController::class,'addPopup'])->name('add.popup');
+    Route::post('/admin/store/popup',[SliderController::class,'storePopup'])->name('store.popup');
+    Route::get('/admin/delete/popup/{id}',[SliderController::class,'deletePopup'])->name('delete.popup');
+    Route::get('/admin/details/popup/{id}',[SliderController::class,'detailsPopup'])->name('details.popup');
+    Route::get('/admin/edit/popup/{id}',[SliderController::class,'editPopup'])->name('edit.popup');
+    Route::post('/admin/update/popup/{id}',[SliderController::class,'updatePopup'])->name('update.popup');
+
+    Route::get('inactive/popup/{id}',[SliderController::class,'inactive']);
+    Route::get('active/popup/{id}',[SliderController::class,'active']);
 
     // index site image Slider  two image section
 

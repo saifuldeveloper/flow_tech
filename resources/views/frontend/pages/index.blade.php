@@ -16,6 +16,12 @@
         $siteslider = DB::table('indexsitesliders')->first();
         $setting = DB::table('settings')->first();
     @endphp
+
+
+
+
+
+
     <div class="bg-gray content p-tb-30">
         <div class="container">
             <div class="row">
@@ -50,6 +56,11 @@
             </div>
         </div>
         <!-- slider section end -->
+
+
+
+
+
         <div class="container">
             <div class="sliding_text_wrap">
                 @php

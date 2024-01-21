@@ -34,15 +34,19 @@
                 </tr>
               </thead>
               <tbody>
-
+                {{-- @dd($questions); --}}
                 @foreach($questions as $key=>$row)
                 <tr data-order-id="{{ $row->id }}">
 
                 <td class="order_id" data-order-id="{{ $row->id }}">{{ $key+1}}</td>
 
 
-                {{-- <td>{{ $row->zone}}</td> --}}
-                <td><span class="text-info fw-bold" style="font-size: 16px;">{{ $row->total}}</span></td>
+                <td>{{$row->product_name}}</td>
+                <td>{{$row->question}}</td>
+                <td class="editable" data-type="text" data-name="address"
+                                                data-pk="{{ $row->id }}">{{ $row->answer }}</td>
+                <td>Action</td>
+                {{-- <td><span class="text-info fw-bold" style="font-size: 16px;">{{ $row->total}}</span></td> --}}
 
               @endforeach
 
@@ -197,4 +201,18 @@
 
     });
    </script>
+   <script>
+    $.fn.editable.defaults.mode = "inline";
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+    $('.editable[data-name="address"]').editable({
+        url: "/order/manage",
+        type: 'text',
+        title: 'Enter Answer'
+    });
+
+</script>
 @endsection

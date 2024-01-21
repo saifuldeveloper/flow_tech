@@ -51,7 +51,7 @@ class UserReviewController extends Controller
         $data['user_id'] = $request->user_id;
         $data['question'] = $request->question;
         $data['created_at'] = Carbon::now();
-
+        // dd($data);
         UserQuestion::create($data);
 
         return view('frontend.pages.query_success');

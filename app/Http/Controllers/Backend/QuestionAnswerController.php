@@ -16,9 +16,39 @@ class QuestionAnswerController extends Controller
          DB::table('user_questions')
                 ->leftJoin('products','user_questions.product_id','products.id')
                 // ->join('categories', 'products.category_id', 'categorie.id')
-                // ->select('shippings.*','orders.*')
                 ->get();
+                // dd($questions);
         return view('backend.admin.question.list',compact('questions'));
+
+    }
+
+    public function orderManage(Request $request){
+
+
+
+        $shipping = DB::table('shippings')
+        ->join('orders', 'orders.id', '=', 'shippings.order_id') // Corrected join statement
+        ->select('shippings.*', 'orders.*')
+        ->where('order_id', $request->pk)
+        ->first();
+
+        $fieldName = $request->input('name');
+        $fieldValue = $request->input('value');
+
+        if ($shipping) {
+            if ($fieldName === 'name') {
+                DB::table('shippings')->where('order_id', $request->pk)->update(['name' => $fieldValue]);
+            } elseif ($fieldName === 'shipping') {
+                DB::table('orders')->where('id', $request->pk)->update(['shipping' => $fieldValue]);
+            } elseif ($fieldName === 'address') {
+                DB::table('shippings')->where('order_id', $request->pk)->update(['address' => $fieldValue]);
+            } else {
+                return response()->json(['error' => false]);
+            }
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => true, 'message' => 'Shipping record not found']);
+        }
 
     }
 }
