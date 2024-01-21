@@ -29,6 +29,7 @@
                   <th>Name</th>
                   <th>Phone</th>
                   <th>Address</th>
+                  <th>Shipping Address</th>
                   <th>City</th>
                   {{-- <th>Zone</th> --}}
                   <th>Total Amount</th>
@@ -61,6 +62,7 @@
                 <td>{{ $row->name}}</td>
                 <td>{{ $row->phone}}</td>
                 <td>{{ $row->address}}</td>
+                <td>{{ $row->shipping_address}}</td>
                 <td>{{ $row->city}}</td>
                 {{-- <td>{{ $row->zone}}</td> --}}
                 <td><span class="text-info fw-bold" style="font-size: 16px;">{{ $row->total}}</span></td>

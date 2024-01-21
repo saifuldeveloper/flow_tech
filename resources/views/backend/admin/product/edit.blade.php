@@ -438,9 +438,114 @@
                         } ?>>
                         <span>Buyone Getone</span>
                 </div> --}}
+                {{-- image tag updat --}}
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Product Banner Tag</label>
+                        <input type="text" class="form-control" name="product_banner_tag" required
+                            value="{{ $product->product_banner_tag }}">
+
+                        <span style="color: red;">
+                            @error('product_banner_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Image One Tag</label>
+                        <input type="text" class="form-control" name="image_one_tag" required
+                            value="{{ $product->image_one_tag }}">
+
+                        <span style="color: red;">
+                            @error('image_one_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Image Two Tag</label>
+                        <input type="text" class="form-control" name="image_two_tag" required
+                            value="{{ $product->image_two_tag }}">
+
+                        <span style="color: red;">
+                            @error('image_two_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Image Three Tag</label>
+                        <input type="text" class="form-control" name="image_three_tag" required
+                            value="{{ $product->image_three_tag }}">
+
+                        <span style="color: red;">
+                            @error('image_three_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Image Four Tag</label>
+                        <input type="text" class="form-control" name="image_four_tag" required
+                            value="{{ $product->image_four_tag }}">
+
+                        <span style="color: red;">
+                            @error('image_four_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Image Five Tag</label>
+                        <input type="text" class="form-control" name="image_five_tag" required
+                            value="{{ $product->image_five_tag }}">
+
+                        <span style="color: red;">
+                            @error('image_five_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Image Six Tag</label>
+                        <input type="text" class="form-control" name="image_six_tag" required
+                            value="{{ $product->image_six_tag }}">
+
+                        <span style="color: red;">
+                            @error('image_six_tag')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                    </div>
+                </div>
+
+
+
 
 
                             </div> {{-- end Row  --}}
+
+
+
 
 
 

@@ -400,9 +400,9 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="mb-3 ">
-                            <label class="form-label">Product Banner </label><br>
+                            <label class="form-label">Product Banner</label><br>
                             <input type="file"  name="product_banner" class="form-control " id="upload_file" onchange="getImagePreview7(event)" required >
 
                             <br>
@@ -412,9 +412,22 @@
 
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Product Banner Tag</label>
+                            <input type="text" class="form-control" name="product_banner_tag" required>
+
+                            <span style="color: red;">
+                              @error('product_banner_tag')
+                                  {{$message}}
+                              @enderror
+                              </span>
+
+                          </div>
+                    </div>
                     <hr>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3 ">
                             <label class="form-label">Image One ( Main Thumbnali):</label><br>
 
@@ -428,9 +441,22 @@
 
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Image One Tag</label>
+                            <input type="text" class="form-control" name="image_one_tag" required>
+
+                            <span style="color: red;">
+                              @error('image_one_tag')
+                                  {{$message}}
+                              @enderror
+                              </span>
+
+                          </div>
+                    </div>
 
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Image Two:</label><br>
                     <input type="file"  name="image_two" class="form-control" id="upload_file" onchange="getImagePreview1(event)" >
@@ -440,8 +466,21 @@
 
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Image Two Tag</label>
+                    <input type="text" class="form-control" name="image_two_tag" required>
 
-            <div class="col-md-4">
+                    <span style="color: red;">
+                      @error('image_two_tag')
+                          {{$message}}
+                      @enderror
+                      </span>
+
+                  </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Image Three:</label><br>
                     <input type="file"  name="image_three" class="form-control" id="upload_file" onchange="getImagePreview3(event)"   >
@@ -451,7 +490,21 @@
 
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Image Three Tag</label>
+                    <input type="text" class="form-control" name="image_three_tag" required>
+
+                    <span style="color: red;">
+                      @error('image_three_tag')
+                          {{$message}}
+                      @enderror
+                      </span>
+
+                  </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Image Four:</label><br>
                     <input type="file"  name="image_four" class="form-control" id="upload_file" onchange="getImagePreview4(event)"   >
@@ -461,6 +514,20 @@
 
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Image Four Tag</label>
+                    <input type="text" class="form-control" name="image_four_tag" required>
+
+                    <span style="color: red;">
+                      @error('image_four_tag')
+                          {{$message}}
+                      @enderror
+                      </span>
+
+                  </div>
+            </div>
+
             <div class="col-md-4">
                 <div class="mb-3">
                     <label class="form-label">Image Five:</label><br>
@@ -471,6 +538,20 @@
 
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Image Five Tag</label>
+                    <input type="text" class="form-control" name="image_five_tag" required>
+
+                    <span style="color: red;">
+                      @error('image_five_tag')
+                          {{$message}}
+                      @enderror
+                      </span>
+
+                  </div>
+            </div>
+
             <div class="col-md-4">
                 <div class="mb-3">
                     <label class="form-label">Image Six:</label><br>
@@ -480,6 +561,19 @@
                     <div id="preview6"></div>
 
                 </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Image Six Tag</label>
+                    <input type="text" class="form-control" name="image_six_tag" required>
+
+                    <span style="color: red;">
+                      @error('image_six_tag')
+                          {{$message}}
+                      @enderror
+                      </span>
+
+                  </div>
             </div>
 
 

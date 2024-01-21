@@ -114,8 +114,25 @@ class PaymentController extends Controller
             'created_at' => now(),
         ];
 
-        $order_id = DB::table('orders')->insertGetId($data);
+        // Insert Shipping Table
+        $invoice_id = IdGenerator::generate(['table' => 'shippings',
+        'field'=>'invoice_num', 'length' => 7, 'prefix' => 'Inv-']);
 
+        $shipping = array();
+        $shipping['order_id'] = $order_id;
+        $shipping['invoice_num'] = $invoice_id;
+        $shipping['name'] = $request->name;
+        $shipping['phone'] = $request->phone;
+        $shipping['email'] = $request->email;
+        $shipping['address'] = $request->address;
+        $shipping['shipping_address'] = $request->shipping_address;
+        $shipping['city'] = $request->city;
+        $shipping['zone'] = $request->zone;
+        $shipping['notes'] = $request->notes;
+        $shipping['payment'] = $request->payment_method;
+        // $shipping['shipping_method'] = $request->shipping_method;
+        $shipping['created_at'] = now();
+        $order_id = DB::table('orders')->insertGetId($data);
         $invoice_id = IdGenerator::generate([
             'table' => 'shippings',
             'field' => 'invoice_num',

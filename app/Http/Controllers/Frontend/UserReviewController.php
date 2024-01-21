@@ -18,7 +18,7 @@ class UserReviewController extends Controller
     } // End metho
     public function reviewSection(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
 
         $data = array();
@@ -42,7 +42,7 @@ class UserReviewController extends Controller
     } // End method
     public function questionSection(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
 
 

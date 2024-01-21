@@ -55,6 +55,17 @@ class LeadManagementController extends Controller
     {
 
         $order = DB::table('orders')
+                    ->join('shippings','orders.id','shippings.order_id')
+                    ->join('orders_details','orders.id','orders_details.order_id')
+                    ->select('shippings.*','orders.*','orders_details.*')
+                    ->where('orders.id',$id)
+                    ->first();
+        return view('backend.admin.order.details',compact('order'));
+    } // End method
+
+        public function invoiceOrder(Request $request,$id){
+            $order_shippings = DB::table('shippings')
+            ->where('order_id',$id)
             ->join('shippings', 'orders.id', 'shippings.order_id')
             ->join('orders_details', 'orders.id', 'orders_details.order_id')
             ->select('shippings.*', 'orders.*', 'orders_details.*')
