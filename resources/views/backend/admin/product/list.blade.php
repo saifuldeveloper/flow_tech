@@ -1,8 +1,8 @@
 @extends('master_admin')
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @section('content')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <div class="content-wrapper">
     <div class="page-header">
