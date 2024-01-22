@@ -28,6 +28,8 @@
 
             <li> <a href="{{ route('list.slider.twosite')}}"><i class="bx bx-right-arrow-alt"></i>List Two Slider</a>
             </li>
+            <li> <a href="{{ route('list.popup')}}"><i class="bx bx-right-arrow-alt"></i>Pop up Banner</a>
+            </li>
         </ul>
     </li>
 

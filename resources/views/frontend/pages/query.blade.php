@@ -10,9 +10,9 @@
                     @csrf
                     @php
                         $product = DB::table('products')->where('id', $id)->first();
-
+                        // dd($product->id);
                     @endphp
-                    <input type="hidden" name="product_id" value="{{$id}}" class="form-control" />
+                    <input type="hidden" name="product_id" value="{{$product->id}}" class="form-control" />
                     @if (Auth::check())
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" class="form-control" />
                     @else

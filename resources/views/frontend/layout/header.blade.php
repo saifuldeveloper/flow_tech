@@ -197,6 +197,12 @@
         <!-- navbar end -->
 
     </header>
+    {{-- popup banner --}}
+    @include('frontend.pages.popup')
+
+
+
+
     <script>
         var availableTags = [];
         $.ajax({

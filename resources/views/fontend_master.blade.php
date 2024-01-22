@@ -41,14 +41,13 @@
 
 
 
+    <!-- Header section include start ! -->
+    @include('frontend.layout.header')
+    <!-- Header section include  end ! -->
 
-<!-- Header section include start ! -->
-@include('frontend.layout.header')
-<!-- Header section include  end ! -->
 
-
-<!-- Main Content Start ! -->
-@yield('content')
+    <!-- Main Content Start ! -->
+    @yield('content')
 <!-- main Content End ! -->
 
 
