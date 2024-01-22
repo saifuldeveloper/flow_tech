@@ -52,7 +52,7 @@ class PaymentController extends Controller
 
         $test = DB::table('shippings')->insert($shipping);
         $test1 =  DB::table('shippings')->where('id', $shipping['order_id'])->first();
-dd($test1);
+// dd($test1);
 
         // Insert Order Details Table
         $content = Cart::Content();

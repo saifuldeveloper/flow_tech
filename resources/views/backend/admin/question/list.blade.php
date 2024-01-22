@@ -6,14 +6,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-{{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/css/jquery-editable.css" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/js/jquery-editable-poshytip.min.js"> --}}
+
 
 
 <div class="content-wrapper">
     <div class="page-header">
-      <h3 class="page-title">Order Reports</h3>
+      <h3 class="page-title">Q&A Section</h3>
 
 
 
@@ -38,7 +36,6 @@
                 </tr>
               </thead>
               <tbody>
-                {{-- @dd($questions); --}}
                 @foreach($questions as $key=>$row)
                 <tr data-order-id="{{ $row->id }}">
 
@@ -48,9 +45,10 @@
                 <td>{{$row->product_name}}</td>
                 <td>{{$row->question}}</td>
                 <td class="editable" data-type="text" data-name="answer"
-                                                data-pk="{{ $row->id }}">{{ $row->answer }}</td>
-                <td>edit</td>
-                {{-- <td><span class="text-info fw-bold" style="font-size: 16px;">{{ $row->total}}</span></td> --}}
+                                                data-pk="{{ $row->id }}">{!! $row->answer !!}</td>
+                <td>
+                    <a href="{{ route('submit.answer',$row->id)}}" class="btn btn-primary">Edit</a>&nbsp;
+                </td>
 
               @endforeach
 

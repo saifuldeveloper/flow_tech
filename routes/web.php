@@ -265,6 +265,8 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
 
       // Q@A List
       Route::get('/admin/list/question',[QuestionAnswerController::class,'listQuestion'])->name('list.question');
+      Route::get('/admin/submit/answer/{id}', [QuestionAnswerController::class, 'addAnswer'])->name('submit.answer');
+      Route::post('/admin/update/answer/{id}',[QuestionAnswerController::class,'updateAnswer'])->name('update.answer');
     //   Route::post('/admin/status/update/{id}', [LeadManagementController::class, 'statusUpdate'])->name('admin.status.update');
     //   Route::get('/admin/details/order/{id}',[LeadManagementController::class,'detailsOrder'])->name('details.order');
     //   Route::get('/admin/order/invoice/{id}', [LeadManagementController::class, 'invoiceOrder'])->name('invoice.orderlist');

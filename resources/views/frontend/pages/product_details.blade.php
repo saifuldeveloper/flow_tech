@@ -697,9 +697,11 @@
                     @php
                         $Id = $product->id;
                         $question = DB::table('user_questions')
+                            ->leftJoin('users','user_questions.user_id','users.id')
                             ->where('product_id', $Id)
                             ->get();
                         $review = DB::table('ratings')
+                            ->leftJoin('users','ratings.user_id','users.id')
                             ->where('product_id', $Id)
                             ->get();
                             $totalQuestion =  DB::table('user_questions')->where('product_id', $Id)->count();
@@ -713,48 +715,25 @@
                                     this product from expert.</p>
                             </div>
                             <div class="q-action">
-                                {{-- <a href="{{ route('question/{$product->id}') }}" class="btn st-outline">Ask Question</a> --}}
                                 @if (Auth::user())
                                 <a href="{{ route('question', ['id' => $product->id]) }}" class="btn st-outline">Ask Question</a>
-
-                                    {{-- <a href="{{ route('review') }}" class="btn st-outline">Write a Review</a> --}}
                                 @else
                                     <a href="{{ route('login') }}" class="btn st-outline">Write a Review</a>
                                 @endif
-
                             </div>
                         </div>
                         <div id="question">
-                            {{-- if --}}
-                            {{-- <div class="question-wrap">
-                                <p class="author"><span class="name">Ahsan</span> on 31 Aug 2020</p>
-                                <h3 class="question"><span class="hint">Q:</span> Does this come with an HDMI cable? Or do I have to buy one separately? </h3>
-                                <p class="answer"><span class="hint">A:</span> Sir, you get an HDMI cable with LG 22MK430H-B 22" Full HD IPS LED Monitor with AMD FreeSync.</p>
-                                <p class="author answerer"><span class="fade">By</span> <span>Star Tech Support</span> <span class="fade">31 Aug 2020</span></p>
-                            </div> --}}
-                            {{-- else --}}
-
                             {{-- question --}}
                             @if ($question)
-                            {{-- jdfkj --}}
 
                                 @foreach ($question as $key => $row)
                                 <div class="question-wrap">
-                                    <p class="author"><span class="name">row->user->name</span> on {{ $row->created_at->format('d M Y') }}</p>
+                                    <p class="author"><span class="name">{{ $row->name }}</span> on {{ \Carbon\Carbon::parse($row->created_at)->format('d M Y') }}</p>
                                     <h3 class="question"><span class="hint">Q: </span> {{ $row->question }}</h3>
-                                    <p class="answer"><span class="hint">A: </span> Sir, you get an HDMI cable with LG 22MK430H-B 22" Full HD IPS LED Monitor with AMD FreeSync.</p>
-                                    <p class="author answerer"><span class="fade">By</span> <span>Flow Tech Support</span> <span class="fade">{{ $row->created_at->format('d M Y') }}</span></p>
+                                    <p class="answer"><span class="hint">A: </span> {!! $row->answer !!}</p>
+                                    <p class="author answerer"><span class="fade">By</span> <span>Flow Tech Support </span> <span class="fade">{{ \Carbon\Carbon::parse($row->updated_at)->format('d M Y') }}</span></p>
                                 </div>
-                                    {{-- <div class="col-md-12 mt-3" style="border-bottom: 1px blue solid;">
 
-                                        <h4 class="font-weight-bold" style="color: rgb(8, 8, 8);">{{ $key + 1 }}. Name: {{ $row->name }}</h4>
-                                        <h5 class="text-dark">Rating:<span style="color: rgb(255, 232, 21);"> @for ($i =1; $i <= $row->rating; $i++)
-                                            ⭐
-                                        @endfor</span>
-                                        </h5>
-
-                                        <p class="font-italic" style="color: rgb(0, 0, 0);">Comments: {{ $row->comments }}</p>
-                                    </div> --}}
                                 @endforeach
                             @else
                             <div class="empty-content">
@@ -801,10 +780,10 @@
                                       </span>
                                     </div>
                                     <p class="review">
-                                      {{$row->comments}}
+                                      {!! $row->comments !!}
                                     </p>
                                     <p class="author">
-                                      By <span class="name">{{ $row->user->name }}</span> on {{ $row->created_at->format('d M Y') }}
+                                      By <span class="name">{{ $row->name }}</span> on {{ \Carbon\Carbon::parse($row->created_at)->format('d M Y') }}
                                     </p>
                                 </div>
                                 @endforeach
