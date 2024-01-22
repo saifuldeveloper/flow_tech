@@ -82,7 +82,7 @@ Route::post('/product/search', [ProductDetailsController::class, 'Search'])->nam
 // Product filter
 Route::post('product/brand/filter', [ProductDetailsController::class, 'BrandFilter'])->name('filter.brands');
 Route::post('product/availability/filter', [ProductDetailsController::class, 'AvailabilityFilter'])->name('filter.availability');
-Route::post('product/price/filter', [ProductDetailsController::class, 'PriceFilter'])->name('filter.price');
+Route::post('product/price/filter', [ProductDetailsController::class, 'PriceeFilter'])->name('filter.price');
 
 // Product filter with category
 Route::post('brand/filter/category/{id}', [ProductDetailsController::class, 'BrandFilterCategory']);

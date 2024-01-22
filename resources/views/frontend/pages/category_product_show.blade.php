@@ -272,7 +272,7 @@
             </div>
         </div>
     </div>
- 
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {
