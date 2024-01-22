@@ -50,7 +50,9 @@ class PaymentController extends Controller
         $shipping['created_at'] = now();
 
 
-        DB::table('shippings')->insert($shipping);
+        $test = DB::table('shippings')->insert($shipping);
+        $test1 =  DB::table('shippings')->where('id', $shipping['order_id'])->first();
+dd($test1);
 
         // Insert Order Details Table
         $content = Cart::Content();
@@ -81,9 +83,9 @@ class PaymentController extends Controller
 
         try {
             $quantity = 1; // You can set the quantity as needed
-        
+
             Mail::to($email)->send(new  OrderConfirmation($productName, $quantity));
-        
+
             return 'Order confirmation email sent successfully!';
         } catch (\Exception $e) {
             return 'Error sending order confirmation email: ' . $e->getMessage();
@@ -93,7 +95,7 @@ class PaymentController extends Controller
 
         return view('frontend.pages.congratulations_page');
 
-    } 
+    }
     // public function PaymentProcess(Request $request){
 
     //     $data = array();

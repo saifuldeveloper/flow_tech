@@ -49,7 +49,7 @@
                 <td>{{$row->question}}</td>
                 <td class="editable" data-type="text" data-name="answer"
                                                 data-pk="{{ $row->id }}">{{ $row->answer }}</td>
-                <td>Action</td>
+                <td>edit</td>
                 {{-- <td><span class="text-info fw-bold" style="font-size: 16px;">{{ $row->total}}</span></td> --}}
 
               @endforeach

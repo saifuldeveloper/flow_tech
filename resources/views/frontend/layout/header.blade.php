@@ -198,7 +198,7 @@
 
     </header>
     {{-- popup banner --}}
-    @include('frontend.pages.popup')
+    {{-- @include('frontend.pages.popup') --}}
 
 
 

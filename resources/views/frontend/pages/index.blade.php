@@ -58,6 +58,7 @@
         <!-- slider section end -->
 
 
+    @include('frontend.pages.popup')
 
 
 
