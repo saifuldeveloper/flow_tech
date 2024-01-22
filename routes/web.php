@@ -268,6 +268,7 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
     //   Route::post('/admin/status/update/{id}', [LeadManagementController::class, 'statusUpdate'])->name('admin.status.update');
     //   Route::get('/admin/details/order/{id}',[LeadManagementController::class,'detailsOrder'])->name('details.order');
     //   Route::get('/admin/order/invoice/{id}', [LeadManagementController::class, 'invoiceOrder'])->name('invoice.orderlist');
+    Route::post('/question/manage', [QuestionAnswerController::class, 'answerManage']);
 
 
            // Coupon

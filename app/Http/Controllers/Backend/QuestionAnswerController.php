@@ -22,27 +22,29 @@ class QuestionAnswerController extends Controller
 
     }
 
-    public function orderManage(Request $request){
+    public function answerManage(Request $request){
 
 
 
-        $shipping = DB::table('shippings')
-        ->join('orders', 'orders.id', '=', 'shippings.order_id') // Corrected join statement
-        ->select('shippings.*', 'orders.*')
-        ->where('order_id', $request->pk)
+        $shipping = DB::table('user_questions')
+        // ->join('orders', 'orders.id', '=', 'shippings.order_id') // Corrected join statement
+        // ->select('shippings.*', 'orders.*')
+        ->where('id', $request->pk)
         ->first();
 
         $fieldName = $request->input('name');
         $fieldValue = $request->input('value');
 
         if ($shipping) {
-            if ($fieldName === 'name') {
-                DB::table('shippings')->where('order_id', $request->pk)->update(['name' => $fieldValue]);
-            } elseif ($fieldName === 'shipping') {
-                DB::table('orders')->where('id', $request->pk)->update(['shipping' => $fieldValue]);
-            } elseif ($fieldName === 'address') {
-                DB::table('shippings')->where('order_id', $request->pk)->update(['address' => $fieldValue]);
-            } else {
+            if ($fieldName === 'answer') {
+                DB::table('user_questions')->where('id', $request->pk)->update(['answer' => $fieldValue]);
+            }
+            // elseif ($fieldName === 'shipping') {
+            //     DB::table('orders')->where('id', $request->pk)->update(['shipping' => $fieldValue]);
+            // } elseif ($fieldName === 'address') {
+            //     DB::table('shippings')->where('order_id', $request->pk)->update(['address' => $fieldValue]);
+            // }
+            else {
                 return response()->json(['error' => false]);
             }
             return response()->json(['success' => true]);
