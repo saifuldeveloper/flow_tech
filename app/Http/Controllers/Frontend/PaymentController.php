@@ -78,11 +78,6 @@ class PaymentController extends Controller
         $quantity = 1;
         $email = 'mdsaiful77336@gmail.com';
 
-       
-
-
-
-     
 
         try {
             $quantity = 1; // You can set the quantity as needed
