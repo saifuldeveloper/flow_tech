@@ -61,7 +61,10 @@ Route::get('/product/show', [ProductDetailsController::class, 'AllproductView'])
 Route::get('/product/{product_slug}', [ProductDetailsController::class, 'productView']);
 
 //   Download file
-Route::get('/download/{file}',[ProductDetailsController::class,'DownloadFile'])->name('download.file');
+// Route::get('/download/{file}',[ProductDetailsController::class,'DownloadFile']);
+Route::get('/download/{id}', [ProductDetailsController::class, 'DownloadFile'])->name('download.file');
+Route::get('/download/drive/{id}', [ProductDetailsController::class, 'DownloadDriveFile'])->name('download.drivefile');
+
 
 
 Route::get('/latest/offer/page', [ProductDetailsController::class, 'LatestOfferPage'])->name('latest.offer.page');
