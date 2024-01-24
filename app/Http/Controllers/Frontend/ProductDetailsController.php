@@ -286,17 +286,28 @@ class ProductDetailsController extends Controller
         $childcategory = ChlildCategory::where('childcategory_name', 'LIKE', '%' . $item . '%')->first();
         if ($product) {
             return redirect(
-                '/product'. '/'. $product->product_name,
+                '/product'. '/'. $product->product_slug,
                 // '/product/details/' . $product->id . '/' . $product->product_name,
             );
         }
          elseif ($category) {
-            return redirect(route('category.view', ['category_slug' => $category->category_name]));
+            return redirect(
+                // '/category'.'/'. $category->category_slug,
+                route('category.view', ['category_slug' => $category->category_name])
+            );
 
         } elseif ($subcategory) {
-            return redirect(route('subcategory.view', ['subcategory_slug' => $category->subcategory_name]));
+            return redirect(
+                '/subcategory'.'/'. $subcategory->subcategory_slug,
+
+                // route('subcategory.view', ['subcategory_slug' => $category->subcategory_name])
+            );
         } elseif ($childcategory) {
-            return redirect(route('childcategory.view', ['childcategory_slug' => $category->childcategory_name]));
+            return redirect(
+                '/childcategory'.'/'. $childcategory->childcategory_slug,
+
+                //route('childcategory.view', ['childcategory_slug' => $category->childcategory_name])
+            );
 
         }
         else {
@@ -535,19 +546,19 @@ class ProductDetailsController extends Controller
     // }
     // use Illuminate\Support\Facades\Storage;
 
-    public function DownloadFile(Request $request, $file)
+    public function DownloadFile($id)
     {
-        dd($file);
-        $decodedFileName = urldecode($file);
-        $filePath = '/media/pdfs/' . $decodedFileName;
+        $pdf = DB::table('products')->where('id', $id)->first();
+        $path = public_path("{$pdf->catalouge}");
 
-        if (Storage::exists($filePath)) {
-            // return response()->download(storage_path($filePath));
-            return response()->file($filePath);
+        return  \response()->download($path);
+    }
 
-        } else {
-            return "File not found: " . $decodedFileName;
-        }
+    public function DownloadDriveFile($id)
+    {
+        $pdf = DB::table('products')->where('id', $id)->first();
+        $path = public_path("{$pdf->drivers}");
+        return  \response()->download($path);
     }
 
 

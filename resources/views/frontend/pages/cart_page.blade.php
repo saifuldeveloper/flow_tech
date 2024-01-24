@@ -80,30 +80,28 @@
                         <table class="table table-bordered bg-white cart-total">
                             <tr>
                                 <td class="text-right"><strong>Sub-Total:</strong></td>
-                               
+
                                 <td class="text-right amount">{{ number_format($total) }}৳</td>
                             </tr>
                             <tr>
                                 <td class="text-right"><strong>Discount:</strong></td>
-                                <td class="text-right amount">  
+                                <td class="text-right amount">
                                @php
                                 $coupon = Session::get('coupon');
                                 $discount = isset($coupon['discount']) ? number_format($coupon['discount']) : 0;
                                 @endphp
-                        
+
                                 {{ $discount }}৳ </td>
-                                {{-- <td class="text-right amount">{{  Session::get('coupon') < 0 ? number_format(Session::get('coupon')['discount']) : 0 }}৳</td>
-                                <td class="text-right amount">{{ dd(Session::has('coupon'))}}৳</td> --}}
-                                
+
+
                             </tr>
                             <tr>
                                 <td class="text-right"><strong>Total:</strong></td>
-                                {{-- <td class="text-right amount">{{ number_format( (Cart::Subtotal()) - (Session::get('coupon')['discount'])) }}৳</td> --}}
                                  <td class="text-right amount">
                                     @php
                                          $subtotal = isset($coupon['discount']) ? number_format((Cart::Subtotal())-$coupon['discount']) :number_format(Cart::Subtotal());
                                     @endphp
-                                    {{$subtotal}} ৳</td> 
+                                    {{$subtotal}} ৳</td>
                             </tr>
                         </table>
                     </div>
@@ -126,11 +124,7 @@
                             </div>
                         </div>
                     </form>
-                        {{-- <div class="col-md-6 col-sm-12 voucher"><div class="input-group">
-            <input type="text" name="voucher" value="" placeholder="Enter your gift voucher code here" id="input-voucher" class="form-control" />
-            <span class="input-group-btn"><input type="submit" value="Apply Voucher" id="button-voucher" data-loading-text="Loading..."  class="btn st-outline" /></span>
-            </div>
-            </div> --}}
+
                     </div>
                 </div>
 

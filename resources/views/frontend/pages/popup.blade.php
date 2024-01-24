@@ -1,4 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 @php
     $popup = DB::table('popups')->where('status', 1)->first();
 
@@ -26,6 +25,7 @@
         -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
         -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
         transition: opacity 0.3s 0s, visibility 0s 0.3s;
+        z-index: 1;
     }
 
     .bts-popup.is-visible {
@@ -61,7 +61,7 @@
     }
 
     .bts-popup-container img {
-        padding: 20px 0 0 0;
+        padding: 0 0 0 0;
     }
 
     .bts-popup-container p {

@@ -1,8 +1,6 @@
 @extends('fontend_master')
 @section('content')
-{{-- @php
-    dd($blog_catch);
-@endphp --}}
+
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
@@ -17,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12" itemscope itemtype="">
                     <div id="content" class="blog-left">
-                        <div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                        <div itemprop="image" itemscope itemtype="">
                             <img class="main-img"
                                 src="{{asset($blog_catch->image)}}"
                                 alt="Geyser Buying Guide: Choose the Perfect Water Heater" width="100%">
@@ -37,12 +35,7 @@
                         <div class="article-description" itemprop="articleBody">
                                 {!!$blog_catch->long_description!!}
                         </div>
-                        {{-- <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-                            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-                                <meta itemprop="url" content="https://www.startech.com.bd/image/catalog/logo.png">
-                            </div>
-                            <span itemprop="name">Star Tech Ltd</span>
-                        </div> --}}
+
                     </div>
                 </div>
                 @php
@@ -54,9 +47,9 @@
                         <h2>Comments</h2>
                         @if ($review)
                         <div id="no-comment">
-                         
+
     <div class="col-md-12">
-  
+
             @foreach ($review as $row )
             <div class="" style="margin:0 5px">
                 <div class="card" style=" background-color: rgb(255, 254, 254)">
@@ -64,18 +57,18 @@
                       <h5 class="card-title">Name:{{$row->name}}</h5>
                       <p class="card-text">{{$row->message}}</p>
                     </div>
-                  </div>   
+                  </div>
             </div>
             @endforeach
     </div>
-                           
+
                         </div>
                         @else
                         <div id="no-comment">
                             <p>There are no comments for this Article.</p>
                         </div>
                         @endif
-                    
+
                        </div>
                     <form id="form-comment" action="{{Route('store.blog.comments')}}" method="POST">
                         @csrf

@@ -15,34 +15,34 @@ class QuestionAnswerController extends Controller
         $questions =
          DB::table('user_questions')
                 ->leftJoin('products','user_questions.product_id','products.id')
-                // ->join('categories', 'products.category_id', 'categorie.id')
                 ->get();
-                // dd($questions);
         return view('backend.admin.question.list',compact('questions'));
 
     }
 
-    public function orderManage(Request $request){
+    public function answerManage(Request $request){
 
 
 
-        $shipping = DB::table('shippings')
-        ->join('orders', 'orders.id', '=', 'shippings.order_id') // Corrected join statement
-        ->select('shippings.*', 'orders.*')
-        ->where('order_id', $request->pk)
+        $shipping = DB::table('user_questions')
+        // ->join('orders', 'orders.id', '=', 'shippings.order_id') // Corrected join statement
+        // ->select('shippings.*', 'orders.*')
+        ->where('id', $request->pk)
         ->first();
 
         $fieldName = $request->input('name');
         $fieldValue = $request->input('value');
 
         if ($shipping) {
-            if ($fieldName === 'name') {
-                DB::table('shippings')->where('order_id', $request->pk)->update(['name' => $fieldValue]);
-            } elseif ($fieldName === 'shipping') {
-                DB::table('orders')->where('id', $request->pk)->update(['shipping' => $fieldValue]);
-            } elseif ($fieldName === 'address') {
-                DB::table('shippings')->where('order_id', $request->pk)->update(['address' => $fieldValue]);
-            } else {
+            if ($fieldName === 'answer') {
+                DB::table('user_questions')->where('id', $request->pk)->update(['answer' => $fieldValue]);
+            }
+            // elseif ($fieldName === 'shipping') {
+            //     DB::table('orders')->where('id', $request->pk)->update(['shipping' => $fieldValue]);
+            // } elseif ($fieldName === 'address') {
+            //     DB::table('shippings')->where('order_id', $request->pk)->update(['address' => $fieldValue]);
+            // }
+            else {
                 return response()->json(['error' => false]);
             }
             return response()->json(['success' => true]);
@@ -51,4 +51,26 @@ class QuestionAnswerController extends Controller
         }
 
     }
+
+    // addAnswer
+    public function addAnswer($id){
+        $answer = DB::table('user_questions')
+                ->leftJoin('products','user_questions.product_id','products.id')
+                ->where('product_id',$id)
+                ->first();
+        // DB::table('user_questions')->where('id',$id)->first();
+        return view('backend.admin.question.edit',compact('answer'));
+
+    }
+
+    public function updateAnswer(Request $request, $id){
+
+        $data = array();
+        $data['answer'] = $request->answer;
+        $data['question'] = $request->question;
+        DB::table('user_questions')->where('product_id',$id)->update($data);
+
+        return Redirect()->route('list.question')->with('success', 'Question Answre has added Successfully!');
+    }
+
 }

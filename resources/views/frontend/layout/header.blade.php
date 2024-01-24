@@ -53,7 +53,7 @@
                     <a class="brand" href="{{ url('/') }}"> <img src="{{ asset($setting->logo) }}" title=""
                             style="height: 50px; width: 140px;" alt=" "></a>
                     <div class="mbl-right h-desk">
-                        <div class="ac search-toggler" style=""><i class="material-icons"></i></div>
+                        <div class="ac search-toggler" style="color:#fff"><i class="fa fa-search"></i></div>
 
                     </div>
                 </div>
@@ -86,14 +86,14 @@
                         </div>
                     </a>
                     <div class="ac">
-                        <a class="ic" href="login.html"><i class="fa-solid fa-user"></i></a>
+                        <a class="ic" href="{{route('login')}}"><i class="fa fa-user"></i></a>
                         <div class="ac-content">
-                            <a href="login.html">
+                            <a href="{{route('login')}}">
                                 <h5>Account</h5>
                             </a>
                             <p>
                                 @if (Auth::check())
-                                    <a href="#">Dashboard</a>
+                                    <a href="{{route('account')}}">Dashboard</a>
                                 @else
                                     <a href="{{ route('register') }}">Register</a>
                                 @endif
@@ -198,7 +198,7 @@
 
     </header>
     {{-- popup banner --}}
-    @include('frontend.pages.popup')
+    {{-- @include('frontend.pages.popup') --}}
 
 
 

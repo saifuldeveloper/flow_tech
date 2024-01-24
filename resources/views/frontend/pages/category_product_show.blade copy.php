@@ -9,6 +9,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <style>
@@ -46,9 +47,10 @@
     </style>
 
     @php
-        $id = request()->segment(4);
+        // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
+        $id = request()->segment(4); // Adjust the segment number based on your URL structure
         $slider = DB::table('sliders')->first();
-        $category = DB::table('sub_categories')->get();
+        // $category = DB::table('categories')->get();
         $productHighRange = DB::table('products')->min('selling_price');
     @endphp
     <!-- category banner start -->
@@ -70,7 +72,16 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div class="shop-banner">
-                        <img src="{{ asset($slider->slider_img) }}" width="100%" height="200px" alt="">
+                        {{-- @dd($category[0]->category_banner_img); --}}
+                        {{-- category->category_banner_img --}}
+                        @if (isset($category->category_banner_img))
+                            <img src="{{ asset($category->category_banner_img) }}" width="100%" height="200px"
+                                alt="">
+                        @else
+                            <!-- Handle the case where category_banner_text is null or not set -->
+                            Img not available
+                        @endif
+                        {{-- <img src="{{ asset($category->category_banner_img) }}" width="100%" height="200px" alt=""> --}}
                     </div>
 
                 </div>
@@ -83,12 +94,24 @@
     <section class="after-header p-tb-10">
         <div class="container c-intro">
             <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-                <h1>Cateogry Product</h1>
+                {{-- <h1>Cateogry Product</h1> --}}
+                {{-- head text --}}
+                @php
+                    // dd($category);
+                @endphp
+                @if (isset($category->category_banner_text))
+                    {!! $category->category_banner_text !!}
+                @else
+                    <!-- Handle the case where category_banner_text is null or not set -->
+                    {{-- Text not available --}}
+                @endif
+
             </ul>
             <div class="child-list">
                 <a href="{{ Route('allcategory') }}">All category</a>
-                @foreach ($category as $category)
-                    <a href="{{ route('subcategory.view', ['subcategory_slug' => $category->subcategory_slug]) }}">{{ $category->subcategory_name }}</a>
+                @foreach ($categoryloop as $category)
+                    <a
+                        href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}">{{ $category->subcategory_name }}</a>
                 @endforeach
 
             </div>
@@ -201,9 +224,9 @@
                     <div class="p-items-wrap" id="productList_p">
                         <!-- product item start -->
                         @foreach ($category_all as $item)
-
                             <div class="p-item">
                                 @include('frontend.pages.product_item')
+
                             </div>
                         @endforeach
                     </div>
@@ -231,6 +254,25 @@
 
         </div>
     </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="category-description p-15 ws-box">
+                    @php
+                        // dd($category);
+                    @endphp
+                    @if (isset($category) && isset($category->category_footer_text))
+                        {!! $category->category_footer_text !!}
+                        {{-- {{htmlspecialchars($category->category_footer_text) }} --}}
+                    @else
+                        {{-- Text not available --}}
+                    @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
+ 
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {
@@ -313,7 +355,6 @@
 
         });
     </script>
-
 
 
 

@@ -13,8 +13,8 @@ use Session;
 
 class PaymentController extends Controller
 {
-   
-    
+
+
     public function PaymentProcess(Request $request)
     {
         $data = [
@@ -54,7 +54,9 @@ class PaymentController extends Controller
             'created_at' => now(),
         ];
 
-        DB::table('shippings')->insert($shipping);
+        $test = DB::table('shippings')->insert($shipping);
+        $test1 =  DB::table('shippings')->where('id', $shipping['order_id'])->first();
+// dd($test1);
 
         $content = Cart::content();
 
@@ -81,12 +83,12 @@ class PaymentController extends Controller
 
         $email =$shipping['email'] ??'';
 
-     
+
 
         $order = DB::table('orders')->where('id', $order_id)->first();
 
         $order_details = DB::table('orders_details')->where('order_id', $order_id)->get();
-   
+
 
         $shippingData = [
             'order_id'       => $shipping['order_id'],
@@ -112,7 +114,7 @@ class PaymentController extends Controller
             return 'Error sending order confirmation email: ' . $e->getMessage();
         }
 
-      
+
     }
 
     public function congratulations(){

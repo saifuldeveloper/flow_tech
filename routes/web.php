@@ -61,7 +61,10 @@ Route::get('/product/show', [ProductDetailsController::class, 'AllproductView'])
 Route::get('/product/{product_slug}', [ProductDetailsController::class, 'productView']);
 
 //   Download file
-Route::get('/download/{file}',[ProductDetailsController::class,'DownloadFile'])->name('download.file');
+// Route::get('/download/{file}',[ProductDetailsController::class,'DownloadFile']);
+Route::get('/download/{id}', [ProductDetailsController::class, 'DownloadFile'])->name('download.file');
+Route::get('/download/drive/{id}', [ProductDetailsController::class, 'DownloadDriveFile'])->name('download.drivefile');
+
 
 
 Route::get('/latest/offer/page', [ProductDetailsController::class, 'LatestOfferPage'])->name('latest.offer.page');
@@ -82,7 +85,7 @@ Route::post('/product/search', [ProductDetailsController::class, 'Search'])->nam
 // Product filter
 Route::post('product/brand/filter', [ProductDetailsController::class, 'BrandFilter'])->name('filter.brands');
 Route::post('product/availability/filter', [ProductDetailsController::class, 'AvailabilityFilter'])->name('filter.availability');
-Route::post('product/price/filter', [ProductDetailsController::class, 'PriceFilter'])->name('filter.price');
+Route::post('product/price/filter', [ProductDetailsController::class, 'PriceeFilter'])->name('filter.price');
 
 // Product filter with category
 Route::post('brand/filter/category/{id}', [ProductDetailsController::class, 'BrandFilterCategory']);
@@ -265,9 +268,12 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
 
       // Q@A List
       Route::get('/admin/list/question',[QuestionAnswerController::class,'listQuestion'])->name('list.question');
+      Route::get('/admin/submit/answer/{id}', [QuestionAnswerController::class, 'addAnswer'])->name('submit.answer');
+      Route::post('/admin/update/answer/{id}',[QuestionAnswerController::class,'updateAnswer'])->name('update.answer');
     //   Route::post('/admin/status/update/{id}', [LeadManagementController::class, 'statusUpdate'])->name('admin.status.update');
     //   Route::get('/admin/details/order/{id}',[LeadManagementController::class,'detailsOrder'])->name('details.order');
     //   Route::get('/admin/order/invoice/{id}', [LeadManagementController::class, 'invoiceOrder'])->name('invoice.orderlist');
+    Route::post('/question/manage', [QuestionAnswerController::class, 'answerManage']);
 
 
            // Coupon
@@ -285,8 +291,13 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'Home'])->name('homePage');
+Route::get('/user/account', [App\Http\Controllers\HomeController::class, 'Account'])->name('account');
+Route::get('/account/edit', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account.edit');
+// Route::get('/account/update/{id}', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account');
+Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, 'AccountOrderList'])->name('account.order.list');
+
 // this section for all page detials
-Route::get('/about/us', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('aboutUs');
 Route::get('/category', [App\Http\Controllers\HomeController::class, 'Category'])->name('allcategory');
 Route::get('/all/blog', [App\Http\Controllers\HomeController::class, 'Blog'])->name('allblog');
 Route::get('/all/blog/{id}', [App\Http\Controllers\HomeController::class, 'SingleBlog'])->name('SingleBlog');
@@ -306,4 +317,12 @@ Route::post('/user/product/question/form',[FrontendUserReviewController::class, 
 
 // Route::get('/', function () {
 //   return view('frontend.pages.index');
+// });
+// Route::group(['middleware'=>'Auth'],function(){
+    Route::get('/user/account', [App\Http\Controllers\HomeController::class, 'Account'])->name('account');
+    Route::get('/user/update/password/{id}', [App\Http\Controllers\HomeController::class, 'UpdatePassword'])->name('user.update.password');
+    Route::get('/account/edit', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account.edit');
+// Route::get('/account/update/{id}', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account');
+    Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, 'AccountOrderList'])->name('account.order.list');
+
 // });

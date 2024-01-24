@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('question')->nullable();
+            $table->string('answer');
             $table->timestamps();
         });
     }

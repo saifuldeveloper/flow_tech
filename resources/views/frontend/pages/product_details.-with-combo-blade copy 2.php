@@ -573,7 +573,54 @@
                         </div>
                         @else
                         @endif --}}
+                @if ($combo)
+                    <div class="col-md-6 ">
 
+                        <div class="container">
+                            <h2 class=" txt-center combo-heading"> Bought Together With Combo</h2>
+                            <div class="row combo">
+                                @foreach ($combo as $combo)
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class=" product-item">
+                                            <form action="{{ url('cart/combo/add/' . $combo->id) }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="action" value="add_to_cart">
+                                                <div class="">
+                                                    <div class="">
+                                                        <img src="{{ asset($combo->image_one) }}"
+                                                            alt="{{ $combo->first_product_name }}" width="128"
+                                                            height="128">
+                                                    </div>
+                                                    <div class="">
+                                                        <h4 class="p-item-name">
+                                                            <a href="">
+                                                                {{ $combo->first_product_name }}
+                                                            </a>
+
+                                                        </h4>
+                                                        <div class="p-item-price">
+                                                            <span>{{ $combo->first_selling_price }}৳</span>
+                                                            <span
+                                                                class="price-old">{{ $combo->first_discount_price }}৳</span>
+                                                        </div>
+
+                                                        <div class="actions">
+                                                            <button type="submit" class="btn  " id="button-cart"
+                                                                style=" margin: 4px 5px; background-color: crimson; border: none;">Add
+                                                                To Cart</button>
+                                                        </div>
+                                                    </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                @endif
 
         </div>
 
@@ -589,19 +636,10 @@
                 <div class="col-md-12 col-lg-12">
                     <section class="latest-price bg-white m-tb-15" id="latest-price">
                         <div class="section-head">
-                            <h2>What is the price of <span>@if (isset($product->product_name))
-                                {{ $product->product_name }}
-                            @else
-                            @endif</span> in
+                            <h2>What is the price of <span>{{ $product->product_name }}</span> in
                                 Bangladesh?</h2>
-
-                            {{-- <h2>What is the price of <span>{{ $product->product_name }}</span> in
-                                Bangladesh?</h2> --}}
                         </div>
-                        @if (isset($product->what_is_the))
-                                    <p>{!! $product->what_is_the !!}</p>
-                        @else
-                        @endif
+                        <p>{!! $product->what_is_the !!}</p>
                     </section>
                 </div>
             </div>
@@ -624,28 +662,17 @@
                         <div class="section-head">
                             <h2>Specification</h2>
                         </div>
-                        @if (isset($product->specification))
-                                    <div>
-                                        {!! $product->specification !!}
-                                    </div>
-                        @else
-                        @endif
+                        <div>
+                            {!! $product->specification !!}
+                        </div>
                     </section>
                     <section class="description bg-white m-tb-15" id="description">
                         <div class="section-head">
                             <h2>Description</h2>
                         </div>
                         <div class="full-description" itemprop="description">
-                            @if (isset($product->product_name))
-                                <h2 style="">{{ $product->product_name }}</h2>
-                            @else
-                            @endif
-
-                            @if (isset($product->long_description))
-
+                            <h2 style="">{{ $product->product_name }}</h2>
                             <p style="">{!! $product->long_description !!}</p>
-                            @else
-                            @endif
                         </div>
                     </section>
                     <section class="videos bg-white m-tb-15" id="video-section">
@@ -668,8 +695,6 @@
 
                     </section>
                     @php
-                    if (isset($product->id)){
-
                         $Id = $product->id;
                         $question = DB::table('user_questions')
                             ->leftJoin('users','user_questions.user_id','users.id')
@@ -681,20 +706,11 @@
                             ->get();
                             $totalQuestion =  DB::table('user_questions')->where('product_id', $Id)->count();
                             $totalReview =  DB::table('ratings')->where('product_id', $Id)->count();
-                    }
-
-
                     @endphp
                     <section class="ask-question q-n-r-section bg-white m-tb-15" id="ask-question">
                         <div class="section-head">
                             <div class="title-n-action">
-
-                                @if (isset($totalQuestion))
                                 <h2>Questions ({{$totalQuestion}})</h2>
-                            @else
-
-                            @endif
-
                                 <p class="section-blurb">Have question about this product? Get specific details about
                                     this product from expert.</p>
                             </div>
@@ -708,19 +724,15 @@
                         </div>
                         <div id="question">
                             {{-- question --}}
-                            @if (isset($question))
+                            @if ($question)
 
-
-                                @foreach ($question as $row)
-                                    <div class="question-wrap">
-                                        <p class="author">
-                                            <span class="name">{{ $row->name ?? '' }}</span> on {{ isset($row->created_at) ? \Carbon\Carbon::parse($row->created_at)->format('d M Y') : '' }}
-
-                                        </p>
-                                        <h3 class="question"><span class="hint">Q: </span> {{ $row->question ?? '' }}</h3>
-                                        <p class="answer"><span class="hint">A: </span> {!! isset($row->answer) ? $row->answer : '' !!}</p>
-                                        <p class="author answerer"><span class="fade">By</span> <span>Flow Tech Support </span> <span class="fade">{{ isset($row->updated_at) ? \Carbon\Carbon::parse($row->updated_at)->format('d M Y') : '' }}</span></p>
-                                    </div>
+                                @foreach ($question as $key => $row)
+                                <div class="question-wrap">
+                                    <p class="author"><span class="name">{{ $row->name }}</span> on {{ \Carbon\Carbon::parse($row->created_at)->format('d M Y') }}</p>
+                                    <h3 class="question"><span class="hint">Q: </span> {{ $row->question }}</h3>
+                                    <p class="answer"><span class="hint">A: </span> {!! $row->answer !!}</p>
+                                    <p class="author answerer"><span class="fade">By</span> <span>Flow Tech Support </span> <span class="fade">{{ \Carbon\Carbon::parse($row->updated_at)->format('d M Y') }}</span></p>
+                                </div>
 
                                 @endforeach
                             @else
@@ -738,7 +750,7 @@
                     <section class="review  q-n-r-section bg-white m-tb-15" id="write-review">
                         <div class="section-head">
                             <div class="title-n-action">
-                                <h2>Reviews ({{$totalReview ?? 0}})</h2>
+                                <h2>Reviews ({{$totalReview}})</h2>
                                 <p class="section-blurb">Get specific details about this product from customers who own
                                     it.</p>
                                 <div class="average-rating">
@@ -755,8 +767,8 @@
                             </div>
                         </div>
                         <div id="review">
-                            @if (isset($review))
-
+                            @if ($review)
+                            {{-- jdfkj --}}
 
                                 @foreach ($review as $key => $row)
                                 <div class="review-wrap">
@@ -782,7 +794,26 @@
                                     review.</div>
                             </div>
                             @endif
-
+                            {{-- if --}}
+                            {{-- <div class="review-wrap">
+                                <div class="review-author">
+                                  <span class="rating">
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                  </span>
+                                </div>
+                                <p class="review">
+                                  A very good monitor at this price range. I am very much satisfied with
+                                  this monitor.
+                                </p>
+                                <p class="author">
+                                  By <span class="name">Syed Najmul Hasan</span> on 16 Nov 2020
+                                </p>
+                            </div> --}}
+                            {{-- else --}}
 
 
                         </div>
@@ -793,21 +824,21 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item has-child c-1">
                                     {{-- <a class="nav-link" href="{{url('/download',$product->catalouge)}}">Catalouge</a> --}}
-                                    <a class="nav-link" href="{{ route('download.file', ['id' => $product->id ?? 0]) }}">Catalouge</a>
+                                    <a class="nav-link" href="{{ route('download.file', ['id' => $product->id]) }}">Catalouge</a>
 
                                     {{-- <a class="nav-link" href="{{ url('/download'.'/'.($product->catalouge)) }}">Catalouge</a> --}}
                                     {{-- <a class="nav-link" href="{{ url('/download', urlencode($product->catalouge)) }}">Catalouge</a> --}}
 
                                 </li>
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="{{ route('download.drivefile', ['id' => $product->id ?? 0]) }}">Drivers</a>
+                                    <a class="nav-link" href="{{ route('download.drivefile', ['id' => $product->id]) }}">Drivers</a>
                                     {{-- <a class="nav-link" href="{{ url('download/'.($product->drivers)) }}">Drivers</a> --}}
                                 </li>
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="{{($product->firmware ?? '')}}">Firmware</a>
+                                    <a class="nav-link" href="{{($product->firmware)}}">Firmware</a>
                                 </li>
                                 <li class="nav-item has-child c-1">
-                                    <a class="nav-link" href="{{($product->manual ?? '')}}">Manual</a>
+                                    <a class="nav-link" href="{{($product->manual)}}">Manual</a>
                                 </li>
 
                             </ul>
@@ -819,7 +850,7 @@
 
                 </div>
                 @php
-                    $cat_id = $product->category_id ?? null;
+                    $cat_id = $product->category_id;
                     $relatedProduct = App\Models\Product::where('category_id', $cat_id)
                         ->orderBy('id', 'DESC')
                         ->get();

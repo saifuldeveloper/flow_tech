@@ -10,6 +10,7 @@ class UserQuestion extends Model
     use HasFactory;
     protected $fillable = [
         'product_id',
+        'answer',
 
         'question',
         'user_id',

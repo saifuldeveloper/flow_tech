@@ -7,8 +7,8 @@ $setting = DB::table('settings')->first();
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="https://www.startech.com.bd/"><i class="material-icons" title="Home">home</i></a></li>
-                <li><a href="https://www.startech.com.bd/online-delivery">Online Delivery</a></li>
+                <li><a href="{{route('home')}}"><i class="material-icons" title="Home">home</i></a></li>
+                <li><a href="{{route('delivery')}}">Online Delivery</a></li>
             </ul>
         </div>
     </section>
