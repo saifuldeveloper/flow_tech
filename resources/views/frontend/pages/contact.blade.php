@@ -6,7 +6,7 @@ $setting = DB::table('settings')->first();
 <section class="after-header p-tb-10">
     <div class="container">
         <ul class="breadcrumb">
-                        <li><a href="../index.html"><i class="material-icons" title="Home">home</i></a></li>
+                        <li><a href="{{route('/')}}"><i class="material-icons" title="Home">home</i></a></li>
                         <li><a href="contact.html">Contact Us | Star Tech Ltd</a></li>
                     </ul>
     </div>
@@ -34,7 +34,7 @@ $setting = DB::table('settings')->first();
                     </div>
                 </div>
             </div>
-           
+
         </div>
 
             </div>

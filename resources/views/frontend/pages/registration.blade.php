@@ -1,6 +1,6 @@
 @extends('fontend_master')
 @section('content')
-    
+
 <section class="after-header p-tb-10">
     <div class="container">
         <ul class="breadcrumb">
@@ -16,7 +16,7 @@
             <h2 class="text-center">Register Account</h2>
         </div>
         <div class="p-body">
-                        <form action="https://www.startech.com.bd/account/register" method="post" id="form-register" enctype="multipart/form-data">
+                        <form action="" method="post" id="form-register" enctype="multipart/form-data">
                                 <input type="hidden" id="input-token" name="token" value="" />
                 <input type="hidden" name="step" value="1" />
                 <div class="multiple-form-group">

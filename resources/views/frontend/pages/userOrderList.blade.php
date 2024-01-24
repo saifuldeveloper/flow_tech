@@ -118,7 +118,6 @@ body {
             ->where('users.id', $Id)
             ->get();
 
-            // dd($Items);
 @endphp
 
         <section class="after-header p-tb-10">
@@ -161,9 +160,7 @@ body {
                   <li>SI</li>
                   <li>Product Name</li>
                   <li>Qty</li>
-                  {{-- <li>Sub Total</li> --}}
                   <li>Total</li>
-                  {{-- <li>Price</li> --}}
                 </ul>
 
                 @foreach ($Items as $key=>$item)
@@ -172,7 +169,6 @@ body {
                     <li data-label="product_name">{{$item->product_name}}</li>
                     <li data-label="product_qunatity">{{$item->quantity}}</li>
                     <li data-label="product_totalprice">{{$item->totalprice}}</li>
-                    {{-- <li data-label="product_name">{{$item->subtotal}}</li> --}}
                     </li>
                   </ul>
 
@@ -184,11 +180,6 @@ body {
 
         </div>
 
-
-
-        <div class="overlay"></div>
-        {{-- <script src="js/all.min.js"></script> --}}
-        <div class="overlay"></div>
     </body>
 
     </html>

@@ -1,8 +1,6 @@
 @extends('fontend_master')
 @section('content')
-{{-- @php
-    dd($blog_catch);
-@endphp --}}
+
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">

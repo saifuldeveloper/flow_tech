@@ -53,7 +53,7 @@
                     <a class="brand" href="{{ url('/') }}"> <img src="{{ asset($setting->logo) }}" title=""
                             style="height: 50px; width: 140px;" alt=" "></a>
                     <div class="mbl-right h-desk">
-                        <div class="ac search-toggler" style=""><i class="material-icons"></i></div>
+                        <div class="ac search-toggler" style="color:#fff"><i class="fa fa-search"></i></div>
 
                     </div>
                 </div>

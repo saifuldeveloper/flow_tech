@@ -37,15 +37,7 @@
     color: #c59b08;
 }
 </style>
-    {{-- <section class="after-header p-tb-10">
-    <div class="container">
-        <ul class="breadcrumb">
-                        <li><a href="../index.html"><i class="material-icons" title="Home">home</i></a></li>
-                        <li><a href="login.html">Account</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
-    </div>
-</section> --}}
+
     <div class="container ac-layout before-login">
         <div class="panel m-auto">
             <div class="p-head">
@@ -56,7 +48,6 @@
                     @csrf
                     @php
                     $product = DB::table('products')->where('id', $id)->first();
-                    // dd($product);
                 @endphp
                     <input type="hidden" name="product_id" value="{{$id}}" class="form-control" />
                     @if (Auth::check())

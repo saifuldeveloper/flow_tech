@@ -30,7 +30,7 @@
                         @foreach ($slider as $sliders)
                             <div class="slide">
                                 <a href="">
-                                    <img src="{{ asset($sliders->slider_img) }}" alt="Outlet Notice" class="img-responsive"
+                                    <img src="{{ asset($sliders->slider_img) }}" alt="{{$sliders->meta_description}}" class="img-responsive"
                                         width="982" height="500" />
                                 </a>
                             </div>
@@ -41,13 +41,13 @@
                     <div class="main-home-sidebar-banner">
                         <div class="ads loaded">
                             <a href="">
-                                <img src="{{ asset($siteslider->slider_img) }}" alt="home |Budget Desktop PC" width="300"
+                                <img src="{{ asset($siteslider->slider_img) }}" alt="{{$siteslider->meta_description}}" width="300"
                                     height="">
                             </a>
                         </div>
                         <div class="ads loaded m-t-30">
                             <a href="">
-                                <img src="{{ asset($siteslider->slider_img_one) }}" alt="home |Budget Desktop PC"
+                                <img src="{{ asset($siteslider->slider_img_one) }}" alt="{{$siteslider->meta_description}}"
                                     width="300" height="">
                             </a>
                         </div>
@@ -89,7 +89,7 @@
                                 <a href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}"
                                     class="cat-item-inner">
                                     <span class="cat-icon">
-                                        <img src="{{ asset($category->category_img) }}" alt="Drone" width="48"
+                                        <img src="{{ asset($category->category_img) }}" alt="{{$category->meta_description }}" width="48"
                                             height="48">
                                     </span>
                                     <p>{{ $category->category_name }}</p>

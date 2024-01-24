@@ -1,23 +1,6 @@
 @extends('fontend_master')
 @section('content')
-    {{-- <!DOCTYPE html>
-    <html dir="ltr" lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>Flow Tech - The Power Of Technology</title>
-        <base />
-        <meta name="description" content="" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="image/logo1.png" rel="icon" />
-        <script async src="js/site.min.26.js" type="text/javascript"></script>
-        <link rel="preload" href="catalog/view/theme/starship/fonts/MaterialIcons-Regular.woff2" as="font"
-            crossorigin>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/all.min.css">
-
-    </head> --}}
 
     <body class="account-edit">
 
@@ -216,10 +199,7 @@
                 </div>
             </div>
         </footer>
-        <!-- footer end -->
-        {{-- <div class="overlay"></div>
-        <script src="js/all.min.js"></script>
-        <div class="overlay"></div> --}}
+
     </body>
 
     </html>
