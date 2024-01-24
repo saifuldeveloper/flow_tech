@@ -30,6 +30,21 @@ class HomeController extends Controller
     {
         return view('frontend.pages.home');
     }
+    public function Account()
+    {
+        return view('frontend.pages.account');
+        // return view('frontend.pages.userOrderList');
+    }
+    public function AccountEdit()
+    {
+        // return view('frontend.pages.account');
+        return view('frontend.pages.userAccountEdit');
+    }
+    public function AccountOrderList()
+    {
+        // return view('frontend.pages.account');
+        return view('frontend.pages.userOrderList');
+    }
     public function aboutUs()
     {
         return view('frontend.pages.aboutus');

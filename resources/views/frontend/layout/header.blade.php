@@ -86,14 +86,14 @@
                         </div>
                     </a>
                     <div class="ac">
-                        <a class="ic" href="login.html"><i class="fa-solid fa-user"></i></a>
+                        <a class="ic" href="{{route('login')}}"><i class="fa fa-user"></i></a>
                         <div class="ac-content">
-                            <a href="login.html">
+                            <a href="{{route('login')}}">
                                 <h5>Account</h5>
                             </a>
                             <p>
                                 @if (Auth::check())
-                                    <a href="#">Dashboard</a>
+                                    <a href="{{route('account')}}">Dashboard</a>
                                 @else
                                     <a href="{{ route('register') }}">Register</a>
                                 @endif

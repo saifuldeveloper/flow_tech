@@ -288,8 +288,13 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'Home'])->name('homePage');
+Route::get('/user/account', [App\Http\Controllers\HomeController::class, 'Account'])->name('account');
+Route::get('/account/edit', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account.edit');
+// Route::get('/account/update/{id}', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account');
+Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, 'AccountOrderList'])->name('account.order.list');
+
 // this section for all page detials
-Route::get('/about/us', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('aboutUs');
 Route::get('/category', [App\Http\Controllers\HomeController::class, 'Category'])->name('allcategory');
 Route::get('/all/blog', [App\Http\Controllers\HomeController::class, 'Blog'])->name('allblog');
 Route::get('/all/blog/{id}', [App\Http\Controllers\HomeController::class, 'SingleBlog'])->name('SingleBlog');
@@ -309,4 +314,12 @@ Route::post('/user/product/question/form',[FrontendUserReviewController::class, 
 
 // Route::get('/', function () {
 //   return view('frontend.pages.index');
+// });
+// Route::group(['middleware'=>'Auth'],function(){
+    Route::get('/user/account', [App\Http\Controllers\HomeController::class, 'Account'])->name('account');
+    Route::get('/user/update/password/{id}', [App\Http\Controllers\HomeController::class, 'UpdatePassword'])->name('user.update.password');
+    Route::get('/account/edit', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account.edit');
+// Route::get('/account/update/{id}', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account');
+    Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, 'AccountOrderList'])->name('account.order.list');
+
 // });
