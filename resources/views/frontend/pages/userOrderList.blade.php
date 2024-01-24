@@ -9,6 +9,23 @@ body {
   font-family:sans-serif;
 }
 
+.my-element {
+    color: #ffc107; /* Bootstrap warning color */
+    font-weight: bold;
+}
+.my-second-element {
+    color: #0d6efd; /* Bootstrap info color */
+    font-weight: bold;
+}
+.my-third-element {
+    color: #DC3545;
+    font-weight: bold;
+}
+.my-fourth-element {
+    color: #198754;
+    font-weight: bold;
+}
+
 .list ul:nth-child(odd) {
   background-color:#ddd;
 }
@@ -84,6 +101,8 @@ body {
     margin:-1em 0 0 50%;
   }
 
+
+
 }
 
 /* tiny */
@@ -117,6 +136,7 @@ body {
             ->leftJoin('shippings','orders.id','shippings.order_id')
             ->where('users.id', $Id)
             ->get();
+
 
 @endphp
 
@@ -161,6 +181,7 @@ body {
                   <li>Product Name</li>
                   <li>Qty</li>
                   <li>Total</li>
+                  <li>Status</li>
                 </ul>
 
                 @foreach ($Items as $key=>$item)
@@ -169,7 +190,19 @@ body {
                     <li data-label="product_name">{{$item->product_name}}</li>
                     <li data-label="product_qunatity">{{$item->quantity}}</li>
                     <li data-label="product_totalprice">{{$item->totalprice}}</li>
+
+                    <li class="order_status">
+                        @if($item->status == 0)
+                           <span class="my-element">Order Pending</span>
+                           @elseif($item->status == 1)
+                           <span class="my-second-element">Order Completed</span>
+                           @elseif($item->status == 2)
+                           <span class="my-third-element">Order Declined</span>
+                           @elseif($item->status == 3)
+                           <span class="my-fourth-element">Order Delivery</span>
+                        @endif
                     </li>
+
                   </ul>
 
                 @endforeach
