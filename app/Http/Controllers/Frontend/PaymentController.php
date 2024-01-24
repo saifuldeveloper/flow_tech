@@ -83,8 +83,6 @@ class PaymentController extends Controller
 
         $email =$shipping['email'] ??'';
 
-
-
         $order = DB::table('orders')->where('id', $order_id)->first();
 
         $order_details = DB::table('orders_details')->where('order_id', $order_id)->get();
@@ -111,6 +109,7 @@ class PaymentController extends Controller
             Mail::to($email)->send(new OrderConfirmation($shippingData));
             return view('frontend.pages.congratulations_page');
         } catch (\Exception $e) {
+            dd('Error sending order confirmation email: ' . $e->getMessage());
             return 'Error sending order confirmation email: ' . $e->getMessage();
         }
 

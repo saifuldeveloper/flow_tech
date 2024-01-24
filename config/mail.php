@@ -15,6 +15,7 @@ return [
 
     'default' => env('MAIL_MAILER', 'smtp'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations
@@ -113,6 +114,7 @@ return [
         'paths' => [
             resource_path('views/vendor/mail'),
         ],
+        'driver' => env('MAIL_MAILER', 'log'),
     ],
 
 ];

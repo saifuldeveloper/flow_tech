@@ -20,6 +20,8 @@ class OrderConfirmation extends Mailable
         $this->shipping = $shipping;
     }
 
+  
+
     public function build()
     {
         return $this->subject('Order Confirmation')
