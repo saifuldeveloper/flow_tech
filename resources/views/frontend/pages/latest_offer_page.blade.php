@@ -45,8 +45,6 @@
                                             To Cart</a>
                                         <a href="{{route('user.checkout')}}" data-id="{{$product->id}}"  class="buynow btn submit-btn" id="button-cart" style="width: 100%;">Buy
                                             Now</a>
-
-
                                     </div>
                                 </div>
                             </div>

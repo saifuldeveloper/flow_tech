@@ -47,8 +47,11 @@
     </style>
 
     @php
-        // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
-        $id = request()->segment(4); // Adjust the segment number based on your URL structure
+    $slug = request()->segment(2);// Adjust the segment number based on your URL structure
+    $category = DB::table('categories')->where('category_slug', $slug)->first();
+    // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
+    $id = $category->id;
+        // $id = request()->segment(2); // Adjust the segment number based on your URL structure
         $slider = DB::table('sliders')->first();
         // $category = DB::table('categories')->get();
         $productHighRange = DB::table('products')->min('selling_price');
