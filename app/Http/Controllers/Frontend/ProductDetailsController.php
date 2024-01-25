@@ -241,7 +241,7 @@ class ProductDetailsController extends Controller
 
         return view('frontend.pages.category_product_show', compact('category_all','HeadSlug', 'category', 'categoryloop'));
     } // End Method
-    public function SubCategoryView($subcategory_slug)
+    public function S($subcategory_slug)
     {
 
         $HeadSlug = $subcategory_slug;
@@ -253,14 +253,36 @@ class ProductDetailsController extends Controller
         ->paginate(20);
         $category = DB::table('sub_categories')
         ->leftJoin('chlild_categories', 'sub_categories.id', '=', 'chlild_categories.sub_category_id')
-        ->where('sub_categories.subcategory_slug',$subcategory_slug)
+        ->where('chlild_categories.sub_category_id',$subcategory->id)
+        ->select('sub_categories.*', 'chlild_categories.*')
         ->get();
+        // dd($category);
         // $category_all = DB::table('products')->where('category_id',$id)->get();
         // $category_all = Product::where('category_id', $id)->
         // where('subcategory_id', $id)->paginate(20);
         return view('frontend.pages.subcategory_product_show', compact('category_all','HeadSlug','category'));
 
     } // End Method
+    public function SubCategoryView($subcategory_slug)
+    {
+        $HeadSlug = $subcategory_slug;
+
+        $subcategory = SubCategory::where('subcategory_slug', $subcategory_slug)->first();
+
+        // Get products related to the subcategory
+        $category_all = DB::table('products')
+            ->where('subcategory_id', $subcategory->id)
+            ->paginate(20);
+
+        // Left join sub_categories with chlild_categories on sub_category_id
+        $joinedCategory = DB::table('sub_categories')
+            ->leftJoin('chlild_categories', 'sub_categories.id', '=', 'chlild_categories.sub_category_id')
+            ->where('sub_categories.id', $subcategory->id)
+            ->select('sub_categories.*', 'chlild_categories.*') // Adjust column names as needed
+            ->get();
+
+        return view('frontend.pages.subcategory_product_show', compact('category_all', 'HeadSlug', 'joinedCategory'));
+    }// End Method
 
     public function ChildCategoryView($childcategory_slug)
     {

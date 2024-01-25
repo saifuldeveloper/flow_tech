@@ -589,12 +589,12 @@
                 <div class="col-md-12 col-lg-12">
                     <section class="latest-price bg-white m-tb-15" id="latest-price">
                         <div class="section-head">
-                            <h2>What is the price of <span>@if (isset($product->product_name))
+                            {{-- <h2>What is the Price</h2> --}}
+                            {{-- <h2>What is the price of <span>@if (isset($product->product_name))
                                 {{ $product->product_name }}
                             @else
                             @endif</span> in
-                                Bangladesh?</h2>
-
+                                Bangladesh?</h2> --}}
                             {{-- <h2>What is the price of <span>{{ $product->product_name }}</span> in
                                 Bangladesh?</h2> --}}
                         </div>

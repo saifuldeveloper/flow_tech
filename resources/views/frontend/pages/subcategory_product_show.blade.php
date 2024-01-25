@@ -91,9 +91,10 @@
             </ul>
             <div class="child-list">
                 <a href="{{ Route('allcategory') }}">All category</a>
-                @foreach ($category as $category)
-                    <a href="{{ route('subcategory.view', ['subcategory_slug' => $category->subcategory_slug]) }}">{{ $category->subcategory_name }}</a>
-                @endforeach
+                    @foreach ($joinedCategory as $item)
+                        <a href="{{ route('childcategory.view', ['childcategory_slug' => $item->childcategory_slug]) }}">{{ $item->childcategory_name }}</a>
+                    @endforeach
+
 
             </div>
         </div>
