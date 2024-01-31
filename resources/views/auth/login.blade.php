@@ -4,9 +4,9 @@
 <section class="after-header p-tb-10">
     <div class="container">
         <ul class="breadcrumb">
-                        <li><a href="../index.html"><i class="fa fa-home" title="Home"></i></a></li>
-                        <li><a href="login.html">Account</a></li>
-                        <li><a href="login.html">Login</a></li>
+                        <li><a href="{{route('home')}}"><i class="fa fa-home" title="Home"></i></a></li>
+                        <li><a href="{{url('/login')}}">Account</a></li>
+                        <li><a href="{{url('/login')}}">Login</a></li>
                     </ul>
     </div>
 </section>

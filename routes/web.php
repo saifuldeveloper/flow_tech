@@ -216,7 +216,7 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
 
 
   //blog Commments
-  Route::post('/admin/store/blog/comments',[BlogController::class,'storeBlogComments'])->name('store.blog.comments');
+//   Route::post('/admin/store/blog/comments',[BlogController::class,'storeBlogComments'])->name('store.blog.comments');
 
      // Product
      Route::get('/admin/list/product',[ProductController::class,'listProduct'])->name('list.product');
@@ -324,5 +324,9 @@ Route::post('/user/product/question/form',[FrontendUserReviewController::class, 
     Route::get('/account/edit', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account.edit');
 // Route::get('/account/update/{id}', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account');
     Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, 'AccountOrderList'])->name('account.order.list');
+
+
+  //blog Commments
+  Route::post('/admin/store/blog/comments',[BlogController::class,'storeBlogComments'])->name('store.blog.comments');
 
 // });

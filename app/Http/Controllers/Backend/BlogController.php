@@ -114,7 +114,7 @@ class BlogController extends Controller
 //********************************************************************* */
     public function storeBlogComments(Request $request){
 
-        // this is big brother code
+        // dd($request->all());
         $data = array();
 
         $data['blog_id'] = $request->blog_id;

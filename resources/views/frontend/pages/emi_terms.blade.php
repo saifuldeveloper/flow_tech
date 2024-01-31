@@ -7,8 +7,8 @@ $setting = DB::table('settings')->first();
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{url('/')}}"><i class="material-icons" title="Home"></i>Home</a></li>
-                <li><a href="https://www.startech.com.bd/emi-terms">EMI Terms</a></li>
+                <li><a href="{{route('home')}}"><i class="material-icons" title="Home"></i>Home</a></li>
+                <li><a href="{{route('emi')}}">EMI Terms</a></li>
             </ul>
         </div>
     </section>
