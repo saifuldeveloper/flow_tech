@@ -12,9 +12,6 @@
     <meta name="keywords" content="@yield('meta_keywords', 'Default Keywords')">
     @yield('meta')
 
-
-    {{-- <script src="{{asset('assets/fontend/js/jquery.min.js')}}"></script> --}}
-
     <link href="{{asset('assets/fontend/image/logo1.png')}}" rel="icon" />
 
     <link rel="preload" href="catalog/view/theme/starship/fonts/MaterialIcons-Regular.woff2" as="font" crossorigin>
@@ -25,16 +22,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-
     <script src="{{asset('assets/fontend/js/custom.js')}}"></script>
-
-    {{-- <script async src="{{asset('assets/fontend/js/site.min.26.js')}}" type="text/javascript"></script> --}}
-    {{-- <script src="{{asset('assets/fontend/js/site.min.26.js')}}"></script> --}}
-
-
-
-
-
 
 </head>
 

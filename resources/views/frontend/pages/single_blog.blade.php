@@ -14,6 +14,7 @@
 @endsection
 @section('content')
 
+
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
@@ -41,9 +42,13 @@
                             <span class="date" style="margin-right: 50px;"><i class="far fa-clock"></i><span style="margin-left: 10px">{{ \Carbon\Carbon::parse($blog_catch->created_at)->format('d M Y') }}</span></span>
                         </div>
                         <div class="share-on" style="margin-bottom: 20px">
-                            <span class="share">Share On: </span>
-                            <span class="icon-sprite share-ico fb-dark" data-type="facebook"></span>
-                            <span class="icon-sprite share-ico pinterest-dark" data-type="pinterest"></span>
+                            @php
+                                $currentUrl = url()->current();
+                            @endphp
+                            <span class="share">Share On : </span>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $currentUrl }}&display=popup"><span class="icon-sprite share-ico fb-dark" data-type="facebook"></span></a>
+                            <a href="https://www.pinterest.com/pin/create/button/?url={{ $currentUrl }}&media=SourceImageUrl&display=popup"><span class="icon-sprite share-ico pinterest-dark" data-type="pinterest"></span></a>
+
                         </div>
                         <div class="article-description" itemprop="articleBody">
                                 {!!$blog_catch->long_description!!}
