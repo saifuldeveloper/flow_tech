@@ -1,4 +1,17 @@
 @extends('fontend_master')
+@section('meta_title'){{ $blog_catch->meta_title }}@stop
+@section('meta_description'){{ $blog_catch->meta_description }}@stop
+@section('meta_keywords'){{ $blog_catch->keyword }}@stop
+@section('meta')
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="{{ $blog_catch->meta_title }}">
+    <meta itemprop="description" content="{{ $blog_catch->meta_description }}">
+    <meta name="keywords" content="{{ $blog_catch->meta_tag }}"/>
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ $blog_catch->meta_title }}" />
+    <meta property="og:description" content="{{ $blog_catch->meta_description }}" />
+    <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+@endsection
 @section('content')
 
     <section class="after-header p-tb-10">
@@ -34,6 +47,8 @@
                         </div>
                         <div class="article-description" itemprop="articleBody">
                                 {!!$blog_catch->long_description!!}
+
+
                         </div>
 
                     </div>
@@ -94,4 +109,8 @@
             </div>
 
     </section>
+
+    @section('metaschema')
+    <meta name="schema-markup" content="{{  $blog_catch->schema_markup }}"/>
+    @endsection
 @endsection

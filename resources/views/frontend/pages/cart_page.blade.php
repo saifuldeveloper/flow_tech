@@ -22,7 +22,7 @@
                             <tr>
                                 <td class="text-center rs-none">Image</td>
                                 <td class="text-left">Product Name</td>
-                                <td class="text-left rs-none">Model</td>
+                                {{-- <td class="text-left rs-none">Model</td> --}}
                                 <td class="text-left">Quantity</td>
                                 <td class="text-right rs-none">Unit Price</td>
                                 <td class="text-right">Total</td>
@@ -32,6 +32,7 @@
                             $total = 0;
                         @endphp
                         <tbody>
+                            {{-- @dd($cart) --}}
                             @foreach ($cart as $row)
                                 @php
                                     $total += $row->price * $row->qty;
@@ -45,15 +46,15 @@
                                     <td class="text-left">
                                         <a href="">{{ $row->name }}</a>
                                     </td>
-                                    <td class="text-left rs-none">{{ $row->name }}</td>
+                                    {{-- <td class="text-left rs-none">{{ $row->product_code }}</td> --}}
                                     <form action="{{ route('update.cartitem') }}" method="post">
                                         @csrf
                                         <td class="text-left">
                                             <div class="input-group btn-block" style="max-width: 200px;">
 
 
-                                                <input type="text" value="{{ $row->qty }}" name="qty"
-                                                    size="1" class="form-control" />
+                                                <input type="number" value="{{ $row->qty }}" name="qty"
+                                                    size="1" class="form-control" min="1"/>
 
 
                                                 <span class="input-group-btn">

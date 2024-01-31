@@ -75,7 +75,8 @@ class HomeController extends Controller
     }
    public function category(){
     $category_all=DB::table('products')->get();
-    return view('frontend.pages.all_category',compact('category_all'));
+    $meta_info=DB::table('categories')->get();
+    return view('frontend.pages.all_category',compact('category_all', 'meta_info'));
    }
    public function Blog(){
     $blog_all=DB::table('blogs')->get();

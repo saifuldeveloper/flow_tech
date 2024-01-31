@@ -1,4 +1,18 @@
 @extends('fontend_master')
+@section('meta_title'){{ $category->meta_title }}@stop
+@section('meta_description'){{ $category->meta_description }}@stop
+@section('meta_keywords'){{ $category->keyword }}@stop
+@section('meta')
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="{{ $category->meta_title }}">
+    <meta itemprop="description" content="{{ $category->meta_description }}">
+    <meta name="keywords" content="{{ $category->meta_tag }}"/>
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ $category->meta_title }}" />
+    <meta property="og:description" content="{{ $category->meta_description }}" />
+    <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+@endsection
+
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
@@ -275,6 +289,9 @@
             </div>
         </div>
     </div>
+    @section('metaschema')
+    <meta name="schema-markup" content="{{  $category->schema_markup }}"/>
+    @endsection
 
     <script type="text/javascript">
         $(document).ready(function() {

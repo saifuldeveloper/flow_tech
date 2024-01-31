@@ -315,8 +315,44 @@
                     </div> --}}
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label class="form-label" >Meta Title</label><br>
+                             <textarea class="form-control" name="meta_title" id="summernote5" cols="5" rows="5"></textarea>
+
+                            <span style="color: red;">
+                                @error('meta_title')
+                                    {{$message}}
+                                @enderror
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label" >Keyword</label><br>
+                             <textarea class="form-control" name="keyword" id="summernote6" cols="5" rows="5"></textarea>
+
+                            <span style="color: red;">
+                                @error('keyword')
+                                    {{$message}}
+                                @enderror
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label" >Schema Markup </label><br>
+                             <textarea class="form-control" name="schema_markup" id="summernote7" cols="10" rows="5"></textarea>
+
+                            <span style="color: red;">
+                                @error('schema_markup')
+                                    {{$message}}
+                                @enderror
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label class="form-label" >Meta Description</label><br>
-                             <textarea class="form-control" name="meta_description" id="" cols="30" rows="5"></textarea>
+                             <textarea class="form-control" name="meta_description" id="summernote8" cols="30" rows="5"></textarea>
 
                             <span style="color: red;">
                                 @error('meta_description')
@@ -528,7 +564,7 @@
                   </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Image Five:</label><br>
                     <input type="file"  name="image_five" class="form-control" id="upload_file" onchange="getImagePreview5(event)"   >
@@ -552,7 +588,7 @@
                   </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Image Six:</label><br>
                     <input type="file"  name="image_six" class="form-control" id="upload_file" onchange="getImagePreview6(event)"   >
@@ -828,28 +864,49 @@
       tabsize: 2,
       height: 100
     });
-  </script>
 
-<script>
     $('#summernote2').summernote({
 
       tabsize: 2,
       height: 100
     });
-  </script>
-<script>
+
     $('#summernote3').summernote({
 
       tabsize: 2,
       height: 100
     });
-  </script>
-<script>
+
     $('#summernote4').summernote({
 
       tabsize: 2,
       height: 100
     });
+
+    $('#summernote5').summernote({
+
+      tabsize: 2,
+      height: 100
+    });
+
+    $('#summernote6').summernote({
+
+      tabsize: 2,
+      height: 100
+    });
+
+    $('#summernote7').summernote({
+
+      tabsize: 2,
+      height: 100
+    });
+
+    $('#summernote8').summernote({
+
+      tabsize: 2,
+      height: 100
+    });
+
   </script>
   <script>
     function slugify(text) {

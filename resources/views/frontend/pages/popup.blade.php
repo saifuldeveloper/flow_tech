@@ -38,13 +38,15 @@
 
     .bts-popup-container {
         position: relative;
-        width: 90%;
-        max-width: 400px;
+        /* height: 540px; */
+        width: 550px;
+        /* width: 90%; */
+        /* max-width: 400px; */
         margin: 4em auto;
         /* background: #f36f21; */
         border-radius: none;
         text-align: center;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); */
         -webkit-transform: translateY(-40px);
         -moz-transform: translateY(-40px);
         -ms-transform: translateY(-40px);
@@ -59,9 +61,10 @@
         -moz-transition-duration: 0.3s;
         transition-duration: 0.3s;
     }
-
     .bts-popup-container img {
         padding: 0 0 0 0;
+        margin-top: 130px;
+        height: 500px;
     }
 
     .bts-popup-container p {
@@ -82,14 +85,9 @@
         text-transform: uppercase;
     }
 
-
-
-
-
-
     .bts-popup-container .bts-popup-close {
         position: absolute;
-        top: 20px;
+        top: 140px;
         right: 8px;
         width: 30px;
         height: 30px;
@@ -142,22 +140,11 @@
 
 <div class="bts-popup" role="alert">
     <div class="bts-popup-container">
-        <!--       <img src="https://www.trend-transformations.com/wp-content/themes/trend-transformations/library/images/trend-logo-white.svg" alt="" width="50%" /> -->
-        {{-- <img src="https://i.pinimg.com/originals/f6/50/a3/f650a377c6fabd4740f0edd07d95f41f.jpg" alt="li"
-            width="50%"> --}}
-        {{-- <p>Stay on track and on budget by downloading your FREE starterguide / workbook today!</p> --}}
-
-        {{-- <div class="bts-popup-button">
-            <a href="#0">Enter</a>
-        </div> --}}
-        <div class="body">
-
-            <a href="{{ url($popup->popup_link) }}">
-                <span>
-                    <img src="{{ asset($popup->popup_img) }}" alt="{{ $popup->meta_tag }}">
-                </span>
-            </a>
-        </div>
+        <a href="{{ url($popup->popup_link) }}">
+            <span>
+                <img src="{{ asset($popup->popup_img) }}" alt="{{ $popup->meta_tag }}">
+            </span>
+        </a>
         <a href="#0" class="bts-popup-close img-replace">Close</a>
     </div>
 </div>

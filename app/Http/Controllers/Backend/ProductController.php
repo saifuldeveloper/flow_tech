@@ -113,6 +113,9 @@ class ProductController extends Controller
         $data['buyone_getone'] = $request->buyone_getone;
         $data['meta_description'] = $request->meta_description;
         $data['meta_tag'] = $request->meta_tag;
+        $data['meta_title'] = $request->meta_title;
+        $data['keyword'] = $request->keyword;
+        $data['schema_markup'] = $request->schema_markup;
         $data['what_is_the'] = $request->what_is_the;
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;
@@ -263,6 +266,9 @@ class ProductController extends Controller
         $data['buyone_getone'] = $request->buyone_getone;
         $data['meta_description'] = $request->meta_description;
         $data['meta_tag'] = $request->meta_tag;
+        $data['meta_title'] = $request->meta_title;
+        $data['keyword'] = $request->keyword;
+        $data['schema_markup'] = $request->schema_markup;
         $data['what_is_the'] = $request->what_is_the;
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;

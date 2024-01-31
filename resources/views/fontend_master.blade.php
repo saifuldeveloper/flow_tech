@@ -6,10 +6,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Flow Tech - The Power Of Technology</title>
-    <base  />
-    <meta name="description" content="" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@yield('meta_title', 'Flow Tech - The Power Of Technology')</title>
+    <meta name="description" content="@yield('meta_description', 'Default Description')">
+    <meta name="keywords" content="@yield('meta_keywords', 'Default Keywords')">
+    @yield('meta')
+
 
     {{-- <script src="{{asset('assets/fontend/js/jquery.min.js')}}"></script> --}}
 
@@ -48,11 +50,12 @@
 
     <!-- Main Content Start ! -->
     @yield('content')
-<!-- main Content End ! -->
+    <!-- main Content End ! -->
 
 
-<!-- footer start -->
-@include('frontend.layout.footer')
+    <!-- footer start -->
+    @yield('metaschema')
+    @include('frontend.layout.footer')
 
 
 <!-- footer en -->

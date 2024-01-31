@@ -41,40 +41,39 @@
             <div class="ac-title"><a href=""><span class="material-icons">arrow_back</span></a>
                 <h1>My Account Information</h1>
             </div>
-            <form action="{{ route('user.update.password', Auth::user()->id) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+            {{-- <form action="{{ route('user.update.password', Auth::user()->id) }}" method="post" enctype="multipart/form-data" class="form-horizontal"> --}}
 
                 <div class="multiple-form-group">
                     <div class="form-group required">
-                        <label for="input-firstname">Name </label>
+                        <label >Name </label>
                         <input type="text" name="firstname" value="{{Auth::user()->name}}" placeholder="First Name"
-                            id="" class="form-control" />
+                            class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group required">
-                    <label for="input-email">E-Mail</label>
+                    <label >E-Mail</label>
                     <input type="email" name="email" value="{{Auth::user()->email}}" placeholder="E-Mail"
-                        readonly id="" class="form-control" />
+                        class="form-control" />
                 </div>
 
-                <div class="form-group required">
-                    <label for="input-telephone">Old Password</label>
-                    <input type="password" name="old_password"  placeholder="Old  Password" readonly
-                        id="" class="form-control" />
-                </div>
-                <div class="form-group required">
-                    <label for="input-telephone">Password</label>
+                {{-- <div class="form-group required">
+                    <label >Old Password</label>
+                    <input type="password" name="old_password"  placeholder="Old  Password" class="form-control" />
+                </div> --}}
+                {{-- <div class="form-group required">
+                    <label >Password</label>
                     <input type="password" name="password"  placeholder="Password" readonly
                         id="" class="form-control" />
                 </div>
                 <div class="form-group required">
-                    <label for="input-telephone">Confirm Password</label>
+                    <label >Confirm Password</label>
                     <input type="password" name="confirm_password"  placeholder="Confirm  Password"
-                        readonly id="" class="form-control" />
-                </div>
+                    class="form-control" />
+                </div> --}}
 
-                <button type="submit" class="btn btn-primary">Continue</button>
-            </form>
+                {{-- <button type="submit" class="btn btn-primary">Continue</button>
+            </form> --}}
         </div>
 
 
