@@ -22,6 +22,7 @@
                   <th>Sl</th>
                   <th class="wd-15p">Image</th>
                   <th>Autor Name</th>
+                  <th>Meta Title</th>
                   <th>Meta Tag</th>
                   <th>Meta Description</th>
                   <th>Short Description</th>
@@ -34,6 +35,7 @@
                   <td>{{ $key+1}}</td>
                   <td> <img src="{{ URL::to($row->image) }}" height="50px;" width="50px;"> </td>
                   <td>{{$row->autor_name}}</td>
+                  <td>{{$row->meta_title}}</td>
                   <td>{{$row->meta_tag}}</td>
                   <td>{{$row->meta_description}}</td>
                   <td>{{$row->short_description}}</td>
@@ -58,14 +60,14 @@
         toastr.success("{{ session("success") }}");
     </>
     @endif
-   
+
     @if(Session::has('error'))
     <script>
         toastr.error("{{ session("error") }}");
     </script>
     @endif
 
-  
+
 <script>
     $(document).on("click","#delete", function(e){
      e.preventDefault();

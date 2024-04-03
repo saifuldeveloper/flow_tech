@@ -38,7 +38,7 @@
 
             </form>
             <p class="no-account-text"><span>Don't have an account?</span></p>
-            <a class="btn st-outline" href="/register {{Route('register')}}">Create Your Account</a>
+            <a class="btn st-outline" href="{{ route('register') }}">Create Your Account</a>
         </div>
     </div>
 </div>

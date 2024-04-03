@@ -18,10 +18,6 @@
     @endphp
 
 
-
-
-
-
     <div class="bg-gray content p-tb-30">
         <div class="container">
             <div class="row">
@@ -59,7 +55,6 @@
 
 
     @include('frontend.pages.popup')
-
 
 
         <div class="container">

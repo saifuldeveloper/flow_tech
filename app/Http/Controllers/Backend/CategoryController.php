@@ -53,10 +53,13 @@ class CategoryController extends Controller
     Category::create([
       'category_name' => $request->category_name,
       'category_slug' => $request->category_slug,
+      'meta_title' => $request->meta_title,
       'meta_tag' => $request->meta_tag,
       'meta_description' => $request->meta_description,
       'category_banner_text'  => $request->category_banner_text,
       'category_footer_text'  => $request->category_footer_text,
+      'keyword'  => $request->keyword,
+      'schema_markup'  => $request->schema_markup,
       'category_banner_img'  => $img_url1,
 
       'category_img' => $img_url,
@@ -112,9 +115,12 @@ public function updateCategory(Request $request, $id)
         'category_name' => $request->category_name,
         'category_slug' => $request->category_slug,
         'meta_tag' => $request->meta_tag,
+        'meta_title' => $request->meta_title,
         'meta_description' => $request->meta_description,
         'category_banner_text' => $request->category_banner_text,
         'category_footer_text' => $request->category_footer_text,
+        'keyword' => $request->keyword,
+        'schema_markup' => $request->schema_markup,
         'category_img' => $img_url,
         'category_banner_img' => $img_url1,
     ]);

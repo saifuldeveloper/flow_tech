@@ -34,6 +34,11 @@ class Product extends Model
         'availability',
         'product_slug',
         'meta_tag',
+
+        'meta_title',
+        'keyword',
+        'schema_markup',
+
         'buyone_getone',
         'image_one',
         'image_two',

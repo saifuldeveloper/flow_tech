@@ -10,10 +10,13 @@ use App\Models\Combo;
 
 class ComboController extends Controller
 {
-    
+
     public function listcombo()
     {
-        $combo = DB::table('combos')->get();
+        $combo = DB::table('combos')
+                ->join('products', 'products.id', 'combos.product_id')
+                ->select('combos.*', 'products.product_name')
+                ->get();
         return view('backend.admin.combo.list', compact('combo'));
     } // End method
 
@@ -33,7 +36,7 @@ class ComboController extends Controller
     // public function GetSubcat($category_id){
     //     $cat = DB::table('sub_categories')->where('category_id',$category_id)->get();
     //     return json_encode($cat);
- 
+
     // }
 
  public function addProduct(Request $request){
@@ -41,7 +44,7 @@ class ComboController extends Controller
   $productId=$request->product_id;
 
   // dd($productId);
-    
+
   for ($i = 0; $i < $pcount; $i++) {
         $data = array();
         $data['product_id'] = $request->product_id;
@@ -54,14 +57,14 @@ class ComboController extends Controller
        if ($image_one) {
         $image_one_name = hexdec(uniqid()).'.'.$image_one->getClientOriginalExtension();
        // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-        Image::make($image_one)->resize(270,270)->save(public_path('media/combo/'.$image_one_name));  
+        Image::make($image_one)->resize(270,270)->save(public_path('media/combo/'.$image_one_name));
         $data['image_one'] = 'media/combo/'.$image_one_name;
          }
         //  DB::table('combos')->insert($data);
          Combo::create($data);
   }
 
-    
+
     //     $data['product_id'] = $request->product_id;
     //     $data['first_product_name'] = $request->first_product_name;
     //     $data['first_discount_price'] = $request->first_discount_price;
@@ -75,43 +78,43 @@ class ComboController extends Controller
     //     $data['status'] = 1;
 
 
-      
+
     //     $image_one = $request->image_one;
     //     $image_two = $request->image_two;
     //     $image_three = $request->image_three;
 
 
-    //    // return response()->json($data); 
+    //    // return response()->json($data);
 
     // //    if ($image_one && $image_two && $image_three) {
     //     if ($image_one && $image_two && $image_three) {
     //     $image_one_name = hexdec(uniqid()).'.'.$image_one->getClientOriginalExtension();
     //    // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-    //   Image::make($image_one)->resize(270,270)->save(public_path('media/combo/'.$image_one_name));  
+    //   Image::make($image_one)->resize(270,270)->save(public_path('media/combo/'.$image_one_name));
     //     $data['image_one'] = 'media/combo/'.$image_one_name;
 
     //     $image_two_name = hexdec(uniqid()).'.'.$image_two->getClientOriginalExtension();
     //     // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-    //    Image::make($image_two)->resize(270,270)->save(public_path('media/combo/'.$image_two_name));  
+    //    Image::make($image_two)->resize(270,270)->save(public_path('media/combo/'.$image_two_name));
     //      $data['image_two'] = 'media/combo/'.$image_two_name;
 
     //      $image_three_name = hexdec(uniqid()).'.'.$image_three->getClientOriginalExtension();
     //      // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-    //     Image::make($image_three)->resize(270,270)->save(public_path('media/combo/'.$image_three_name));  
+    //     Image::make($image_three)->resize(270,270)->save(public_path('media/combo/'.$image_three_name));
     //       $data['image_three'] = 'media/combo/'.$image_three_name;
 
-    
+
     //     // Product::create($data);
     //     DB::table('combos')->insert($data);
         return Redirect()->route('list.combo')->with('success', 'combo Added Successfully!');
 
 
     //   }
-    
+
     } // End Method
 
     public function deleteCombo($id){
-      
+
 
         //  $product = DB::table('combos')->where('id',$id)->first();
         // $image1 = $product->image_one;
@@ -127,7 +130,7 @@ class ComboController extends Controller
         //   if (file_exists($image3)) {
         //       unlink($image3);
         //   }
-      
+
 
         DB::table('combos')->where('product_id',$id)->delete();
 
@@ -139,7 +142,7 @@ class ComboController extends Controller
       $product=DB::table('products')->get();
         $combo = DB::table('combos')->where('id',$id)->first();
         return view('backend.admin.combo.edit',compact('combo','product'));
-  
+
     } // End Method
 
     public function updateWithoutImgCombo(Request $request,$id){
@@ -169,7 +172,7 @@ class ComboController extends Controller
         $old_three = $request->old_three;
 
         $data = array();
- 	
+
         $image_one = $request->file('image_one');
         $image_two = $request->file('image_two');
         $image_three = $request->file('image_three');
@@ -177,23 +180,23 @@ class ComboController extends Controller
         if ($image_one && $image_two && $image_three) {
             $image_one_name = hexdec(uniqid()).'.'.$image_one->getClientOriginalExtension();
            // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-          Image::make($image_one)->resize(270,270)->save(public_path('media/combo/'.$image_one_name));  
+          Image::make($image_one)->resize(270,270)->save(public_path('media/combo/'.$image_one_name));
             $data['image_one'] = 'media/combo/'.$image_one_name;
-    
+
             $image_two_name = hexdec(uniqid()).'.'.$image_two->getClientOriginalExtension();
             // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-           Image::make($image_two)->resize(270,270)->save(public_path('media/combo/'.$image_two_name));  
+           Image::make($image_two)->resize(270,270)->save(public_path('media/combo/'.$image_two_name));
              $data['image_two'] = 'media/combo/'.$image_two_name;
-    
+
              $image_three_name = hexdec(uniqid()).'.'.$image_three->getClientOriginalExtension();
              // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-            Image::make($image_three)->resize(270,270)->save(public_path('media/combo/'.$image_three_name));  
+            Image::make($image_three)->resize(270,270)->save(public_path('media/combo/'.$image_three_name));
               $data['image_three'] = 'media/combo/'.$image_three_name;
-    
-          
-        
+
+
+
               DB::table('combos')->where('id',$id)->update($data);
-            
+
         return Redirect()->route('list.combo')->with('success', 'Product Image Updated Successfully!');
 
         }
@@ -225,17 +228,17 @@ class ComboController extends Controller
         //     $upload_path = 'media/product/';
         //     $image_url = $upload_path.$image_full_name;
         //     $image_two->move($upload_path,$image_full_name);
-            
+
         //     $data['image_two'] = $image_url;
-            
+
         //     DB::table('products')->where('id',$id)->update($data);
-            
+
         //     return Redirect()->route('list.product')->with('success', 'Product Image Two Updated Successfully!');
-            
+
         //     }
-            
+
         //     if ($image_three) {
-            
+
         //     unlink($old_three);
         //     $image_name = date('dmy_H_s_i');
         //     $ext = strtolower($image_three->getClientOriginalExtension());
@@ -243,13 +246,13 @@ class ComboController extends Controller
         //     $upload_path = 'media/product/';
         //     $image_url = $upload_path.$image_full_name;
         //     $image_three->move($upload_path,$image_full_name);
-            
+
         //     $data['image_three'] = $image_url;
-            
+
         //     DB::table('products')->where('id',$id)->update($data);
-            
+
         //     return Redirect()->route('list.product')->with('success', 'Product Image Three Updated Successfully!');
-            
+
         //     }
 
 
@@ -265,14 +268,14 @@ class ComboController extends Controller
 
     public function inactive($id){
         DB::table('combos')->where('id',$id)->update(['status'=>0]);
-      
+
             return Redirect()->back()->with('success', 'Inactive Successfully!');
     }
- 
- 
+
+
       public function active($id){
         DB::table('combos')->where('id',$id)->update(['status'=>1]);
-      
+
             return Redirect()->back()->with('success', 'Active Successfully!');
     }
 

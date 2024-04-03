@@ -27,7 +27,7 @@
                   <th>Product Banner</th>
                   <th>Product Code</th>
                   <th>Product Name</th>
-                  <th>Slug</th>
+                  {{-- <th>Slug</th> --}}
                   <th>Category</th>
                   <th>Sub Category</th>
                   <th>Child Category</th>
@@ -45,8 +45,8 @@
                   <td> <img src="{{ URL::to($row->image_one) }}" height="50px;" width="50px;"> </td>
                   <td> <img src="{{ URL::to($row->product_banner) }}" height="50px;" width="50px;"> </td>
                   <td>{{ $row->product_code }}</td>
-                  <td>{{ $row->product_name }}</td>
-                  <td>{{ $row->product_slug }}</td>
+                  <td>{{ Str::limit($row->product_name, 30) }}</td>
+                  {{-- <td>{{ $row->product_slug }}</td> --}}
                   <td>{{ $row->category_name }}</td>
                   <td>{{ $row->subcategory_name }}</td>
                   <td>{{ $row->childcategory_name }}</td>

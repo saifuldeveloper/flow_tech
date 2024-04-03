@@ -45,8 +45,14 @@
     </style>
 
     @php
+    $slug = request()->segment(2);// Adjust the segment number based on your URL structure
+    $category = DB::table('chlild_categories')->where('childcategory_slug', $slug)->first();
+    $subcategory = DB::table('sub_categories')->where('subcategory_slug', $slug)->first();
+    // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
+    $id = $category->id;
         // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
-        $id = request()->segment(4); // Adjust the segment number based on your URL structure
+        // $id = request()->segment(4); // Adjust the segment number based on your URL structure
+        // dd($id);
         $slider = DB::table('sliders')->first();
         $category = DB::table('chlild_categories')->get();
         $productHighRange = DB::table('products')->min('selling_price');
@@ -56,8 +62,14 @@
         <div class="container c-intro">
             <ul class="breadcrumb" itemscope itemtype="">
                 <li><a href="{{ url('/') }}"><i class="fa fa-home" title="Home"></i></a></li>
-                <li itemprop="itemListElement" itemscope itemtype=""><a itemtype="" itemprop="item"
-                        href=""><span itemprop="name">Category</span></a>
+                <li itemprop="itemListElement" itemscope itemtype="">
+                    <a itemtype="" itemprop="item"
+                        href="{{ Route('allcategory') }}"><span itemprop="name">Category /</span>
+                    </a>
+                     <a itemtype="" itemprop="item"
+                        href="{{ route('subcategory.view', $childcategory->subcategory_slug) }}"><span itemprop="name">Subcategory /</span>
+                    </a>
+                     <span>Childcategory</span>
                     <meta itemprop="position" content="1" />
                 </li>
             </ul>

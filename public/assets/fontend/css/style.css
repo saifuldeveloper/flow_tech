@@ -1,10 +1,10 @@
-@font-face {
+/* @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
     src: url(../fonts/MaterialIcons-Regular.eot);
     src: local('Material Icons') , local('MaterialIcons-Regular') , url(../fonts/MaterialIcons-Regular.woff2) format('woff2') , url(../fonts/MaterialIcons-Regular.woff) format('woff') , url(../fonts/MaterialIcons-Regular.ttf) format('truetype')
-}
+} */
 
 
 @media screen and (max-width: 800px) {
@@ -17,12 +17,12 @@
      .video video{
         height: 240px;
         width: 300px;
-           
+
        }
        .desclaimer{
         margin-bottom: 60px;
        }
-   
+
 
 }
 
@@ -32,7 +32,7 @@
      margin-left: 15px;
     }
     .social-link a{
-    
+
         text-align: center;
     }
 }
@@ -45,7 +45,7 @@
     .q-actions .ac h5{
         display: none;
     }
-  
+
 }
 
 .desclaimer{
@@ -59,21 +59,21 @@
 .desclaimer{
     margin-top: 60px;
     background: #f2f4f8;
-    
+
 }
 
 
 .similar-product{
     /* border: 1px solid #e6e20b; */
     /* margin:10px 0px ; */
-    
+
 }
 
 
 .combo-banner img{
     /* float: right; */
     /* margin-top: 100px; */
-   
+
 }
 .combo-heading{
     margin-top: -20px;
@@ -83,7 +83,7 @@
    border: 1px solid #e6e20b;
    padding: 10px 0px;
    margin: 10px 0px;
-   
+
 }
 
 .product-item{
@@ -92,8 +92,8 @@
     margin: 0 auto;
     text-align: center;
     margin-bottom: 10px;
-   
-    
+
+
 }
 
 
@@ -103,7 +103,7 @@
     background: #fff;
     align-items: center;
     margin-top: 42px;
-  
+
 }
 
 .payment-desclaimer li{
@@ -1779,7 +1779,7 @@ header .top .container {
     font-size: 15px;
     color: #fff;
     margin-top: 2px;
-   
+
 }
 
 .q-actions .ac p {
@@ -1851,8 +1851,8 @@ header .search .ic {
     background: #fff;
     border: 1px solid #f5f5f5;
 
-   
-    
+
+
 }
 .navbar-nav {
     display: -ms-flexbox;
@@ -1865,7 +1865,7 @@ header .search .ic {
     width: 100%;
     position: relative;
     left: -10px;
-    
+
 }
 
 .navbar-nav .nav-item {
@@ -2180,7 +2180,7 @@ header .search .ic {
     margin-bottom: 0;
     display: flex;
     position: relative;
- 
+
 }
 
 .p-item-inner {
@@ -2325,7 +2325,7 @@ header .search .ic {
     display: flex;
     flex-wrap: nowrap;
     line-height: 34px;
-    
+
     background: var(--s-s-bg);
    color: #fff;
     border-radius: 4px;
@@ -2506,7 +2506,7 @@ footer ul li a {
 }
 
 footer ul li a:hover {
-   
+
 }
 
 .footer-big-btn {
@@ -3255,7 +3255,7 @@ p.brand-index strong {
     header .search input {
         padding-left: 15px;
         height: 46px;
-    
+
     }
 
     .ht-item.search button {
@@ -4796,7 +4796,7 @@ h1.product-name {
 
 .product-info-table tbody tr {
     margin: 0 7px 7px -2px;
-    background:none;    
+    background:none;
     border-radius: 30px;
     line-height: 30px;
     padding: 0 10px;
@@ -5069,10 +5069,10 @@ h1.product-name {
 
 .product-price-options .p-wrap {
     flex: 1 1 auto;
-    
+
     position: relative;
     padding: 15px 5px;
-   
+
     cursor: pointer
 }
 
@@ -5103,7 +5103,7 @@ h1.product-name {
     padding: 15px;
     font-weight: bold;
     margin-right: 10px;
-    border: 1px solid #f5f5f5; 
+    border: 1px solid #f5f5f5;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 
 }
@@ -5140,7 +5140,7 @@ h1.product-name {
     display: flex;
     border: 1px solid #edf2f5;
     height: fit-content;
-    
+
 }
 
 .product-details .cart-option .quantity span {

@@ -30,26 +30,24 @@
                   <th>Combo Discount</th>
                   <th>Status</th>
                   <th class="d-flex justify-content-end">Action</th>
-        
+
                 </tr>
               </thead>
               <tbody>
 
                 @foreach($combo as $key => $row)
                 <tr>
-                  <td>{{ $key+1}}</td>
-                  @php
-                    $product_name = DB::table('products')->where('id',$row->product_id)->first();
-                  @endphp
-                  <td>{{ $product_name->product_name}}</td>
+                  <td>{{ $key+1 }}</td>
+
+                  <td>{{ Str::limit($row->product_name, 30)}}</td>
                   <td> <img src="{{ URL::to($row->image_one) }}" height="50px;" width="50px;"> </td>
                   <td>{{ $row->first_product_name }}</td>
                   <td>{{ $row->first_selling_price }}</td>
                   <td>{{ $row->first_discount_price }}</td>
-                  <td >   
+                  <td >
                     @if($row->status == 1)
                        <span class="badge text-success">Active</span>
-                    @else 
+                    @else
                        <span class="badge text-danger">Inactive</span>
                     @endif
 
@@ -65,10 +63,10 @@
 
                     {{-- <a href="{{ route('details.combo',$row->id)}}" class="btn btn-success">View</a>&nbsp; --}}
                     {{-- <a href="{{ route('edit.combo',$row->id)}}" class="btn btn-primary">Edit</a>&nbsp; --}}
-                    <a href="{{ route('delete.combo',$row->product_id)}}" class="btn btn-danger" id="delete">Delete</a> 
+                    <a href="{{ route('delete.combo',$row->product_id)}}" class="btn btn-danger" id="delete">Delete</a>
 
                   </td>
-                 
+
                 </tr>
                 @endforeach
 
@@ -87,7 +85,7 @@
         toastr.success("{{ session("success") }}");
     </script>
     @endif
-   
+
     @if(Session::has('error'))
     <script>
         toastr.error("{{ session("error") }}");
@@ -102,7 +100,7 @@
                 'csv', 'excel', 'pdf' , 'print'
             ]
         } );
-      
+
         </script>
 
 <script>

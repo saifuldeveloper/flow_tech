@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\ChlildCategory;
+use App\Models\Product;
+use App\Models\SubCategory;
+use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\ChlildCategory;
-use Cart;
-use Illuminate\Support\Facades\Storage;
 
 class ProductDetailsController extends Controller
 {
@@ -26,8 +25,7 @@ class ProductDetailsController extends Controller
             ->where('products.product_slug', $product_slug)
             ->first();
 
-
-            // dd($product);
+        // dd($product);
 
         // $color = $product->product_color;
         // $product_color = explode(',', $color);
@@ -50,12 +48,10 @@ class ProductDetailsController extends Controller
     public function AllproductView()
     {
 
-        $product = Product::where('status', 1)->paginate(12);
-        return view('frontend.pages.all_product', compact('product'));
+        $products = Product::where('status', 1)->paginate(12);
+        return view('frontend.pages.all_product', compact('products'));
 
     } // End Method
-
-
 
     public function addCart(Request $request, $id)
     {
@@ -218,63 +214,88 @@ class ProductDetailsController extends Controller
 
     } // End Method
 
-
     //************************************************************************************************************** */
 
-    public function categoryView(Request $request ,$category_slug)
+    public function categoryView(Request $request, $category_slug)
     {
         $HeadSlug = $category_slug;
 
-        $category = Category::where('category_slug',$category_slug)->first();
+        $category = Category::where('category_slug', $category_slug)->first();
         $category_all = DB::table('products')
-        ->where('category_id',$category->id)
-        ->paginate(20);
+            ->where('category_id', $category->id)
+            ->paginate(20);
 
         // $category = DB::table('categories')
         // // ->leftJoin('sub_categories', 'categories.id', '=', 'sub_categories.category_id')
         // ->where('categories.category_slug',$category_slug)
         // ->first();
         $categoryloop = DB::table('categories')
-        ->leftJoin('sub_categories', 'categories.id', '=', 'sub_categories.category_id')
-        ->where('categories.category_slug',$category->category_slug)
-        ->get();
+            ->leftJoin('sub_categories', 'categories.id', '=', 'sub_categories.category_id')
+            ->where('categories.category_slug', $category->category_slug)
+            ->get();
 
-        return view('frontend.pages.category_product_show', compact('category_all','HeadSlug', 'category', 'categoryloop'));
+        return view('frontend.pages.category_product_show', compact('category_all', 'HeadSlug', 'category', 'categoryloop'));
     } // End Method
-    public function SubCategoryView($subcategory_slug)
+
+    public function S($subcategory_slug)
     {
 
         $HeadSlug = $subcategory_slug;
 
-
-        $subcategory = SubCategory::where('subcategory_slug',$subcategory_slug)->first();
+        $subcategory = SubCategory::where('subcategory_slug', $subcategory_slug)->first();
         $category_all = DB::table('products')
-        ->where('subcategory_id',$subcategory->id)
-        ->paginate(20);
+            ->where('subcategory_id', $subcategory->id)
+            ->paginate(20);
         $category = DB::table('sub_categories')
-        ->leftJoin('chlild_categories', 'sub_categories.id', '=', 'chlild_categories.sub_category_id')
-        ->where('sub_categories.subcategory_slug',$subcategory_slug)
-        ->get();
+            ->leftJoin('chlild_categories', 'sub_categories.id', '=', 'chlild_categories.sub_category_id')
+            ->where('chlild_categories.sub_category_id', $subcategory->id)
+            ->select('sub_categories.*', 'chlild_categories.*')
+            ->get();
+        // dd($category);
         // $category_all = DB::table('products')->where('category_id',$id)->get();
         // $category_all = Product::where('category_id', $id)->
         // where('subcategory_id', $id)->paginate(20);
-        return view('frontend.pages.subcategory_product_show', compact('category_all','HeadSlug','category'));
+        return view('frontend.pages.subcategory_product_show', compact('category_all', 'HeadSlug', 'category'));
 
+    } // End Method
+
+    public function SubCategoryView($subcategory_slug)
+    {
+        $HeadSlug = $subcategory_slug;
+
+        $subcategory = SubCategory::where('subcategory_slug', $subcategory_slug)->first();
+
+        // Get products related to the subcategory
+        $category_all = DB::table('products')
+            ->where('subcategory_id', $subcategory->id)
+            ->paginate(20);
+
+        // Left join sub_categories with chlild_categories on sub_category_id
+        $joinedCategory = DB::table('sub_categories')
+            ->leftJoin('chlild_categories', 'sub_categories.id', '=', 'chlild_categories.sub_category_id')
+            ->where('sub_categories.id', $subcategory->id)
+            ->select('sub_categories.*', 'chlild_categories.*') // Adjust column names as needed
+            ->get();
+
+        return view('frontend.pages.subcategory_product_show', compact('category_all', 'HeadSlug', 'joinedCategory'));
     } // End Method
 
     public function ChildCategoryView($childcategory_slug)
     {
         $HeadSlug = $childcategory_slug;
 
-        $childcategory = DB::table('chlild_categories')->where('childcategory_slug',$childcategory_slug)->first();
+         $childcategory = DB::table('chlild_categories')
+            ->where('childcategory_slug', $childcategory_slug)
+            ->join('sub_categories', 'chlild_categories.sub_category_id', 'sub_categories.id')
+            ->select('chlild_categories.*', 'sub_categories.subcategory_slug')
+            ->first();
+            
         $category_all = DB::table('products')
-        ->where('childcategory_id',$childcategory->id)
-        ->paginate(20);
-        return view('frontend.pages.childcategory_product_show', compact('category_all','HeadSlug'));
+            ->where('childcategory_id', $childcategory->id)
+            ->paginate(20);
+        return view('frontend.pages.childcategory_product_show', compact('category_all', 'HeadSlug', 'childcategory'));
 
     } // End Method
-
-
 
     public function Search(Request $request)
     {
@@ -286,11 +307,10 @@ class ProductDetailsController extends Controller
         $childcategory = ChlildCategory::where('childcategory_name', 'LIKE', '%' . $item . '%')->first();
         if ($product) {
             return redirect(
-                '/product'. '/'. $product->product_slug,
+                '/product' . '/' . $product->product_slug,
                 // '/product/details/' . $product->id . '/' . $product->product_name,
             );
-        }
-         elseif ($category) {
+        } elseif ($category) {
             return redirect(
                 // '/category'.'/'. $category->category_slug,
                 route('category.view', ['category_slug' => $category->category_name])
@@ -298,26 +318,22 @@ class ProductDetailsController extends Controller
 
         } elseif ($subcategory) {
             return redirect(
-                '/subcategory'.'/'. $subcategory->subcategory_slug,
+                '/subcategory' . '/' . $subcategory->subcategory_slug,
 
                 // route('subcategory.view', ['subcategory_slug' => $category->subcategory_name])
             );
         } elseif ($childcategory) {
             return redirect(
-                '/childcategory'.'/'. $childcategory->childcategory_slug,
+                '/childcategory' . '/' . $childcategory->childcategory_slug,
 
                 //route('childcategory.view', ['childcategory_slug' => $category->childcategory_name])
             );
 
-        }
-        else {
+        } else {
             return redirect()->back('error', 'Product not found');
         }
 
     }
-
-
-
 
     public function ProductListAjax()
     {
@@ -366,7 +382,6 @@ class ProductDetailsController extends Controller
         }
         return view('frontend.pages.all_product', compact('product'));
 
-
     }
 
     public function AvailabilityFilter(Request $request)
@@ -384,17 +399,11 @@ class ProductDetailsController extends Controller
 
     public function PriceFilter(Request $request)
     {
-
-
-
         $minvalue = $request->min;
         $maxvalue = $request->max;
 
-
-
         $products = Product::whereBetween('selling_price', [$minvalue, $maxvalue])
             ->get();
-
 
         if ($products->count() > 0) {
             return view('frontend.pages.filtertProduct', compact('products'));
@@ -424,7 +433,6 @@ class ProductDetailsController extends Controller
         }
         return view('frontend.pages.category_product_show', compact('category_all'));
 
-
     }
     public function AvailabilityFiltercategory(Request $request)
     {
@@ -443,8 +451,6 @@ class ProductDetailsController extends Controller
     //     $minvalue = $request->min;
     //     $maxvalue = $request->max;
     //     $id=$request->id;
-
-
 
     //     if (empty($minvalue) && empty($maxvalue)) {
     //         $category_all = Product::where('category_id',$id)->paginate(12);
@@ -493,8 +499,11 @@ class ProductDetailsController extends Controller
         $maxvalue = intval($request->max);
         $minvalue = intval($request->min);
         $selectedSortOption = $request->selectedSortOption;
-        $query = Product::where('category_id', $id)
-            ->whereBetween('selling_price', [$minvalue, $maxvalue]);
+        $query = Product::query()
+            ->where('category_id', $id);
+        if ($maxvalue && $minvalue) {
+            $query->whereBetween('selling_price', [$minvalue, $maxvalue]);
+        }
         if ($request->availability && $request->availability !== "undefined") {
             $query->whereIn('availability', is_array($request->availability) ? $request->availability : [$request->availability]);
         }
@@ -504,9 +513,9 @@ class ProductDetailsController extends Controller
         if ($request->limitPrduct && $request->limitPrduct != "undefined") {
             $query->take($request->limitPrduct);
         }
-        if ($selectedSortOption === 'price_asc') {
+        if ($selectedSortOption == 'price_asc') {
             $query->orderBy('selling_price', 'ASC');
-        } elseif ($selectedSortOption === 'price_desc') {
+        } elseif ($selectedSortOption == 'price_desc') {
             $query->orderBy('selling_price', 'DESC');
         }
         $category_all = $query->get();
@@ -517,49 +526,58 @@ class ProductDetailsController extends Controller
         }
     }
 
+    public function PriceFilter1(Request $request)
+    {
 
-    // public function PriceFilter1(Request $request){
+        $maxvalue = intval($request->max);
+        $minvalue = intval($request->min);
+        $selectedSortOption = $request->selectedSortOption;
+        $query = Product::query();
+        if ($maxvalue && $minvalue) {
+            $query->whereBetween('selling_price', [$minvalue, $maxvalue]);
+        }
+        if ($request->availability && $request->availability !== "undefined") {
+            $query->whereIn('availability', is_array($request->availability) ? $request->availability : [$request->availability]);
+        }
+        if ($request->brand && $request->brand !== "undefined") {
+            $query->whereIn('brand_id', is_array($request->brand) ? $request->brand : [$request->brand]);
+        }
+        if ($request->limitPrduct && $request->limitPrduct != "undefined") {
+            $query->take($request->limitPrduct);
+        }
+        if ($selectedSortOption == 'price_asc') {
+            $query->orderBy('selling_price', 'ASC');
+        } elseif ($selectedSortOption == 'price_desc') {
+            $query->orderBy('selling_price', 'DESC');
+        }
+        $products = $query->get();
+        if (isset($products)) {
+            return view('frontend.pages.filtertProduct', compact('products'));
+        } else {
+            return "No Product Found";
+        }
 
-
-
-    //     $minvalue = $request->min;
-    //     $maxvalue = $request->max;
-
-
-
-    //     $products = Product::whereBetween('selling_price', [$minvalue, $maxvalue])
-    //     ->get();
-
-
-    //     if ($products->count() > 0) {
-    //         return view('frontend.pages.filtertProduct', compact('products'));
-    //     } else {
-    //         return  "No Product Found";
-    //     }
-
-    // }
+    }
 
     // public function DownloadFile(Request $request, $file)
     // {
 
     //     return response()->download(public_path('media/pdfs/'.$file));
     // }
-    // use Illuminate\Support\Facades\Storage;
-
+    //
     public function DownloadFile($id)
     {
         $pdf = DB::table('products')->where('id', $id)->first();
         $path = public_path("{$pdf->catalouge}");
 
-        return  \response()->download($path);
+        return \response()->download($path);
     }
 
     public function DownloadDriveFile($id)
     {
         $pdf = DB::table('products')->where('id', $id)->first();
         $path = public_path("{$pdf->drivers}");
-        return  \response()->download($path);
+        return \response()->download($path);
     }
-
 
 }

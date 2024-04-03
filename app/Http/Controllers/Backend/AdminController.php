@@ -9,24 +9,33 @@ use App\Models\Admin;
 
 class AdminController extends Controller
 {
-    public function adminLoginForm(){
+    public function adminLoginForm()
+    {
         return view('backend.admin.admin_login');
     }
-    
-    public function adminLogin(Request $request){
+
+    public function adminLogin(Request $request)
+    {
         $request->validate([
             'email'=>'required',
             'password'=>'required',
         ]);
 
-        if(Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password])){
-            return redirect('/admin/dashboard');
-        }else{
-            // Session::flash('error-msg','Invalid Email or Password');
-            return redirect()->back();
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('admin/dashboard');
+        } else {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
         }
+
+
     }
-    public function adminLogout(){
+    public function adminLogout()
+    {
         Auth::guard('admin')->logout();
         return redirect('admin/login');
     }

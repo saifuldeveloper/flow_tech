@@ -1,4 +1,18 @@
 @extends('fontend_master')
+{{-- @dd($product); --}}
+@section('meta_title'){{ $product->meta_title }}@stop
+@section('meta_description'){{ $product->meta_description }}@stop
+@section('meta_keywords'){{ $product->keyword }}@stop
+@section('meta')
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="{{ $product->meta_title }}">
+    <meta itemprop="description" content="{{ $product->meta_description }}">
+    <meta name="keywords" content="{{ $product->meta_tag }}"/>
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ $product->meta_title }}" />
+    <meta property="og:description" content="{{ $product->meta_description }}" />
+    <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+@endsection
 @section('content')
     <link rel="stylesheet" href="{{ asset('assets/fontend/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontend/css/owl.theme.default.css') }}">
@@ -589,12 +603,12 @@
                 <div class="col-md-12 col-lg-12">
                     <section class="latest-price bg-white m-tb-15" id="latest-price">
                         <div class="section-head">
-                            <h2>What is the price of <span>@if (isset($product->product_name))
+                            {{-- <h2>What is the Price</h2> --}}
+                            {{-- <h2>What is the price of <span>@if (isset($product->product_name))
                                 {{ $product->product_name }}
                             @else
                             @endif</span> in
-                                Bangladesh?</h2>
-
+                                Bangladesh?</h2> --}}
                             {{-- <h2>What is the price of <span>{{ $product->product_name }}</span> in
                                 Bangladesh?</h2> --}}
                         </div>
@@ -636,10 +650,10 @@
                             <h2>Description</h2>
                         </div>
                         <div class="full-description" itemprop="description">
-                            @if (isset($product->product_name))
+                            {{-- @if (isset($product->product_name))
                                 <h2 style="">{{ $product->product_name }}</h2>
                             @else
-                            @endif
+                            @endif --}}
 
                             @if (isset($product->long_description))
 
@@ -859,6 +873,9 @@
     </div>
     </div>
     <!-- product details end -->
+    @section('metaschema')
+    <meta name="schema-markup" content="{{  $product->schema_markup }}"/>
+    @endsection
     @if (Session::has('warning'))
         <script>
             toastr.warning("{{ session('warning') }}");
@@ -895,7 +912,6 @@
             // alert(result);
         });
     </script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
             $('.addcart').on('click', function() {

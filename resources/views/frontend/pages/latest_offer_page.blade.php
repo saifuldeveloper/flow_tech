@@ -29,15 +29,13 @@
                         @foreach ($product as $product )
                         <div class="p-item">
                             <div class="p-item-inner">
-                                {{-- <div class="p-item-img"><a href="{{url('product/details/'.$product->id.'/'.$product->product_name)}}"><img src="{{ asset($product->image_one) }}" --}}
-                                <div class="p-item-img"><a href="{{ url('product/' . $item->product_slug) }}"><img src="{{ asset($product->image_one) }}"
+                                <div class="p-item-img"><a href="{{ url('product/' . $product->product_slug) }}"><img src="{{ asset($product->image_one) }}"
                                             alt="{{$product->product_name}}" width="228" height="228"></a>
                                 </div>
                                 <div class="p-item-details">
-                                    <h4 class="p-item-name"> <a href="{{ url('product/' . $item->product_slug) }}">{{$product->product_name}}</a>
+                                    <h4 class="p-item-name"> <a href="{{ url('product/' . $product->product_slug) }}">{{$product->product_name}}</a>
                                     </h4>
                                     <div class="p-item-price">
-                                        {{-- <span>{{$product->selling_price}}</span> --}}
                                         <span>{{$product->selling_price}}৳</span>
                                         <span class="price-old">{{$product->discount_price}}৳</span>
                                     </div>
@@ -47,8 +45,6 @@
                                             To Cart</a>
                                         <a href="{{route('user.checkout')}}" data-id="{{$product->id}}"  class="buynow btn submit-btn" id="button-cart" style="width: 100%;">Buy
                                             Now</a>
-
-
                                     </div>
                                 </div>
                             </div>

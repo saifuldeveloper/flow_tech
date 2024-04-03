@@ -113,6 +113,9 @@ class ProductController extends Controller
         $data['buyone_getone'] = $request->buyone_getone;
         $data['meta_description'] = $request->meta_description;
         $data['meta_tag'] = $request->meta_tag;
+        $data['meta_title'] = $request->meta_title;
+        $data['keyword'] = $request->keyword;
+        $data['schema_markup'] = $request->schema_markup;
         $data['what_is_the'] = $request->what_is_the;
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;
@@ -130,18 +133,22 @@ class ProductController extends Controller
 
 
 
+
+        if($request->file('catalouge')){
         $pdfFile = $request->file('catalouge');
         $filename = time() . '.' . $pdfFile->getClientOriginalExtension();
         $request->file('catalouge')->move('media/pdfs',$filename);
 
         $data['catalouge'] = 'media/pdfs/'.$filename;
+        }
 
+
+        if($request->file('drivers')){
         $pdfFile2 = $request->file('drivers');
         $filename2 = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
         $request->file('drivers')->move('media/pdfs',$filename2);
-
-
         $data['drivers'] = 'media/pdfs/'.$filename2;
+        }
 
 
         // dd($data);
@@ -263,6 +270,9 @@ class ProductController extends Controller
         $data['buyone_getone'] = $request->buyone_getone;
         $data['meta_description'] = $request->meta_description;
         $data['meta_tag'] = $request->meta_tag;
+        $data['meta_title'] = $request->meta_title;
+        $data['keyword'] = $request->keyword;
+        $data['schema_markup'] = $request->schema_markup;
         $data['what_is_the'] = $request->what_is_the;
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;
@@ -419,6 +429,7 @@ class ProductController extends Controller
 
     } // End Method
 
+
     public function detailsProduct(Request $request, $id){
 
         $product = DB::table('products')
@@ -434,7 +445,8 @@ class ProductController extends Controller
         } // End method
 
 
-    public function inactive($id){
+
+        public function inactive($id){
         DB::table('products')->where('id',$id)->update(['status'=>0]);
 
             return Redirect()->back()->with('success', 'Inactive Successfully!');

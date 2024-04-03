@@ -32,6 +32,7 @@
 
                         </div>
 
+
                         <div class="form-group">
                             <label>Category Slug</label><br>
                             <input type="text" name="category_slug" value="{{ old('category_slug') ? old('category_slug') : '' }}"
@@ -42,6 +43,18 @@
                                     {{ $message }}
                                 @enderror
                             </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Meta Title</label>
+                            <input type="text" class="form-control" name="meta_title">
+
+                            <span style="color: red;">
+                                @error('meta_title')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+
                         </div>
 
                         <div class="form-group">
@@ -107,6 +120,30 @@
                                 @enderror
                             </span>
                         </div>
+                            <div class="form-group">
+                                <label class="form-label">Keyword</label><br>
+                                <input type="text" name="keyword" class="form-control" id="keyword"
+                                    data-role="tagsinput">
+
+                                <span style="color: red;">
+                                    @error('keyword')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Schema Markup</label><br>
+
+                                <textarea class="form-control" id="summernote3" cols="15" rows="15" name="schema_markup" required> </textarea>
+
+                                <span style="color: red;">
+                                    @error('schema_markup')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+
+                            </div>
 
 
 
@@ -183,6 +220,13 @@
 
         <script>
             $('#summernote2').summernote({
+
+              tabsize: 2,
+              height: 100
+            });
+          </script>
+        <script>
+            $('#summernote3').summernote({
 
               tabsize: 2,
               height: 100

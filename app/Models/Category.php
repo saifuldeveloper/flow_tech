@@ -17,6 +17,7 @@ class Category extends Model
         'category_slug',
         'meta_description',
         'meta_tag',
+        'meta_title',
         'category_banner_img',
         'category_banner_text',
         'category_footer_text',

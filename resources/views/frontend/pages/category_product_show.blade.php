@@ -1,4 +1,18 @@
 @extends('fontend_master')
+@section('meta_title'){{ $category->meta_title }}@stop
+@section('meta_description'){{ $category->meta_description }}@stop
+@section('meta_keywords'){{ $category->keyword }}@stop
+@section('meta')
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="{{ $category->meta_title }}">
+    <meta itemprop="description" content="{{ $category->meta_description }}">
+    <meta name="keywords" content="{{ $category->meta_tag }}"/>
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ $category->meta_title }}" />
+    <meta property="og:description" content="{{ $category->meta_description }}" />
+    <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+@endsection
+
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
@@ -44,11 +58,17 @@
         .price-filter input {
             margin-top: 10px;
         }
+        #loader {
+            display: none;
+        }
     </style>
 
     @php
-        // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
-        $id = request()->segment(4); // Adjust the segment number based on your URL structure
+    $slug = request()->segment(2);// Adjust the segment number based on your URL structure
+    $category = DB::table('categories')->where('category_slug', $slug)->first();
+    // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
+    $id = $category->id;
+        // $id = request()->segment(2); // Adjust the segment number based on your URL structure
         $slider = DB::table('sliders')->first();
         // $category = DB::table('categories')->get();
         $productHighRange = DB::table('products')->min('selling_price');
@@ -220,13 +240,16 @@
                         </div>
 
                     </div>
+
+                    <div class="spinner-border" role="status" id="loader">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     <!-- product list item start -->
                     <div class="p-items-wrap" id="productList_p">
                         <!-- product item start -->
                         @foreach ($category_all as $item)
                             <div class="p-item">
                                 @include('frontend.pages.product_item')
-
                             </div>
                         @endforeach
                     </div>
@@ -272,6 +295,9 @@
             </div>
         </div>
     </div>
+    @section('metaschema')
+    <meta name="schema-markup" content="{{  $category->schema_markup }}"/>
+    @endsection
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -469,17 +495,32 @@
         });
 
         function updatePrices(min, max, availability, brand, limitProduct, selectedSortOption) {
-            $.post('{{ url('price/filter/category/' . $id) }}', {
-                "_token": '{{ csrf_token() }}',
-                min: min,
-                max: max,
-                availability: availability,
-                brand: brand,
-                limitProduct: limitProduct,
-                selectedSortOption: selectedSortOption,
-            }, function(data) {
-                console.log(data);
-                $('#productList_p').html(data);
+
+            $.ajax({
+                url: "{{ url('price/filter/category/' . $id) }}",
+                method:"POST",
+                type: "HTML",
+                data: {
+                    min: min,
+                    max: max,
+                    availability: availability,
+                    brand: brand,
+                    limitProduct: limitProduct,
+                    selectedSortOption: selectedSortOption,
+                    _token: "{{ csrf_token() }}"
+                },
+                beforeSend: function () {
+                    $("#loader").show();
+                    $("#productList_p").css('opacity', '0')
+
+                },
+                success: function (data) {
+                    $('#productList_p').html(data);
+                },
+                complete: function () {
+                    $("#loader").hide();
+                    $("#productList_p").css('opacity', '1')
+                }
             });
         };
     </script>

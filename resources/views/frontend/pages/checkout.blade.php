@@ -30,8 +30,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     @csrf
                 <div class="row">
                     @auth
-                    <input name="user_id" type="hidden" class="form-control" value="{{ Illuminate\Support\Facades\Auth::id() }}">
-                @endauth
+                        <input name="user_id" type="hidden" class="form-control" value="{{ Auth::id() }}">
+
+                    @endauth
 
                     <div class="col-md-4 col-sm-12">
                         <div class="page-section ws-box">

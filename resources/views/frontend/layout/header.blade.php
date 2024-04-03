@@ -209,14 +209,14 @@
             method: "GET",
             url: "/product-list",
             success: function(response) {
-                // console.log(response);
+                console.log(response);
                 startAutoComplete(response);
             }
         });
 
 
         function startAutoComplete(availableTags) {
-            // console.log(availableTags);
+            console.log(availableTags);
             $(".search_product").autocomplete({
                 source: availableTags
             });

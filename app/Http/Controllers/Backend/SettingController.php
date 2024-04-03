@@ -119,4 +119,52 @@ class SettingController extends Controller
         return Redirect()->route('list.setting')->with('success', 'Setting Updated Successfully!');
 
     } // End Method
+
+
+    public function refundpage(){
+       
+        return view('backend.admin.setting.refund.refundpage');
+
+    }
+
+    public  function  refundpageUpdate(Request $request){
+        DB::table('settings')->where('id', 1)->update(['refundpage' => $request->refundpage]);
+        return Redirect()->route('setting.refund.page')->with('success', 'Refund  Updated Successfully!');
+    }
+
+    public function onlineDeliveryPage(){
+        return view('backend.admin.setting.onlineDelevery.online_delivery');
+
+    }
+    public  function  onlineDeliveryPageUpdate(Request $request){
+        DB::table('settings')->where('id', 1)->update(['delivery' => $request->delivery]);
+        return Redirect()->route('oline.delivery.page')->with('success', 'Delivery  Page Updated Successfully!');
+    }
+
+    // tems && condion page
+    public function termsConditionPage(){
+        return view('backend.admin.setting.termscondition.termscondition');
+    }
+
+    public  function  termsConditionPageUpdate(Request $request){
+        DB::table('settings')->where('id', 1)->update(['conditionpage' => $request->conditionpage]);
+        return Redirect()->route('terms.condition.page')->with('success', 'Updated Successfully!');
+    }
+
+    // abount us page
+    public function abountUsPage(){
+        return view('backend.admin.setting.aboutus.aboutus');
+    }
+    public  function  abountUsPageUpdate(Request $request){
+        DB::table('settings')->where('id', 1)->update(['aboutpage' => $request->aboutpage]);
+        return Redirect()->route('aboutus.page')->with('success', 'Updated Successfully!');
+    }
+    // contact us
+    public function contactUsPage(){
+        return view('backend.admin.setting.contact.contact');
+    }
+    public  function  contactUsPageUpdate(Request $request){
+        DB::table('settings')->where('id', 1)->update(['contactpage' => $request->contactpage]);
+        return Redirect()->route('contactus.page')->with('success', 'Updated Successfully!');
+    }
 }

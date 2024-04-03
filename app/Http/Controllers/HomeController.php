@@ -4,24 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         return view('frontend.pages.index');
@@ -53,6 +40,28 @@ class HomeController extends Controller
     {
         return view('frontend.pages.contact');
     }
+
+    public function contactMessageStore(Request $request){
+        $data = DB::table('contacts_us')->insert([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+        ]);
+        if ($data) {
+            // If data insertion is successful, set a success message
+            Session::flash('success', 'Message sent successfully!');
+        } else {
+            // If data insertion fails, set an error message
+            Session::flash('error', 'Failed to send message. Please try again.');
+        }
+        return redirect()->back();
+        
+    }
+
+
+
     public function refundAndReturn()
     {
         return view('frontend.pages.return_policy');
@@ -73,16 +82,23 @@ class HomeController extends Controller
     {
         return view('frontend.pages.terms_and_condition');
     }
-   public function category(){
-    $category_all=DB::table('products')->get();
-    return view('frontend.pages.all_category',compact('category_all'));
-   }
-   public function Blog(){
-    $blog_all=DB::table('blogs')->get();
-     return view('frontend.pages.all_blog',compact('blog_all'));
-   }
-   public function SingleBlog($id){
-    $blog_catch=DB::table('blogs')->where('id',$id)->first();
-     return view('frontend.pages.single_blog',compact('blog_catch'));
-   }
+
+    public function category()
+    {
+        $category_all = DB::table('products')->get();
+        $meta_info = DB::table('categories')->get();
+        return view('frontend.pages.all_category', compact('category_all', 'meta_info'));
+    }
+
+    public function Blog()
+    {
+        $blog_all = DB::table('blogs')->get();
+        return view('frontend.pages.all_blog', compact('blog_all'));
+    }
+
+    public function SingleBlog($id)
+    {
+        $blog_catch = DB::table('blogs')->where('id', $id)->first();
+        return view('frontend.pages.single_blog', compact('blog_catch'));
+    }
 }

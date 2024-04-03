@@ -39,11 +39,16 @@ class LeadManagementController extends Controller
 
     public function statusUpdate(Request $request, $id)
     {
-        $id = $request->id;
+        $id    = $request->id;
         $status = $request->status;
-
         DB::table('orders')->where('id', $id)->update(['status' => $status]);
-
+        if($request->status == 3){
+            $order_details =DB::table('orders_details')->where('order_id', $id)->get();
+            foreach($order_details as $key => $item){
+                DB::table('products')->where('id', $item->product_id)
+                        ->decrement('product_quantity', $item->quantity);
+            }  
+        }
         return response()->json([
             "msg" => 'success',
         ]);

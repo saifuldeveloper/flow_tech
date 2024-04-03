@@ -198,6 +198,37 @@
             <li>
                 <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>Update Setting </a>
             </li>
+            <li>
+                <a href="{{ route('setting.refund.page')}}"><i class="bx bx-right-arrow-alt"></i>Refund and return Policy </a>
+            </li>
+            <li>
+                <a href="{{ route('oline.delivery.page')}}"><i class="bx bx-right-arrow-alt"></i>Online Delivery </a>
+            </li>
+            <li>
+                <a href="{{ route('terms.condition.page')}}"><i class="bx bx-right-arrow-alt"></i>Terms and condition </a>
+            </li>
+            <li>
+                <a href="{{ route('aboutus.page')}}"><i class="bx bx-right-arrow-alt"></i>About Us </a>
+            </li>
+            <li>
+                <a href="{{ route('contactus.page')}}"><i class="bx bx-right-arrow-alt"></i>Contact Us </a>
+            </li>
+            <li>
+                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i> Privacy Policy </a>
+            </li>
+            <li>
+                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>EMI Page</a>
+            </li>
+            <li>
+                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>Desktop</a>
+            </li>
+            <li>
+                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>Laptop</a>
+            </li>
+            <li>
+                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>laptop and gameing pc</a>
+            </li>
+
         </ul>
     </li>
 
@@ -213,6 +244,18 @@
             </li> --}}
             <li>
                 <a href="{{ route('list.question')}}"><i class="bx bx-right-arrow-alt"></i>Questions </a>
+            </li>
+        </ul>
+    </li>
+     <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="fa-solid fa-users"></i>
+            </div>
+            <div class="menu-title"> Contact list  </div>
+        </a>
+        <ul>
+            <li>
+                <a href="{{ route('contact-us.list')}}"><i class="bx bx-right-arrow-alt"></i>list </a>
             </li>
         </ul>
     </li>
