@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Meta Description</label><br>
+                                        <label class="form-label">About Us Description</label><br>
                                         <textarea class="form-control autosize" name="aboutpage" id="summernote8" style="height: 200px;">{{ $setting->aboutpage }} </textarea>
                                         <span style="color: red;">
                                             @error('aboutpage')

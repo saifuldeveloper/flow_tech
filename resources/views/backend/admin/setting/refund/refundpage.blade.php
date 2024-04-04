@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Meta Description</label><br>
+                                        <label class="form-label">Refund and return Policy</label><br>
                                         <textarea class="form-control autosize" name="refundpage" id="summernote8" style="height: 200px;">{{ $setting->refundpage }} </textarea>
                                         <span style="color: red;">
                                             @error('refundpage')

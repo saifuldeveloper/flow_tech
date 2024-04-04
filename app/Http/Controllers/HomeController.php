@@ -90,6 +90,22 @@ class HomeController extends Controller
         return view('frontend.pages.all_category', compact('category_all', 'meta_info'));
     }
 
+    public function BrandAll(){
+        $brands =DB::table('brands')->paginate(20);
+        return view('frontend.pages.brand_all', compact('brands'));
+    }
+
+    public function brand($name){
+        $brand =DB::table('brands')->where('brand_name',$name)->first();
+
+        $products=DB::table('products')->where('brand_id' ,$brand->id)->paginate(20);
+       return view('frontend.pages.brand_product_show',compact('brand','products'));
+    }
+
+
+
+
+
     public function Blog()
     {
         $blog_all = DB::table('blogs')->get();

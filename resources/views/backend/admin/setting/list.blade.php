@@ -36,7 +36,7 @@
                   <th>Linkedin</th>
                   <th>instagram</th>
                   <th>Google Maps</th>
-                  <th>Computer laptop and gameing pc </th>
+                  {{-- <th>Computer laptop and gameing pc </th>
                   <th>Laptop</th>
                   <th>Desktop</th>
                   <th>EMI Page </th>
@@ -45,7 +45,7 @@
                   <th>About Us</th>
                   <th>Terms and condition</th>
                   <th>Online Delivery</th>
-                  <th>Refund and return Policy</th>
+                  <th>Refund and return Policy</th> --}}
                   <th>Shipping Charge</th>
                 </tr>
               </thead>
@@ -71,7 +71,7 @@
                   <td>{{ $row->linkedIn}}</td>
                   <td>{{ $row->instagram}}</td>
                   <td>{{ $row->google_maps }}</td>
-                  <td>{!!$row->computer_laptop_gameingPc!!}</td>
+                  {{-- <td>{!!$row->computer_laptop_gameingPc!!}</td>
                   <td>{!!$row->Best_laptop!!}</td>
                   <td>{!!$row->Best_desktop!!}</td>
                   <td>{!!$row->emipage!!}</td>
@@ -80,7 +80,7 @@
                   <td>{!!$row->aboutpage!!}</td>
                   <td>{!!$row->conditionpage!!}</td>
                   <td>{!!$row->delivery!!}</td>
-                  <td>{!!$row->refundpage!!}</td>
+                  <td>{!!$row->refundpage!!}</td> --}}
                   <td>{{$row->shipping_charge}}</td>
                 </tr>
                 @endforeach

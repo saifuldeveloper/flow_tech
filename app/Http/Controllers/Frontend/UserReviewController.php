@@ -56,5 +56,12 @@ class UserReviewController extends Controller
 
         return view('frontend.pages.query_success');
     } // End method
+
+
+    public function reviewList(){
+        $reviews =Rating::with('user','product')->orderBy('id','desc')->get();
+
+        return view('backend.admin.review.review_list',compact('reviews'));
+    }
 }
 

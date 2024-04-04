@@ -50,6 +50,8 @@
     <script src="{{ asset('assets/fontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/fontend/js/custom.js') }}"></script>
     <script src="{{ asset('assets/fontend/js/site.min.26.js') }}"></script>
+
+    
 </body>
 
 </html>

@@ -16,7 +16,6 @@ class ProductDetailsController extends Controller
     public function productView($product_slug)
     {
 
-        // dd($slug);
         $product = DB::table('products')
             ->join('categories', 'products.category_id', 'categories.id')
             ->join('sub_categories', 'products.subcategory_id', 'sub_categories.id')
@@ -297,41 +296,81 @@ class ProductDetailsController extends Controller
 
     } // End Method
 
+    // public function Search(Request $request)
+    // {
+    //     $item = $request->input('search'); // Retrieve the search input from the request.
+
+    //     $product = Product::where('product_name', 'LIKE', '%' . $item . '%')->first();
+    //     $category = Category::where('category_name', 'LIKE', '%' . $item . '%')->first();
+    //     $subcategory = SubCategory::where('subcategory_name', 'LIKE', '%' . $item . '%')->first();
+    //     $childcategory = ChlildCategory::where('childcategory_name', 'LIKE', '%' . $item . '%')->first();
+    //     if ($product) {
+    //         return redirect(
+    //             '/product' . '/' . $product->product_slug,
+    //             // '/product/details/' . $product->id . '/' . $product->product_name,
+    //         );
+    //     } elseif ($category) {
+    //         return redirect(
+    //             // '/category'.'/'. $category->category_slug,
+    //             route('category.view', ['category_slug' => $category->category_name])
+    //         );
+
+    //     } elseif ($subcategory) {
+    //         return redirect(
+    //             '/subcategory' . '/' . $subcategory->subcategory_slug,
+
+    //             // route('subcategory.view', ['subcategory_slug' => $category->subcategory_name])
+    //         );
+    //     } elseif ($childcategory) {
+    //         return redirect(
+    //             '/childcategory' . '/' . $childcategory->childcategory_slug,
+
+    //             //route('childcategory.view', ['childcategory_slug' => $category->childcategory_name])
+    //         );
+
+    //     } else {
+    //         return redirect()->back('error', 'Product not found');
+    //     }
+
+    // }
+
     public function Search(Request $request)
     {
-        $item = $request->input('search'); // Retrieve the search input from the request.
 
-        $product = Product::where('product_name', 'LIKE', '%' . $item . '%')->first();
-        $category = Category::where('category_name', 'LIKE', '%' . $item . '%')->first();
-        $subcategory = SubCategory::where('subcategory_name', 'LIKE', '%' . $item . '%')->first();
-        $childcategory = ChlildCategory::where('childcategory_name', 'LIKE', '%' . $item . '%')->first();
-        if ($product) {
-            return redirect(
-                '/product' . '/' . $product->product_slug,
-                // '/product/details/' . $product->id . '/' . $product->product_name,
-            );
-        } elseif ($category) {
-            return redirect(
-                // '/category'.'/'. $category->category_slug,
-                route('category.view', ['category_slug' => $category->category_name])
-            );
+      
+        $search = $request->search;
 
-        } elseif ($subcategory) {
-            return redirect(
-                '/subcategory' . '/' . $subcategory->subcategory_slug,
+        $products = Product::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('product_name', 'like', '%' . $search . '%')->orderby('id', 'desc')->select('id', 'product_name', 'image_one', 'image_two', 'product_slug')->take(10);
+            })->get();
 
-                // route('subcategory.view', ['subcategory_slug' => $category->subcategory_name])
-            );
-        } elseif ($childcategory) {
-            return redirect(
-                '/childcategory' . '/' . $childcategory->childcategory_slug,
+            if($request->not_ajax =='not_ajax'){
+                $products = Product::query()
+                ->when($search, function ($query, $search) {
+                    return $query->where('product_name', 'like', '%' . $search . '%')->orderby('id', 'desc')->select('id', 'product_name', 'image_one', 'image_two', 'product_slug')->take(10);
+                })->get();
+        
+                return view('frontend.pages.product_search', compact('products'));
 
-                //route('childcategory.view', ['childcategory_slug' => $category->childcategory_name])
-            );
+            }else{
+                return response()->json($products);
 
-        } else {
-            return redirect()->back('error', 'Product not found');
-        }
+            }
+
+
+
+        
+
+        
+        // if ($request->ajax()) {
+           
+        // } else {
+        //     dd('ddd');
+        //     return view('frontend.pages.product_search', compact('products'));
+        // }
+
+        // return response()->json($products);
 
     }
 

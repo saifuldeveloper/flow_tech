@@ -1,8 +1,6 @@
 @extends('fontend_master')
 {{-- @dd($product); --}}
-@section('meta_title'){{ $product->meta_title }}@stop
-@section('meta_description'){{ $product->meta_description }}@stop
-@section('meta_keywords'){{ $product->keyword }}@stop
+
 @section('meta')
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="{{ $product->meta_title }}">
@@ -692,6 +690,7 @@
                         $review = DB::table('ratings')
                             ->leftJoin('users','ratings.user_id','users.id')
                             ->where('product_id', $Id)
+                            ->where('active_status' ,1)
                             ->get();
                             $totalQuestion =  DB::table('user_questions')->where('product_id', $Id)->count();
                             $totalReview =  DB::table('ratings')->where('product_id', $Id)->count();

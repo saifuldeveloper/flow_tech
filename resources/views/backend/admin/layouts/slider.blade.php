@@ -214,19 +214,19 @@
                 <a href="{{ route('contactus.page')}}"><i class="bx bx-right-arrow-alt"></i>Contact Us </a>
             </li>
             <li>
-                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i> Privacy Policy </a>
+                <a href="{{ route('privacy.policy.page')}}"><i class="bx bx-right-arrow-alt"></i> Privacy Policy </a>
             </li>
             <li>
-                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>EMI Page</a>
+                <a href="{{ route('emi.page')}}"><i class="bx bx-right-arrow-alt"></i>EMI Page</a>
             </li>
             <li>
-                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>Desktop</a>
+                <a href="{{ route('desktop.page')}}"><i class="bx bx-right-arrow-alt"></i>Desktop</a>
             </li>
             <li>
-                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>Laptop</a>
+                <a href="{{ route('laptop.page')}}"><i class="bx bx-right-arrow-alt"></i>Laptop</a>
             </li>
             <li>
-                <a href="{{ route('list.setting')}}"><i class="bx bx-right-arrow-alt"></i>laptop and gameing pc</a>
+                <a href="{{ route('gamming.computer.page')}}"><i class="bx bx-right-arrow-alt"></i>laptop and gameing pc</a>
             </li>
 
         </ul>

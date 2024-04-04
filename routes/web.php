@@ -75,7 +75,7 @@ Route::get('/childcategory/{childcategory_slug}', [ProductDetailsController::cla
 
 // Product search controller
 Route::get('/product-list', [ProductDetailsController::class, 'ProductListAjax']);
-Route::post('/product/search', [ProductDetailsController::class, 'Search'])->name('product.search');
+Route::get('/search', [ProductDetailsController::class, 'Search'])->name('product.search');
 
 // Product filter
 Route::post('product/brand/filter', [ProductDetailsController::class, 'BrandFilter'])->name('filter.brands');
@@ -262,6 +262,22 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/setting/contact-us/page', [SettingController::class, 'contactUsPage'])->name('contactus.page');
     Route::post('/admin/setting/contact-us/page/update', [SettingController::class, 'contactUsPageUpdate'])->name('contactus.page.update');
 
+    Route::get('/admin/setting/privacy-policy/page', [SettingController::class, 'privacyPolicyPage'])->name('privacy.policy.page');
+    Route::post('/admin/setting/privacy-policy/page/update', [SettingController::class, 'privacyPolicPageUpdate'])->name('privacy.policy.page.update');
+
+    Route::get('/admin/setting/emi/page', [SettingController::class, 'emiPage'])->name('emi.page');
+    Route::post('/admin/setting/emi/page/update', [SettingController::class, 'emiPageUpdate'])->name('emi.page.update');
+
+    Route::get('/admin/setting/desktop/page', [SettingController::class, 'desktopPage'])->name('desktop.page');
+    Route::post('/admin/setting/desktop/page/update', [SettingController::class, 'desktopPageUpdate'])->name('desktop.page.update');
+   
+
+    Route::get('/admin/setting/laptop/page', [SettingController::class, 'laptopPage'])->name('laptop.page');
+    Route::post('/admin/setting/laptop/page/update', [SettingController::class, 'laptopPageUpdate'])->name('laptop.page.update');
+
+    Route::get('/admin/setting/gamming-computer/page', [SettingController::class, 'gammingComputerPage'])->name('gamming.computer.page');
+    Route::post('/admin/setting/gamming-computer/page/update', [SettingController::class, 'gammingComputerPageUpdate'])->name('gamming.computer.page.update');
+
     // Subscribe
 
     // this controller must be change
@@ -295,6 +311,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/contact-us/list',[ContactusController::class ,'list'])->name('contact-us.list');
     Route::get('/admin/contact-us/delete/{id}',[ContactusController::class ,'delete'])->name('contact-us.delete');
 
+    Route::get('/admin/product/review/list', [FrontendUserReviewController::class, 'reviewList'])->name('review.list');
+
 
 
 
@@ -312,6 +330,8 @@ Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, '
 // this section for all page detials
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('aboutUs');
 Route::get('/category', [App\Http\Controllers\HomeController::class, 'Category'])->name('allcategory');
+Route::get('/brand', [App\Http\Controllers\HomeController::class, 'BrandAll'])->name('brand.all');
+Route::get('/brand/{name}', [App\Http\Controllers\HomeController::class, 'brand'])->name('brand');
 Route::get('/all/blog', [App\Http\Controllers\HomeController::class, 'Blog'])->name('allblog');
 Route::get('/all/blog/{id}', [App\Http\Controllers\HomeController::class, 'SingleBlog'])->name('SingleBlog');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');

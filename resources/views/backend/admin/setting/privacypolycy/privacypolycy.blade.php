@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title">Refund and return Policy</h3>
+            <h3 class="page-title">Privacy && Policy</h3>
         </div>
         @php
             $setting = DB::table('settings')->first();
@@ -20,16 +20,16 @@
                                 {{ Session::get('success') }}
                             </div>
                         @endif
-                        <form class="forms-sample" action="{{ route('setting.refund.page.update') }}" method="post"
+                        <form class="forms-sample" action="{{ route('privacy.policy.page.update') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Meta Description</label><br>
-                                        <textarea class="form-control autosize" name="refundpage" id="summernote8" style="height: 200px;">{{ $setting->refundpage }} </textarea>
+                                        <label class="form-label">Privacy && Policy</label><br>
+                                        <textarea class="form-control autosize" name="policypage" id="summernote8" style="height: 200px;">{{ $setting->policypage }} </textarea>
                                         <span style="color: red;">
-                                            @error('refundpage')
+                                            @error('policypage')
                                                 {{ $message }}
                                             @enderror
                                         </span>

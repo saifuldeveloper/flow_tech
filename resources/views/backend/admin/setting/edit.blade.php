@@ -103,7 +103,7 @@
                     
                 </div>
 
-                {{-- <div class="form-group">
+                <div class="form-group">
                     <label class="form-label">Shipping Charge</label>
                     <input type="text" name="shipping_charge" class="form-control" value="{{ $setting->shipping_charge }}">
           
@@ -113,7 +113,7 @@
                       @enderror
                       </span>
                     
-                </div> --}}
+                </div>
 
                 <div class="form-group">
                     <label class="form-label">Facebook Link</label>
@@ -185,7 +185,7 @@
                 </span>
         
                 </div>
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                   <label class="form-label">First Header</label>
                   <textarea class="form-control" name="computer_laptop_gameingPc"  id="summernote" cols="15" rows="15"  required>{!!$setting->computer_laptop_gameingPc!!} </textarea>
                   <span style="color: red;">
@@ -193,8 +193,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Second Header</label>
                   <textarea class="form-control" name="Best_laptop"  id="summernote1" cols="15" rows="15"  required>{!!$setting->Best_laptop!!} </textarea>
                   <span style="color: red;">
@@ -202,8 +202,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Third Header</label>
                   <textarea class="form-control" name="Best_desktop"  id="summernote2" cols="15" rows="15"  required>{!!$setting->Best_desktop!!} </textarea>
                   <span style="color: red;">
@@ -211,12 +211,12 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
+                </div> --}}
 
-                <div class="mb-3 bg-success">
+                {{-- <div class="mb-3 bg-success">
                   <label class="form-label text-white font-weight-bold">This Section is Our Page Setting Area</label>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Emi Page</label>
                   <textarea class="form-control summernote2" name="emipage"  id="" cols="15" rows="15"  required>{!!$setting->emipage!!}</textarea>
                   <span style="color: red;">
@@ -224,8 +224,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Privacy Policy Page</label>
                   <textarea class="form-control summernote2" name="policypage"  id="" cols="15" rows="15"  required> {!!$setting->policypage!!}</textarea>
                   <span style="color: red;">
@@ -233,8 +233,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Contact Page</label>
                   <textarea class="form-control summernote2" name="contactpage"  id="" cols="15" rows="15"  required>{!!$setting->contactpage!!} </textarea>
                   <span style="color: red;">
@@ -242,8 +242,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">About Page</label>
                   <textarea class="form-control summernote2" name="aboutpage"  id="" cols="15" rows="15"  required>{!!$setting->aboutpage!!} </textarea>
                   <span style="color: red;">
@@ -251,8 +251,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Terms and Condition Page</label>
                   <textarea class="form-control summernote2" name="conditionpage"  id="" cols="15" rows="15"  required> {!!$setting->conditionpage!!}</textarea>
                   <span style="color: red;">
@@ -260,8 +260,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Refund and Return Policy Page</label>
                   <textarea class="form-control summernote2" name="refundpage"  id="" cols="15" rows="15"  required>{!!$setting->refundpage!!} </textarea>
                   <span style="color: red;">
@@ -269,8 +269,8 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                   <label class="form-label">Delivery Page</label>
                   <textarea class="form-control summernote2" name="delivery"  id="" cols="15" rows="15"  required> {!!$setting->delivery!!}</textarea>
                   <span style="color: red;">
@@ -278,7 +278,7 @@
                         {{$message}}
                     @enderror
                     </span>
-                </div>
+                </div> --}}
                 <button type="submit" class="btn btn-primary mr-2">Update</button>
                 <a  class="btn btn-light" href="">Cancel</a>
               </form>
