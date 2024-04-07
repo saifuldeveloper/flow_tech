@@ -635,6 +635,11 @@
                         <input type="checkbox" name="trend" value="1">
                         <span>Fetured Product</span>
                 </div>
+                <div class="col-md-3 mt-3 mb-3">
+                    <label class="ckbox">
+                        <input type="checkbox" name="download_on_off" value="1">
+                        <span>Download On/Off</span>
+                </div>
 
 
 {{--

@@ -24,13 +24,14 @@
                 <tr>
                   <th>Sl</th>
                   <th class="d-flex justify-content-end">Action</th>
+                  <th>Home Page Active</th>
                   <th class="wd-15p">Logo</th>
                   <th>Shopname</th>
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Address</th>
                   <th>Message</th>
-                  <th>Facebook</th>
+                  <th style="width:10%">Facebook</th>
                   <th>Twitter</th>
                   <th>Youtube</th>
                   <th>Linkedin</th>
@@ -59,13 +60,23 @@
                     <a href="{{ route('edit.setting',$row->id)}}" class="btn btn-primary shihab">Update</a>&nbsp;
                     {{-- <a href="" class="btn btn-danger" id="delete">Delete</a> --}}
                   </td>
+                  <td>
+                    @if($row->homepage_active =1)
+                  Page One 
+                  @else
+                  Page Two
+                  @endif
+                  </td>
+                  
+
+
                   <td> <img src="{{ URL::to($row->logo) }}" height="50px;" width="50px;"> </td>
                   <td>{{ $row->shopname }}</td>
                   <td>{{ $row->email }}</td>
                   <td>{{ $row->phone }}</td>
                   <td>{{ $row->address}}</td>
                   <td>{{ $row->message}}</td>
-                  <td>{{ $row->facebook}}</td>
+                  <td style="width:10%">{{ $row->facebook}}</td>
                   <td>{{ $row->twitter}}</td>
                   <td>{{ $row->youtube}}</td>
                   <td>{{ $row->linkedIn}}</td>

@@ -25,6 +25,7 @@ class Product extends Model
         'discount_price',
         'video_link',
         'hot_deal',
+        'download_on_off',
         'best_rated',
         'main_slider',
         'mid_slider',

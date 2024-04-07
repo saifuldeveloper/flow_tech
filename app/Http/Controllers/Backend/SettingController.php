@@ -79,7 +79,10 @@ class SettingController extends Controller
     public function updateSetting(Request $request, $id)
     {
 
+
+
         $data = array();
+        $data['homepage_active'] = $request->homepage_active;
         $data['shopname'] = $request->shopname;
         $data['email'] = $request->email;
         $data['phone'] = $request->phone;

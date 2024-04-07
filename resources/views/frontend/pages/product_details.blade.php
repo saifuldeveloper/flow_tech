@@ -693,7 +693,7 @@
                             ->where('active_status' ,1)
                             ->get();
                             $totalQuestion =  DB::table('user_questions')->where('product_id', $Id)->count();
-                            $totalReview =  DB::table('ratings')->where('product_id', $Id)->count();
+                            $totalReview =  DB::table('ratings')->where('active_status' ,1)->where('product_id', $Id)->count();
                     }
 
 
@@ -800,6 +800,7 @@
 
                         </div>
                     </section>
+                    @if($product->download_on_off == '1')
                     <section class="download bg-white m-tb-15" id="download">
                         <div class="section-head">
                             <h2>Download</h2>
@@ -814,7 +815,6 @@
                                 </li>
                                 <li class="nav-item has-child c-1">
                                     <a class="nav-link" href="{{ route('download.drivefile', ['id' => $product->id ?? 0]) }}">Drivers</a>
-                                    {{-- <a class="nav-link" href="{{ url('download/'.($product->drivers)) }}">Drivers</a> --}}
                                 </li>
                                 <li class="nav-item has-child c-1">
                                     <a class="nav-link" href="{{($product->firmware ?? '')}}">Firmware</a>
@@ -825,10 +825,8 @@
 
                             </ul>
                         </div>
-
-
-
                     </section>
+                    @endif
 
                 </div>
                 @php

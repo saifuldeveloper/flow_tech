@@ -20,6 +20,14 @@
           
               <form class="forms-sample" action="{{ route('update.setting',$setting->id)}}" method="post" enctype="multipart/form-data"> 
                 @csrf 
+
+                <div class="form-group mb-3">
+                  <label class="form-label">Home Page Active:</label><br>
+                  <select class="form-control" name="homepage_active" id="homepage_active">
+                    <option value="1" {{ $setting->homepage_active == 1 ? 'selected' : '' }}>Page One</option>
+                    <option value="2" {{ $setting->homepage_active == 2 ? 'selected' : '' }}>Page two</option>
+                  </select>
+                </div>
                 <div class="form-group mb-3">
                   <label class="form-label">Logo:</label><br>
   

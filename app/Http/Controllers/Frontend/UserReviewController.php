@@ -7,6 +7,7 @@ use App\Models\Rating;
 use App\Models\UserQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class UserReviewController extends Controller
@@ -62,6 +63,26 @@ class UserReviewController extends Controller
         $reviews =Rating::with('user','product')->orderBy('id','desc')->get();
 
         return view('backend.admin.review.review_list',compact('reviews'));
+    }
+
+
+
+    public function reviewStatuschages(Request $request, $id){
+
+        $status = $request->status;
+
+        DB::table('ratings')->where('id', $id)->update(['active_status' => $status]);
+
+
+
+        return response()->json([
+            "msg" => 'success',
+        ]);
+        
+    
+
+
+
     }
 }
 

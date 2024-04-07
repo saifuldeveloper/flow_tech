@@ -236,6 +236,19 @@
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="fa-solid fa-screwdriver-wrench"></i>
             </div>
+            <div class="menu-title">Review </div>
+        </a>
+        <ul>
+            <li>
+                <a href="{{ route('review.list')}}"><i class="bx bx-right-arrow-alt"></i>Review List </a>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
             <div class="menu-title"> Q&A </div>
         </a>
         <ul>

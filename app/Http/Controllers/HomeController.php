@@ -11,11 +11,33 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('frontend.pages.index');
+
+
+        $homepageActive = DB::table('settings')->value('homepage_active');
+        if ($homepageActive == 1) {
+            // Redirect to index page
+            return view('frontend.pages.index');
+        } else {
+            // Redirect to home page
+            return redirect()->route('homePage');
+        }
+
+
+        // return view('frontend.pages.index');
     }
     public function Home()
     {
-        return view('frontend.pages.home');
+        // return view('frontend.pages.home');
+        $homepageActive = DB::table('settings')->value('homepage_active');
+
+        // Check the value of homepage_active
+        if ($homepageActive == 1) {
+            // Redirect to index page
+            return redirect()->route('home');
+        } else {
+            // Redirect to home page
+            return view('frontend.pages.home');
+        }
     }
     public function Account()
     {

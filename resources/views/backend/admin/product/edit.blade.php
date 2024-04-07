@@ -25,12 +25,9 @@
 
     <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-
-
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
     @php
         $category = Illuminate\Support\Facades\DB::table('categories')->get();
         $brand = Illuminate\Support\Facades\DB::table('brands')->get();
@@ -45,18 +42,14 @@
             <h3 class="page-title">Edit Product</h3>
 
         </div>
-
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-
                         <form class="forms-sample" action="{{ route('update.product.withoutimg', $product->id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
-
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Product Name</label>
@@ -121,7 +114,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select class="form-control select2" name="category_id" >
+                                        <select class="form-control select2" name="category_id">
 
                                             @foreach ($category as $row)
                                                 <option value="{{ $row->id }}" <?php if ($row->id == $product->category_id) {
@@ -138,7 +131,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Sub Category</label>
-                                        <select class="form-control select2" name="subcategory_id" >
+                                        <select class="form-control select2" name="subcategory_id">
 
                                             @foreach ($subcategory as $row)
                                                 <option value="{{ $row->id }}" <?php if ($row->id == $product->subcategory_id) {
@@ -155,24 +148,21 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Child Category</label>
-                                        <select class="form-control select2" name="childcategory_id" >
-
+                                        <select class="form-control select2" name="childcategory_id">
                                             @foreach ($childcategory as $row)
                                                 <option value="{{ $row->id }}" <?php if ($row->id == $product->childcategory_id) {
                                                     echo 'selected';
                                                 } ?>>
                                                     {{ $row->childcategory_name }}</option>
                                             @endforeach
-
                                         </select>
-
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Brand</label>
-                                        <select class="form-control select2" name="brand_id" >
+                                        <select class="form-control select2" name="brand_id">
 
                                             @foreach ($brand as $br)
                                                 <option value="{{ $br->id }}" <?php if ($br->id == $product->brand_id) {
@@ -265,7 +255,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Product Slug</label><br>
-                                        <input type="text" name="product_slug" value="{{ $product->product_slug }}" class="form-control" required>
+                                        <input type="text" name="product_slug" value="{{ $product->product_slug }}"
+                                            class="form-control" required>
 
                                         <span style="color: red;">
                                             @error('product_slug')
@@ -275,40 +266,108 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Catalouge</label><br>
+                                        @if ($product->catalouge)
+                                            <input type="file" name="catalouge" class="form-control" id="catalouge"
+                                                accept=".pdf">
+                                            <span style="color: green;">{{ $product->catalouge }}</span><br>
+                                        @else
+                                            <input type="file" name="catalouge" class="form-control" id="catalouge"
+                                                accept=".pdf">
+                                            @error('catalouge')
+                                                <span style="color: red;">{{ $message }}</span>
+                                            @enderror
+                                        @endif
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Drivers</label><br>
+                                        <input type="file" name="drivers" class="form-control" accept=".pdf">
+                                        @if ($product->drivers)
+                                            <span style="color: green;">{{ $product->drivers }}</span>
+                                        @else
+                                            <span style="color: red;">No file uploaded</span>
+                                        @endif
+                                        @error('drivers')
+                                            <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Firmware Link*</label><br>
+                                        <input type="text" name="firmware" class="form-control"
+                                            value="{{ $product->firmware ?? '' }}">
+
+                                        <span style="color: red;">
+                                            @error('firmware')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Manual Link*</label><br>
+                                        <input type="text" name="manual" class="form-control"
+                                            value="{{ $product->manual ?? '' }}">
+
+                                        <span style="color: red;">
+                                            @error('manual')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label" >Meta Title</label><br>
-                                         <textarea class="form-control" name="meta_title" id="summernote5" cols="5" rows="5">{{ $product->meta_title }}</textarea>
+                                        <label class="form-label">Meta Title</label><br>
+                                        <textarea class="form-control" name="meta_title" id="summernote5" cols="5" rows="5">{{ $product->meta_title }}</textarea>
 
                                         <span style="color: red;">
                                             @error('meta_title')
-                                                {{$message}}
+                                                {{ $message }}
                                             @enderror
-                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label" >Keyword</label><br>
-                                         <textarea class="form-control" name="keyword" id="summernote6" cols="5" rows="5">{{ $product->keyword }}</textarea>
+                                        <label class="form-label">Keyword</label><br>
+                                        <textarea class="form-control" name="keyword" id="summernote6" cols="5" rows="5">{{ $product->keyword }}</textarea>
 
                                         <span style="color: red;">
                                             @error('keyword')
-                                                {{$message}}
+                                                {{ $message }}
                                             @enderror
-                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label" >Schema Markup </label><br>
-                                         <textarea class="form-control" name="schema_markup" id="summernote7" cols="10" rows="5">{{ $product->schema_markup }}</textarea>
+                                        <label class="form-label">Schema Markup </label><br>
+                                        <textarea class="form-control" name="schema_markup" id="summernote7" cols="10" rows="5">{{ $product->schema_markup }}</textarea>
 
                                         <span style="color: red;">
                                             @error('schema_markup')
-                                                {{$message}}
+                                                {{ $message }}
                                             @enderror
-                                            </span>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -451,6 +510,14 @@
                                         <span>Fetured Product</span>
                                 </div>
 
+                                <div class="col-md-3 mt-3 mb-3">
+                                    <label class="ckbox">
+                                        <input type="checkbox" name="download_on_off" value="1" <?php if ($product->download_on_off == 1) {
+                                            echo 'checked';
+                                        } ?>>
+                                        <span>Download On/Off</span>
+                                </div>
+
 
 
                                 {{-- <div class="col-md-3 mt-3 mb-3">
@@ -476,164 +543,133 @@
                         } ?>>
                         <span>Buyone Getone</span>
                 </div> --}}
-                {{-- image tag updat --}}
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Product Banner Tag</label>
-                        <input type="text" class="form-control" name="product_banner_tag" required
-                            value="{{ $product->product_banner_tag }}">
+                                {{-- image tag updat --}}
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Product Banner Tag</label>
+                                        <input type="text" class="form-control" name="product_banner_tag" required
+                                            value="{{ $product->product_banner_tag }}">
 
-                        <span style="color: red;">
-                            @error('product_banner_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Image One Tag</label>
-                        <input type="text" class="form-control" name="image_one_tag" required
-                            value="{{ $product->image_one_tag }}">
-
-                        <span style="color: red;">
-                            @error('image_one_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Image Two Tag</label>
-                        <input type="text" class="form-control" name="image_two_tag" required
-                            value="{{ $product->image_two_tag }}">
-
-                        <span style="color: red;">
-                            @error('image_two_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Image Three Tag</label>
-                        <input type="text" class="form-control" name="image_three_tag" required
-                            value="{{ $product->image_three_tag }}">
-
-                        <span style="color: red;">
-                            @error('image_three_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Image Four Tag</label>
-                        <input type="text" class="form-control" name="image_four_tag" required
-                            value="{{ $product->image_four_tag }}">
-
-                        <span style="color: red;">
-                            @error('image_four_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Image Five Tag</label>
-                        <input type="text" class="form-control" name="image_five_tag" required
-                            value="{{ $product->image_five_tag }}">
-
-                        <span style="color: red;">
-                            @error('image_five_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Image Six Tag</label>
-                        <input type="text" class="form-control" name="image_six_tag" required
-                            value="{{ $product->image_six_tag }}">
-
-                        <span style="color: red;">
-                            @error('image_six_tag')
-                                {{ $message }}
-                            @enderror
-                        </span>
-
-                    </div>
-                </div>
-
-
-
-
-
-                            </div> {{-- end Row  --}}
-
-
-
-
-
-
-
-
-
-
-
-                            <button type="submit" class="btn btn-primary mr-2">Update Without Image</button>
-                            <a class="btn btn-light" href="">Cancel</a>
-                        </form>
-
-                        <hr>
-
-                        <form action="{{ route('update.product.withimg', $product->id) }}" enctype="multipart/form-data"
-                            method="post">
-                            @csrf
-
-                            <div class="row mt-5">
-
-                                <div class="col-md-12">
-                                    <div class="mb-3 ">
-                                        <label class="form-label">Product Banner </label><br>
-
-
-                                        <input type="file" name="product_banner" class="form-control"
-                                            id="product_banner_logo" accept="image/*" >
-                                        <br>
-
-                                        <img id="product_banner_logo-preview"
-                                            src="{{ URL::to($product->product_banner) }}" alt="Banner Image"
-                                            style="max-width: 200px;">
-
-                                        <div id="product_banner_logo_preview"></div>
-
-                                        <input type="hidden" name="old_product_banner"
-                                            value="{{ $product->product_banner }}">
+                                        <span style="color: red;">
+                                            @error('product_banner_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
 
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Image One Tag</label>
+                                        <input type="text" class="form-control" name="image_one_tag" required
+                                            value="{{ $product->image_one_tag }}">
 
+                                        <span style="color: red;">
+                                            @error('image_one_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Image Two Tag</label>
+                                        <input type="text" class="form-control" name="image_two_tag"
+                                            value="{{ $product->image_two_tag }}">
+
+                                        <span style="color: red;">
+                                            @error('image_two_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Image Three Tag</label>
+                                        <input type="text" class="form-control" name="image_three_tag" 
+                                            value="{{ $product->image_three_tag }}">
+
+                                        <span style="color: red;">
+                                            @error('image_three_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Image Four Tag</label>
+                                        <input type="text" class="form-control" name="image_four_tag" 
+                                            value="{{ $product->image_four_tag }}">
+
+                                        <span style="color: red;">
+                                            @error('image_four_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Image Five Tag</label>
+                                        <input type="text" class="form-control" name="image_five_tag" 
+                                            value="{{ $product->image_five_tag }}">
+
+                                        <span style="color: red;">
+                                            @error('image_five_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Image Six Tag</label>
+                                        <input type="text" class="form-control" name="image_six_tag" 
+                                            value="{{ $product->image_six_tag }}">
+
+                                        <span style="color: red;">
+                                            @error('image_six_tag')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div> {{-- end Row  --}}
+                            <button type="submit" class="btn btn-primary mr-2">Update Without Image</button>
+                            <a class="btn btn-light" href="">Cancel</a>
+                        </form>
+                        <hr>
+                        <form action="{{ route('update.product.withimg', $product->id) }}" enctype="multipart/form-data"
+                            method="post">
+                            @csrf
+                            <div class="row mt-5">
+                                <div class="col-md-12">
+                                    <div class="mb-3 ">
+                                        <label class="form-label">Product Banner </label><br>
+                                        <input type="file" name="product_banner" class="form-control"
+                                            id="product_banner_logo" accept="image/*">
+                                        <br>
+                                        <img id="product_banner_logo-preview"
+                                            src="{{ URL::to($product->product_banner) }}" alt="Banner Image"style="max-width: 200px;">
+                                        <div id="product_banner_logo_preview"></div>
+                                        <input type="hidden" name="old_product_banner"
+                                            value="{{ $product->product_banner }}">
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="mb-3 ">
                                         <label class="form-label">Image One ( Main Thumbnali):</label><br>
-
-
                                         <input type="file" name="image_one" class="form-control" id="logo"
                                             accept="image/*" required>
                                         <br>
-
                                         <img id="logo-preview" src="{{ URL::to($product->image_one) }}" alt="Brand Logo"
                                             style="max-width: 200px;">
 
@@ -787,66 +823,68 @@
             });
         </script> --}}
         <script type="text/javascript">
-            $(document).ready(function(){
-           $('select[name="category_id"]').on('change',function(){
-                var category_id = $(this).val();
-                if (category_id) {
+            $(document).ready(function() {
+                $('select[name="category_id"]').on('change', function() {
+                    var category_id = $(this).val();
+                    if (category_id) {
 
-                  $.ajax({
-                    url: "{{ url('get/subcategory/') }}/"+category_id,
-                    type:"GET",
-                    dataType:"json",
-                    success:function(data) {
-                    var d =$('select[name="subcategory_id"]').empty();
-                    $.each(data, function(key, value){
+                        $.ajax({
+                            url: "{{ url('get/subcategory/') }}/" + category_id,
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data) {
+                                var d = $('select[name="subcategory_id"]').empty();
+                                $.each(data, function(key, value) {
 
-                    $('select[name="subcategory_id"]').append('<option value="'+ value.id + '">' + value.subcategory_name + '</option>');
+                                    $('select[name="subcategory_id"]').append(
+                                        '<option value="' + value.id + '">' + value
+                                        .subcategory_name + '</option>');
 
-                    });
-                    },
-                  });
+                                });
+                            },
+                        });
 
-                }else{
-                  alert('danger');
-                }
+                    } else {
+                        alert('danger');
+                    }
 
-                  });
+                });
             });
-
         </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-           $('select[name="subcategory_id"]').on('change',function(){
-                var subcategory_id = $(this).val();
-                if (subcategory_id) {
+            $(document).ready(function() {
+                $('select[name="subcategory_id"]').on('change', function() {
+                    var subcategory_id = $(this).val();
+                    if (subcategory_id) {
 
-                  $.ajax({
-                    url: "{{ url('get/childcategory/') }}/"+subcategory_id,
-                    type:"GET",
-                    dataType:"json",
-                    success:function(data) {
+                        $.ajax({
+                            url: "{{ url('get/childcategory/') }}/" + subcategory_id,
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data) {
 
-                        console.log(data);
-                    var d =$('select[name="childcategory_id"]').empty();
-                    $.each(data, function(key, value){
+                                console.log(data);
+                                var d = $('select[name="childcategory_id"]').empty();
+                                $.each(data, function(key, value) {
 
-                    $('select[name="childcategory_id"]').append('<option value="'+ value.id + '">' + value.childcategory_name + '</option>');
+                                    $('select[name="childcategory_id"]').append(
+                                        '<option value="' + value.id + '">' + value
+                                        .childcategory_name + '</option>');
 
-                    });
-                    },
-                  });
+                                });
+                            },
+                        });
 
-                }else{
-                  alert('danger');
-                }
+                    } else {
+                        alert('danger');
+                    }
 
-                  });
+                });
             });
-
         </script>
 
 
-{{-- <div class="col-md-4">
+        {{-- <div class="col-md-4">
     <div class="mb-3 ">
         <label class="form-label">Product Banner </label><br>
 
@@ -998,21 +1036,21 @@
             });
         </script>
 
-<script>
-    function slugify(text) {
-        return text.toString().toLowerCase()
-            .replace(/\s+/g, '-')           // Replace spaces with -
-            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-            .replace(/^-+/, '')             // Trim - from start of text
-            .replace(/-+$/, '');            // Trim - from end of text
-    }
+        <script>
+            function slugify(text) {
+                return text.toString().toLowerCase()
+                    .replace(/\s+/g, '-') // Replace spaces with -
+                    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+                    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                    .replace(/^-+/, '') // Trim - from start of text
+                    .replace(/-+$/, ''); // Trim - from end of text
+            }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const slugInput = document.querySelector('input[name="product_slug"]');
-        slugInput.addEventListener('keyup', function() {
-            this.value = slugify(this.value);
-        });
-    });
-</script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const slugInput = document.querySelector('input[name="product_slug"]');
+                slugInput.addEventListener('keyup', function() {
+                    this.value = slugify(this.value);
+                });
+            });
+        </script>
     @endsection

@@ -282,6 +282,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     // this controller must be change
     Route::get('/admin/list/subscribe/', [SubscribeController::class, 'listSubscribe'])->name('list.subscribe');
+   
 
     // Order List
     Route::get('/admin/list/order', [LeadManagementController::class, 'listOrder'])->name('list.order');
@@ -312,6 +313,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/contact-us/delete/{id}',[ContactusController::class ,'delete'])->name('contact-us.delete');
 
     Route::get('/admin/product/review/list', [FrontendUserReviewController::class, 'reviewList'])->name('review.list');
+    Route::post('/admin/product/review/status/{id}', [FrontendUserReviewController::class, 'reviewStatuschages'])->name('review.status.changes');
 
 
 
@@ -360,5 +362,8 @@ Route::get('/user/update/password/{id}', [App\Http\Controllers\HomeController::c
 Route::get('/account/edit', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account.edit');
 // Route::get('/account/update/{id}', [App\Http\Controllers\HomeController::class, 'AccountEdit'])->name('account');
 Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, 'AccountOrderList'])->name('account.order.list');
+
+
+Route::post('/subscribe/store', [SubscribeController::class, 'storeSubscribe'])->name('subscribe.store');
 
 // });

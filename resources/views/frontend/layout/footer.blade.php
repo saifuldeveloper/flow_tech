@@ -23,6 +23,18 @@
                     <p>Store Locator</p>
                     <h5>Find Our Stores</h5>
                 </a>
+                @if(session('success'))
+                <div class="alert alert-success" style="colo:white">
+                    {{ session('success') }}
+                </div>
+             @endif
+                <form action="{{ route('subscribe.store') }}" method="post">
+                    @csrf
+                    <div style="display: flex">
+                        <input type="emial" name="email" placeholder="subscriber">
+                        <button class="btn btn-primary">submit</button>
+                    </div>
+                </form>
             </div>
 
             <div class="footer-block about-us">
