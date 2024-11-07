@@ -1,8 +1,9 @@
 @extends('master_admin')
-@section('content')
-    <!-- include summernote css/js -->
+@section('title', 'Flow Tech BD | Emi Page')
+@push('css')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+@endpush
+@section('content')
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">Emi Page</h3>
@@ -41,10 +42,15 @@
                     </div>
                 </div>
             </div>
-            <script>
-                $('#summernote8').summernote({
-                    tabsize: 2,
-                    height: 500
-                });
-            </script>
-        @endsection
+        </div>
+    </div>
+@endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+        $('#summernote8').summernote({
+            tabsize: 2,
+            height: 500
+        });
+    </script>
+@endpush

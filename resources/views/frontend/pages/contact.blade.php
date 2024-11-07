@@ -6,8 +6,8 @@
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="#"><i class="material-icons" title="Home">home</i></a></li>
-                <li><a href="contact.html">Contact Us | Star Tech Ltd</a></li>
+                <li><a href="{{ url('/') }}"><i class="material-icons">home</i></a></li>
+                <li><a href="{{ url('/contact') }}">Contact Us</a></li>
             </ul>
         </div>
     </section>
@@ -77,7 +77,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Phone</label>
-                                        <input type="text" class="form-control" name="phone" placeholder="Phone" required>
+                                        <input type="text" class="form-control" name="phone" placeholder="Phone"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

@@ -1,18 +1,18 @@
 @extends('fontend_master')
 @section('content')
-@php
-$setting = DB::table('settings')->first();
-@endphp
+    @php
+        $setting = DB::table('settings')->first();
+    @endphp
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{route('home')}}"><i class="material-icons" title="Home">home</i></a></li>
-                <li><a href="{{route('refundAndReturn')}}">Refund and Return Policy</a></li>
+                <li><a href="{{ route('home') }}"><i class="material-icons" title="Home">home</i></a></li>
+                <li><a href="{{ route('refundAndReturn') }}">Refund and Return Policy</a></li>
             </ul>
         </div>
     </section>
     <section class="info-page bg-bt-gray p-tb-15 ">
-        <div class="container content ws-box m-auto">
+        <div class="container content ws-box m-auto" style="margin-top:2px">
             <style>
                 .info-page .rr-policy h1 {
                     margin-bottom: 5px;
@@ -61,7 +61,7 @@ $setting = DB::table('settings')->first();
             <div class="rr-policy">
                 <h1>পণ্য রিটার্ন ও রিফান্ড পলিসি</h1>
                 <hr>
-                 <p>{!!$setting->refundpage!!}</p>
+                <p>{!! $setting->refundpage !!}</p>
             </div>
         </div>
     </section>

@@ -11,13 +11,12 @@ class SubscribeController extends Controller
     public function listSubscribe()
     {
         $subscribe = DB::table('subscribes')->get();
-  	    return view('backend.admin.subscribe.list',compact('subscribe'));
+        return view('backend.admin.subscribe.list', compact('subscribe'));
     }
-     // End method
+    // End method
 
     public function storeSubscribe(Request $request)
     {
-
         $request->validate([
             'email' => 'required',
         ]);

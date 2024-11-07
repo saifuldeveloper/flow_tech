@@ -26,27 +26,14 @@ class ProductController extends Controller
             ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
             ->select(
                 'products.id',
-                'products.*', /* other product columns */
+                'products.*',
                 'categories.category_name as category_name',
                 'sub_categories.subcategory_name as subcategory_name',
                 'chlild_categories.childcategory_name as childcategory_name',/* other related table columns */
             )
-            // ->select('products.id', 'products.category_id', 'products.subcategory_id','products.childcategory_id', /* other product columns */
-            // 'categories.category_name as category_name', 'sub_categories.subcategory_name as subcategory_name', 'chlild_categories.childcategory_name as childcategory_name',/* other related table columns */)
+
             ->orderBy('products.id', 'DESC')
             ->get();
-
-        // $product = DB::table('products')
-        // ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-        // ->leftJoin('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
-        // ->leftJoin('chlild_categories', 'products.childcategory_id', '=', 'chlild_categories.id')
-        // ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
-        // // ->select('products.*', 'categories.category_name')
-        // ->orderBy('products.id', 'DESC')
-        // ->get();
-        // $product = Product::all();
-
-        // dd($product);
 
 
         return view('backend.admin.product.list', compact('product'));
@@ -54,7 +41,6 @@ class ProductController extends Controller
 
     public function addProduct()
     {
-
         $category = DB::table('categories')->get();
         $subCategory = DB::table('sub_categories')->get();
         $childCategory = DB::table('chlild_categories')->get();
@@ -88,12 +74,6 @@ class ProductController extends Controller
 
     public function storeProduct(Request $request)
     {
-        // dd($request->all());
-
-        // $title = $request->product_name;
-        // $slug = Str::slug($title, '-');
-        // dd($slug);
-
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_code'] = $request->product_code;
@@ -128,6 +108,7 @@ class ProductController extends Controller
         $data['long_description'] = $request->long_description;
         $data['status'] = 1;
         $data['firmware'] = $request->firmware;
+        $data['drivers'] = $request->drivers;
         $data['manual'] = $request->manual;
         $data['product_banner_tag'] = $request->product_banner_tag;
         $data['image_one_tag'] = $request->image_one_tag;
@@ -139,8 +120,6 @@ class ProductController extends Controller
         $data['image_six_tag'] = $request->image_six_tag;
 
 
-
-
         if ($request->file('catalouge')) {
             $pdfFile = $request->file('catalouge');
             $filename = time() . '.' . $pdfFile->getClientOriginalExtension();
@@ -148,18 +127,6 @@ class ProductController extends Controller
 
             $data['catalouge'] = 'media/pdfs/' . $filename;
         }
-
-
-        if ($request->file('drivers')) {
-            $pdfFile2 = $request->file('drivers');
-            $filename2 = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
-            $request->file('drivers')->move('media/pdfs', $filename2);
-            $data['drivers'] = 'media/pdfs/' . $filename2;
-        }
-
-
-        // dd($data);
-
 
 
         $image_one = $request->image_one;
@@ -170,13 +137,6 @@ class ProductController extends Controller
         $image_six = $request->image_six;
         $product_banner = $request->product_banner;
 
-        // return response()->json($data);
-
-
-        //  ive to edit file and new field here#################################################################################################
-        //  ive to edit file and new field here#################################################################################################
-        //  ive to edit file and new field here#################################################################################################
-        //  ive to edit file and new field here#################################################################################################
 
         if ($image_one) {
             $image_one_name = hexdec(uniqid()) . '.' . $image_one->getClientOriginalExtension();
@@ -261,11 +221,13 @@ class ProductController extends Controller
         $data['product_details'] = $request->product_details;
         $data['video_link'] = $request->video_link;
         $data['product_slug'] =  $request->product_slug;
+
         $data['main_slider'] = $request->main_slider;
-        $data['hot_deal'] = $request->hot_deal;
         $data['best_rated'] = $request->best_rated;
         $data['trend'] = $request->trend;
         $data['download_on_off'] = $request->download_on_off;
+
+        $data['hot_deal'] = $request->hot_deal;
         $data['mid_slider'] = $request->mid_slider;
         $data['hot_new'] = $request->hot_new;
         $data['buyone_getone'] = $request->buyone_getone;
@@ -277,6 +239,7 @@ class ProductController extends Controller
         $data['what_is_the'] = $request->what_is_the;
         $data['specification'] = $request->specification;
         $data['long_description'] = $request->long_description;
+        $data['drivers'] = $request->drivers;
 
         if ($request->file('catalouge')) {
             $pdfFile = $request->file('catalouge');
@@ -285,15 +248,6 @@ class ProductController extends Controller
 
             $data['catalouge'] = 'media/pdfs/' . $filename;
         }
-
-
-        if ($request->file('drivers')) {
-            $pdfFile2 = $request->file('drivers');
-            $filename2 = 'uploaded_pdf_' . time() . '.' . $pdfFile->getClientOriginalExtension();
-            $request->file('drivers')->move('media/pdfs', $filename2);
-            $data['drivers'] = 'media/pdfs/' . $filename2;
-        }
-
 
         $data['firmware'] = $request->firmware;
         $data['manual'] = $request->manual;
@@ -325,6 +279,20 @@ class ProductController extends Controller
 
         $data = array();
 
+        $data['product_banner_tag'] = $request->product_banner_tag;
+        $data['image_one_tag'] = $request->image_one_tag;
+        $data['image_one_tag'] = $request->image_one_tag;
+        $data['image_two_tag'] = $request->image_two_tag;
+        $data['image_three_tag'] = $request->image_three_tag;
+        $data['image_four_tag'] = $request->image_four_tag;
+        $data['image_five_tag'] = $request->image_five_tag;
+        $data['image_six_tag'] = $request->image_six_tag;
+
+        $data['main_slider'] = $request->main_slider;
+        $data['best_rated'] = $request->best_rated;
+        $data['trend'] = $request->trend;
+        $data['download_on_off'] = $request->download_on_off;
+
         $image_one = $request->file('image_one');
         $image_two = $request->file('image_two');
         $image_three = $request->file('image_three');
@@ -333,9 +301,13 @@ class ProductController extends Controller
         $image_six = $request->file('image_six');
         $product_banner = $request->file('product_banner');
 
-
-
         if ($image_one) {
+
+            // old image delete
+            if (file_exists($old_one)) {
+                @unlink($old_one);
+            }
+
             $image_one_name = hexdec(uniqid()) . '.' . $image_one->getClientOriginalExtension();
 
             Image::make($image_one)->resize(270, 270)->save(public_path('media/product/' . $image_one_name));
@@ -343,36 +315,73 @@ class ProductController extends Controller
         }
 
         if ($image_two) {
+
+            // old image delete
+            if (file_exists($old_two)) {
+                @unlink($old_two);
+            }
+
             $image_two_name = hexdec(uniqid()) . '.' . $image_two->getClientOriginalExtension();
             Image::make($image_two)->resize(270, 270)->save(public_path('media/product/' . $image_two_name));
             $data['image_two'] = 'media/product/' . $image_two_name;
         }
 
         if ($image_three) {
+
+            // old image delete
+            if (file_exists($old_three)) {
+                @unlink($old_three);
+            }
+
             $image_three_name = hexdec(uniqid()) . '.' . $image_three->getClientOriginalExtension();
             Image::make($image_three)->resize(270, 270)->save(public_path('media/product/' . $image_three_name));
             $data['image_three'] = 'media/product/' . $image_three_name;
         }
 
         if ($image_four) {
+
+            // old image delete
+            if (file_exists($old_four)) {
+                @unlink($old_four);
+            }
+
             $image_four_name = hexdec(uniqid()) . '.' . $image_four->getClientOriginalExtension();
             Image::make($image_four)->resize(270, 270)->save(public_path('media/product/' . $image_four_name));
             $data['image_four'] = 'media/product/' . $image_four_name;
         }
 
         if ($image_five) {
+
+            // old image delete
+            if (file_exists($old_five)) {
+                @unlink($old_five);
+            }
+
             $image_five_name = hexdec(uniqid()) . '.' . $image_five->getClientOriginalExtension();
             Image::make($image_five)->resize(270, 270)->save(public_path('media/product/' . $image_five_name));
             $data['image_five'] = 'media/product/' . $image_five_name;
         }
 
         if ($image_six) {
+
+            // old image delete
+            if (file_exists($old_six)) {
+                @unlink($old_six);
+            }
+
             $image_six_name = hexdec(uniqid()) . '.' . $image_six->getClientOriginalExtension();
             Image::make($image_six)->resize(270, 270)->save(public_path('media/product/' . $image_six_name));
             $data['image_six'] = 'media/product/' . $image_six_name;
         }
 
         if ($product_banner) {
+
+            // old image delete
+            if (file_exists($old_product_banner)) {
+                @unlink($old_product_banner);
+            }
+
+
             $product_banner_name = hexdec(uniqid()) . '.' . $product_banner->getClientOriginalExtension();
 
             Image::make($product_banner)->resize(1041, 200)->save(public_path('media/product/' . $product_banner_name));

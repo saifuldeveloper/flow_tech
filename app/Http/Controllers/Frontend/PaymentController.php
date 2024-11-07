@@ -23,8 +23,11 @@ class PaymentController extends Controller
             'coupon_name' => $request->coupon_name,
             'coupon_discount' => $request->coupon_discount,
             'subtotal' => $request->subtotal,
+            'payment_number' => $request->payment_number,
+            'payment_type' => $request->online,
+            'transactionID' => $request->transaction_id,
             'total' => $request->total,
-            'status' => 0,
+            'status' => 'pending',
             'date' => date('d-m-y'),
             'month' => date('F'),
             'year' => date('Y'),
@@ -56,7 +59,7 @@ class PaymentController extends Controller
 
         $test = DB::table('shippings')->insert($shipping);
         $test1 =  DB::table('shippings')->where('id', $shipping['order_id'])->first();
-// dd($test1);
+        // dd($test1);
 
         $content = Cart::content();
 
@@ -64,6 +67,8 @@ class PaymentController extends Controller
             $details = [
                 'order_id' => $order_id,
                 'product_id' => $row->id,
+                'brand_id' => $row->options->brand_id,
+                'category_id' => $row->options->category_id,
                 'product_name' => $row->name,
                 'quantity' => $row->qty,
                 'singleprice' => $row->price,
@@ -81,7 +86,7 @@ class PaymentController extends Controller
         }
 
 
-        $email =$shipping['email'] ??'';
+        $email = $shipping['email'] ?? '';
 
         $order = DB::table('orders')->where('id', $order_id)->first();
 
@@ -95,31 +100,29 @@ class PaymentController extends Controller
             'phone'          => $shipping['phone'],
             'email'          => $shipping['email'],
             'address'        => $shipping['address'],
-            'city'           =>$shipping['city'],
-            'zone'           =>$shipping['zone'],
-            'notes'          =>$shipping['notes'],
+            'city'           => $shipping['city'],
+            'zone'           => $shipping['zone'],
+            'notes'          => $shipping['notes'],
             'payment'        => $shipping['payment'],
-            'created_at'     =>$shipping['created_at'],
-            'subtotal'       =>$order->subtotal,
+            'created_at'     => $shipping['created_at'],
+            'subtotal'       => $order->subtotal,
             'shipping'       => $order->shipping,
             'total'          => $order->total,
-            'order_details'  =>$order_details,
-            ];
+            'order_details'  => $order_details,
+        ];
         try {
-            Mail::to($email)->send(new OrderConfirmation($shippingData));
+            Mail::to('info@flowtechbd.com')->cc($email)->send(new OrderConfirmation($shippingData));
             return view('frontend.pages.congratulations_page');
         } catch (\Exception $e) {
-            dd('Error sending order confirmation email: ' . $e->getMessage());
-            return 'Error sending order confirmation email: ' . $e->getMessage();
+            // return 'Error sending order confirmation email: ' . $e->getMessage();
+
+            return view('frontend.pages.congratulations_page');
         }
-
-
     }
 
-    public function congratulations(){
+    public function congratulations()
+    {
 
         return view('frontend.pages.congratulations_page');
     }
-
-
 }

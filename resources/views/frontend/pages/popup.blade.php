@@ -61,10 +61,14 @@
         -moz-transition-duration: 0.3s;
         transition-duration: 0.3s;
     }
+
     .bts-popup-container img {
         padding: 0 0 0 0;
         margin-top: 130px;
-        height: 500px;
+
+        height: 100%;
+        width: 100%;
+
     }
 
     .bts-popup-container p {
@@ -135,19 +139,37 @@
             margin: 8em auto;
         }
     }
+
+    @media only screen and (max-width: 575px) {
+
+        .bts-popup-container {
+            width: 300px;
+        }
+
+        .bts-popup-container img {
+            padding: 0 0 0 0;
+            margin-top: 130px;
+            height: 100%;
+            width: 100%;
+        }
+
+    }
 </style>
 
+@if (isset($popup->popup_link))
+    <div class="bts-popup" role="alert">
+        <div class="bts-popup-container">
 
-<div class="bts-popup" role="alert">
-    <div class="bts-popup-container">
-        <a href="{{ url($popup->popup_link) }}">
-            <span>
-                <img src="{{ asset($popup->popup_img) }}" alt="{{ $popup->meta_tag }}">
-            </span>
-        </a>
-        <a href="#0" class="bts-popup-close img-replace">Close</a>
+            <a href="{{ url($popup->popup_link) }}">
+                <span>
+                    <img src="{{ asset($popup->popup_img) }}" alt="{{ $popup->meta_tag }}">
+                </span>
+            </a>
+
+            <a href="#0" class="bts-popup-close img-replace">Close</a>
+        </div>
     </div>
-</div>
+@endif
 
 
 
@@ -156,7 +178,7 @@
     jQuery(document).ready(function($) {
 
         window.onload = function() {
-            $(".bts-popup").delay(1000).addClass('is-visible');
+            $(".bts-popup").delay(10000).addClass('is-visible');
         }
 
         //open popup

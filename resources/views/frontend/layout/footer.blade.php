@@ -23,53 +23,41 @@
                     <p>Store Locator</p>
                     <h5>Find Our Stores</h5>
                 </a>
-                @if(session('success'))
-                <div class="alert alert-success" style="colo:white">
-                    {{ session('success') }}
-                </div>
-             @endif
+                @if (session('success'))
+                    <div class="alert alert-success" style="colo:white">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <form action="{{ route('subscribe.store') }}" method="post">
                     @csrf
                     <div style="display: flex">
                         <input type="emial" name="email" placeholder="subscriber">
-                        <button class="btn btn-primary">submit</button>
+                        <button type="submit" class="btn btn-primary" style="height: 42px;">Subscribe</button>
                     </div>
                 </form>
             </div>
 
             <div class="footer-block about-us">
-                <h4>About Us</h4>
+                <h4>Pages</h4>
                 <ul>
-                    <li class="nav-item has-child c-1">
-                        <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                    </li>
-                    <li class="nav-item has-child c-1">
-                        <a class="nav-link" href="{{ Route('allProduct.show') }}">Shop</a>
-                    </li>
+                    <li><a href="{{ Route('aboutUs') }}">About Us</a></li>
+                    <li><a href="{{ Route('policy') }}">Privacy Policy</a></li>
                     <li class="nav-item has-child c-1">
                         <a class="nav-link" href="{{ Route('brand.all') }}">Brand</a>
                     </li>
                     <li class="nav-item has-child c-1">
                         <a class="nav-link" href="{{ Route('contact') }}">Contact Us</a>
                     </li>
-                    <li class="nav-item has-child c-1">
-                        <a class="nav-link" href="{{ Route('aboutUs') }}">About</a>
-                    </li>
-                 
-          
-                    <li><a href="{{ Route('emi') }}">EMI Terms</a></li>
-                    <li><a href="{{ Route('aboutUs') }}">About Us</a></li>
-                    <li><a href="{{ Route('delivery') }}">Online Delivery</a></li>
-                    <li><a href="{{ Route('policy') }}">Privacy Policy</a></li>
                     <li><a href="{{ Route('condition') }}">Terms and Conditions</a></li>
-                    <li><a href="{{ Route('refundAndReturn') }}">Refund and Return Policy</a></li>
-                    {{-- <li><a href="">Star Point Policy</a></li> --}}
+                    <li><a href="{{ route('page.onlineService') }}">Online Service</a></li>
+                    <li><a href="{{ Route('emi') }}">Warrenty Policy</a></li>
+                    <li><a href="{{ Route('refundAndReturn') }}">Payment and refund Policy</a></li>
+                    <li><a href="{{ route('digitalCommerce') }}">ডিজিটাল কমার্স নির্দেশিকা </a></li>
+                    <li><a href="{{ Route('delivery') }}">Online Delivery</a></li>
+                    <li><a href="{{ route('deliveryReturnPage') }}">Delivery and Return Policy </a></li>
                     <li><a href="{{ Route('allblog') }}">Blog</a></li>
-                    <li><a href="{{ Route('contact') }}">Contact Us</a></li>
-                    {{-- <li><a href="">Brands</a></li> --}}
-                    {{-- <li><a href="" style="color: #fff" target="_blank" rel="noopener">Online Service Support</a></li>
-                    <li><a href="" style="color: #fff" target="_blank" rel="noopener">Complain / Advice</a></li> --}}
                 </ul>
+
             </div>
             <div class="footer-block org-info">
                 <h4>Stay Connected</h4>
@@ -93,23 +81,27 @@
                     </span>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="payment">
                     <h4 style="margin-top:5px ;">Payment System</h4>
-                    <a href="">
-                        <img src="{{ asset('assets/fontend/image/footer-ipay.webp') }}" alt="" width="300px;"
-                            style="margin-right: 10px; ">
+                    <a href="javascript:void(0)">
+                        <img src="{{ asset('assets/fontend/image/footer-ipay.webp') }}" alt="ipay"
+                            style="margin-right: 10px; width: 300px; height:30px; ">
                     </a>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="payment">
                     <h4 style="margin-top:5px ;">Shipping System</h4>
-                    <a href="">
-                        <img src="{{ asset('assets/fontend/image/footer-ipay.webp') }}" alt="" width="300px;">
+                    <a href="javascript:void(0)">
+                        <img style="width: 300px; height:30px;"
+                            src="{{ asset('assets/fontend/image/footer-ipay.webp') }}" alt="ipay">
                     </a>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="social-link" style="margin-left: 15px;">
                     <h4>Our Social Link</h4>

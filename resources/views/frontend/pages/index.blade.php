@@ -26,8 +26,8 @@
                         @foreach ($slider as $sliders)
                             <div class="slide">
                                 <a href="">
-                                    <img src="{{ asset($sliders->slider_img) }}" alt="{{$sliders->meta_description}}" class="img-responsive"
-                                        width="982" height="500" />
+                                    <img src="{{ asset($sliders->slider_img) }}" alt="{{ $sliders->meta_description }}"
+                                        class="img-responsive" width="982" height="500" />
                                 </a>
                             </div>
                         @endforeach
@@ -37,14 +37,14 @@
                     <div class="main-home-sidebar-banner">
                         <div class="ads loaded">
                             <a href="">
-                                <img src="{{ asset($siteslider->slider_img) }}" alt="{{$siteslider->meta_description}}" width="300"
-                                    height="">
+                                <img src="{{ asset($siteslider->slider_img) }}" alt="{{ $siteslider->meta_description }}"
+                                    width="300" height="">
                             </a>
                         </div>
                         <div class="ads loaded m-t-30">
                             <a href="">
-                                <img src="{{ asset($siteslider->slider_img_one) }}" alt="{{$siteslider->meta_description}}"
-                                    width="300" height="">
+                                <img src="{{ asset($siteslider->slider_img_one) }}"
+                                    alt="{{ $siteslider->meta_description }}" width="300" height="">
                             </a>
                         </div>
                     </div>
@@ -54,78 +54,71 @@
         <!-- slider section end -->
 
 
-    @include('frontend.pages.popup')
+        @include('frontend.pages.popup')
 
 
         <div class="container">
             <div class="sliding_text_wrap">
                 @php
-                    $indexsites = DB::table('indexsitesliders')->first();
+                    $indexsites = DB::table('settings')->first();
                 @endphp
-                <marquee direction="left">{{ $indexsites->marquee }}</marquee>
+                <marquee direction="left">{{ $indexsites->message }}</marquee>
             </div>
-            <div class="container">
-                <!-- category start -->
-                @php
-                    $category = DB::table('categories')->get();
+            {{-- <div class="container"> --}}
+            <!-- category start -->
+            @php
+                $category = DB::table('categories')->where('featured_category', 1)->get();
 
-                @endphp
-                <div class="m-home m-cat">
+            @endphp
+            <div class="m-home m-cat">
 
-                    <h2 class="m-header">Featured Category</h2>
-                    <p class="m-blurb">Get Your Desired Product from Featured Category!</p>
-                    <div class="cat-items-wrap">
-                        @foreach ($category as $category)
-                            <div class="cat-item">
-                                {{--
+                <h2 class="m-header">Featured Category</h2>
+                <p class="m-blurb">Get Your Desired Product from Featured Category!</p>
+                <div class="cat-items-wrap">
+                    @foreach ($category as $category)
+                        <div class="cat-item">
+                            {{--
                             <a href="{{ route('category.view', ['slug' => $category->slug]) }}" class="cat-item-inner">
                                 <!-- Your content here -->ddd
                             </a> --}}
-                                <a href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}"
-                                    class="cat-item-inner">
-                                    <span class="cat-icon">
-                                        <img src="{{ asset($category->category_img) }}" alt="{{$category->meta_description }}" width="48"
-                                            height="48">
-                                    </span>
-                                    <p>{{ $category->category_name }}</p>
-                                </a>
+                            <a href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}"
+                                class="cat-item-inner">
+                                <span class="cat-icon">
+                                    <img src="{{ asset($category->category_img) }}"
+                                        alt="{{ $category->meta_description }}" width="48" height="48">
+                                </span>
+                                <p>{{ $category->category_name }}</p>
+                            </a>
 
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <!-- category End -->
-                @php
-                    $product = DB::table('products')
-                        ->where('status', 1)
-                        ->get();
-                @endphp
-                <!-- product start -->
-                <div class="m-product m-home" id="module-481">
-                    <h2 class="m-header">Fetured Products</h2>
-                    <p class="m-blurb">Check &amp; Get Your Desired Product!</p>
-                    <div class="p-items-wrap">
-                        <!-- product item start -->
-                        @foreach ($product as $item)
-                            <div class="p-item">
-                                @include('frontend.pages.product_item')
-                            </div>
-                        @endforeach
-                        <!-- product item end -->
-                    </div>
-                </div>
-                <!-- product end -->
-                <div class="container">
-                    <div class="m-home seo-content m-html">
-                        <h1>Leading Computer, Laptop & Gaming PC Retail & Online Shop in Bangladesh</h1>
-                        <p>{!! $setting->computer_laptop_gameingPc !!}</p>
-                        <h1>Best Laptop Shop in Bangladesh</h1>
-                        <p>{!! $setting->Best_laptop !!}</p>
-                        <h1>Best Desktop PC Shop In Bangladesh</h1>
-                        <p>{!! $setting->Best_desktop !!}</p>
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
+            <!-- category End -->
+            @php
+                $product = DB::table('products')->where('trend', 1)->where('status', 1)->get();
+            @endphp
+            <!-- product start -->
+            <div class="m-product m-home" id="module-481">
+                <h2 class="m-header">Fetured Products</h2>
+                <p class="m-blurb">Check &amp; Get Your Desired Product!</p>
+                <div class="p-items-wrap">
+                    <!-- product item start -->
+                    @foreach ($product as $item)
+                        <div class="p-item">
+                            @include('frontend.pages.product_item')
+                        </div>
+                    @endforeach
+                    <!-- product item end -->
+                </div>
+            </div>
+            <!-- product end -->
+            <div class="container">
+                <div class="m-home seo-content m-html">
+                    <p>{!! $setting->home_page_text !!}</p>
+                </div>
+            </div>
+            {{-- </div> --}}
         </div>
         <!-- top reated product section end -->
     </div>

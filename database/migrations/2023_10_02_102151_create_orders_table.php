@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('coupon_discount')->nullable();
             $table->string('total')->nullable();
             $table->string('status')->nullable()->default(0);
+            $table->string('payment_number')->nullable();
+            $table->string('payment_type')->nullable();
             $table->string('month')->nullable();
             $table->string('date')->nullable();
             $table->string('year')->nullable();

@@ -1,35 +1,12 @@
 @extends('master_admin')
+@section('title', 'Flow Tech BD | Add Blog')
+@push('css')
+    <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+@endpush
 
 
 @section('content')
-    <style>
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            /* width: 714px!important; */
-            /* height: 65px; */
-            /* padding-bottom: 2px!important; */
-            margin-top: -13px !important;
-            margin-left: -17px !important;
-        }
-
-        .bootstrap-tagsinput .tag {
-            background: rgb(6, 146, 221);
-            border: 1px solid black;
-            padding: 0 6px;
-            margin-right: 2px;
-            color: white;
-            border-radius: 4px;
-        }
-    </style>
-
-
-
-    <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-
-
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <div class="page-header">
         <h3 class="page-title">Add Blog</h3>
@@ -55,7 +32,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label>Meta Title </label>
                                     <input type="text" class="form-control" name="meta_title">
@@ -67,7 +45,23 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-6 mt-3">
+                                <div class="form-group mt-3">
+                                    <label>Slug</label><br>
+                                    <input type="text" name="slug" value="" class="form-control slug"
+                                        required="" onkeyup="this.value = slugify(this.value)">
+
+                                    <span style="color: red;">
+                                        @error('slug')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mt-2">
                                 <div class="form-group">
                                     <label class="form-label">Meta Tag</label><br>
                                     <input type="text" name="meta_tag" class="form-control" id="size"
@@ -80,7 +74,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-2">
                                 <div class="form-group">
                                     <label class="form-label">Meta Description</label><br>
                                     <textarea class="form-control" name="meta_description" id="" cols="30" rows="10"></textarea>
@@ -92,7 +86,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-2">
                                 <div class="form-group">
                                     <label class="form-label">Short Description</label><br>
                                     <textarea class="form-control" name="short_description" id="" cols="20" rows="10"></textarea>
@@ -105,7 +99,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-2">
 
                                 <div class="form-group">
                                     <label>long Description</label><br>
@@ -120,7 +114,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-2">
                                 <div class="form-group">
                                     <label class="form-label">Keyword</label><br>
                                     <input type="text" name="keyword" class="form-control" id="keyword"
@@ -133,7 +127,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-2">
 
                                 <div class="form-group">
                                     <label>Schema Markup</label><br>
@@ -149,7 +143,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label class="form-label">Image</label>
                                 <input type="file" name="image" class="form-control" id="upload_file"
                                     onchange="getImagePreview(event)" required>
@@ -167,7 +161,10 @@
             </div>
         </div>
     </div>
-
+@endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
         function getImagePreview(event) {
             var image = URL.createObjectURL(event.target.files[0]);
@@ -183,16 +180,12 @@
 
     <script>
         $('#summernote').summernote({
-
             tabsize: 2,
             height: 100
         });
-    </script>
-    <script>
         $('#summernote2').summernote({
-
             tabsize: 2,
             height: 100
         });
     </script>
-@endsection
+@endpush

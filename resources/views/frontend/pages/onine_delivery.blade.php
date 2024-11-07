@@ -1,19 +1,19 @@
 @extends('fontend_master')
 @section('content')
-@php
-$setting = DB::table('settings')->first();
+    @php
+        $setting = DB::table('settings')->first();
 
-@endphp
+    @endphp
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{route('home')}}"><i class="material-icons" title="Home">home</i></a></li>
-                <li><a href="{{route('delivery')}}">Online Delivery</a></li>
+                <li><a href="{{ route('home') }}"><i class="material-icons" title="Home">home</i></a></li>
+                <li><a href="{{ route('delivery') }}">Online Delivery</a></li>
             </ul>
         </div>
     </section>
     <section class="info-page bg-bt-gray p-tb-15 ">
-        <div class="container content ws-box m-auto">
+        <div class="container content ws-box m-auto" style="margin-top:2px;">
             <style>
                 .info-page .odc h1 {
                     margin-bottom: 5px;
@@ -64,7 +64,7 @@ $setting = DB::table('settings')->first();
             <div class="odc">
                 <h1>স্টার টেক অনলাইন ডেলিভারির শর্তাবলি</h1>
                 <hr>
-                <p>{!!$setting->delivery!!}</p>
+                <p>{!! $setting->delivery !!}</p>
             </div>
         </div>
     </section>

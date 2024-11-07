@@ -16,6 +16,7 @@ class Category extends Model
         'category_img',
         'category_slug',
         'meta_description',
+        'featured_category',
         'meta_tag',
         'meta_title',
         'category_banner_img',
@@ -27,7 +28,4 @@ class Category extends Model
     {
         return $this->hasMany(SubCategory::class, 'category_id', 'id');
     }
-
-
-
 }

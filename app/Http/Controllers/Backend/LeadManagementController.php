@@ -24,8 +24,9 @@ class LeadManagementController extends Controller
             ->orderBy('orders.id', 'desc')
             ->get();
 
-        return view('backend.admin.order.list', compact('order'));
+        // dd($order);
 
+        return view('backend.admin.order.list', compact('order'));
     } // End method
 
     // Order Active Inactive
@@ -39,20 +40,20 @@ class LeadManagementController extends Controller
 
     public function statusUpdate(Request $request, $id)
     {
-        $id    = $request->id;
+        $id = $request->id;
         $status = $request->status;
         DB::table('orders')->where('id', $id)->update(['status' => $status]);
-        if($request->status == 3){
-            $order_details =DB::table('orders_details')->where('order_id', $id)->get();
-            foreach($order_details as $key => $item){
+
+        if ($request->status == 'completed') {
+            $order_details = DB::table('orders_details')->where('order_id', $id)->get();
+            foreach ($order_details as $key => $item) {
                 DB::table('products')->where('id', $item->product_id)
-                        ->decrement('product_quantity', $item->quantity);
-            }  
+                    ->decrement('product_quantity', $item->quantity);
+            }
         }
         return response()->json([
             "msg" => 'success',
         ]);
-
     }
 
     // end***
@@ -60,24 +61,14 @@ class LeadManagementController extends Controller
     {
 
         $order = DB::table('orders')
-                    ->join('shippings','orders.id','shippings.order_id')
-                    ->join('orders_details','orders.id','orders_details.order_id')
-                    ->select('shippings.*','orders.*','orders_details.*')
-                    ->where('orders.id',$id)
-                    ->first();
-        return view('backend.admin.order.details',compact('order'));
-    } // End method
+            ->join('shippings', 'orders.id', 'shippings.order_id')
+            ->join('orders_details', 'orders.id', 'orders_details.order_id')
+            ->select('shippings.*', 'orders.*', 'orders_details.*')
+            ->where('orders.id', $id)
+            ->first();
+        return view('backend.admin.order.details', compact('order'));
+    }
 
-    //     public function invoiceOrder(Request $request,$id){
-    //         $order_shippings = DB::table('shippings')
-    //         ->where('order_id',$id)
-    //         ->join('shippings', 'orders.id', 'shippings.order_id')
-    //         ->join('orders_details', 'orders.id', 'orders_details.order_id')
-    //         ->select('shippings.*', 'orders.*', 'orders_details.*')
-    //         ->where('orders.id', $id)
-    //         ->first();
-    //     return view('backend.admin.order.details', compact('order'));
-    // } // End method
 
     public function invoiceOrder(Request $request, $id)
     {
@@ -91,8 +82,5 @@ class LeadManagementController extends Controller
             ->where('id', $id)->first();
 
         return view('backend.admin.order.invoice', compact('id', 'order_details', 'order_shippings', 'order_charge'));
-
     }
-
-
 }

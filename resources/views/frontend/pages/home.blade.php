@@ -69,10 +69,7 @@
                     </div>
                 </div>
                 @php
-                    $product = DB::table('products')
-                        ->where('status', 1)
-                        ->where('trend', 1)
-                        ->get();
+                    $product = DB::table('products')->where('status', 1)->where('trend', 1)->get();
                 @endphp
                 <!-- product start -->
                 <div class="m-product m-home" id="module-481">
@@ -88,10 +85,7 @@
                     </div>
                 </div>
                 @php
-                    $productbest_sell = DB::table('products')
-                        ->where('status', 1)
-                        ->where('best_rated', 1)
-                        ->get();
+                    $productbest_sell = DB::table('products')->where('status', 1)->where('best_rated', 1)->get();
                     $setting = DB::table('settings')->first();
                 @endphp
                 <div class="m-product m-home" id="module-481">
@@ -108,12 +102,7 @@
                 <!-- product item end -->
                 <div class="container">
                     <div class="m-home seo-content m-html">
-                        <h1>Leading Computer, Laptop & Gaming PC Retail & Online Shop in Bangladesh</h1>
-                        <p>{!! $setting->computer_laptop_gameingPc !!}</p>
-                        <h1>Best Laptop Shop in Bangladesh</h1>
-                        <p>{!! $setting->Best_laptop !!}</p>
-                        <h1>Best Desktop PC Shop In Bangladesh</h1>
-                        <p>{!! $setting->Best_desktop !!}</p>
+                        <p>{!! @$setting->home_page_text !!}</p>
                     </div>
                 </div>
             </div>

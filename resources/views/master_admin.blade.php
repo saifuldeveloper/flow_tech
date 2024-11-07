@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Dashboard - FlowTech')</title>
     <!--favicon-->
     {{-- <link rel="icon" href="{{asset('assets/images/favicon-32x32.png')}}" type="image/png" /> --}}
     <!--plugins-->
@@ -27,52 +28,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     {{-- cdin link toaster  --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <!---------- This is datatabel system	------------->
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
 
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-    <style>
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            /* width: 714px!important; */
-            /* height: 65px; */
-            /* padding-bottom: 2px!important; */
-            margin-top: -13px !important;
-            margin-left: -17px !important;
-        }
 
-        .bootstrap-tagsinput .tag {
-            background: rgb(6, 146, 221);
-            border: 1px solid black;
-            padding: 0 6px;
-            margin-right: 2px;
-            color: white;
-            border-radius: 4px;
-        }
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-        .bootstrap-tagsinput {
+    @stack('css')
 
-            width: 100% !important;
-        }
-    </style>
 
-    <title>Dashboard - FlowTech</title>
 </head>
 
 <body>
@@ -97,7 +69,7 @@
                 </div>
             </div>
             <!--navigation-->
-            @include('backend.admin.layouts.slider')
+            @include('backend.admin.layouts.sidebar')
             <!--end navigation-->
         </div>
         <!--end sidebar wrapper -->
@@ -235,6 +207,104 @@
         <script src="{{ asset('assets/plugins/sparkline-charts/jquery.sparkline.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/jquery-knob/excanvas.js') }}"></script>
         <script src="{{ asset('assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        @stack('js')
+
+
+        @if (Session::has('success'))
+            <script>
+                toastr.success("{{ session('success') }}");
+            </script>
+        @endif
+
+        @if (Session::has('info'))
+            <script>
+                toastr.info("{{ session('info') }}");
+            </script>
+        @endif
+
+        @if (Session::has('error'))
+            <script>
+                toastr.error("{{ session('error') }}");
+            </script>
+        @endif
+
+        <script>
+            $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        </script>
+
+
+
+        <script>
+            $(document).on("click", "#delete", function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                swal({
+                        title: "Are you want to delete?",
+                        text: "Once Delete, This will be Permanently Delete!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = link;
+                        } else {
+                            swal("Safe Data!");
+                        }
+                    });
+            });
+        </script>
+
+        <script type="text/javascript">
+            function getImagePreview(event) {
+                var image = URL.createObjectURL(event.target.files[0]);
+                var imagediv = document.getElementById('preview');
+                var newimg = document.createElement('img');
+                imagediv.innerHTML = '';
+                newimg.src = image;
+                newimg.width = "150";
+                newimg.height = "150";
+                imagediv.appendChild(newimg);
+            }
+        </script>
+
+        <script>
+            function slugify(text) {
+                return text.toString().toLowerCase()
+                    .replace(/\s+/g, '-') // Replace spaces with -
+                    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+                    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                    .replace(/^-+/, '') // Trim - from start of text
+                    .replace(/-+$/, ''); // Trim - from end of text
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const slugInput = document.querySelector('slug');
+                slugInput.addEventListener('keyup', function() {
+                    this.value = slugify(this.value);
+                });
+            });
+        </script>
+
+
         <script>
             $(function() {
                 $(".knob").knob();

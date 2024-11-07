@@ -1,12 +1,9 @@
 @extends('master_admin')
 @section('content')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-    <h3 class="page-title"> List Slider</h3>
     <nav aria-label="breadcrumb">
-        <a href="{{ route('add.popup') }}" class="btn btn-primary">Add Category</a>
+        <h3 class="page-title">Pop up Banner</h3>
     </nav>
     </div>
     <div class="row m-2">

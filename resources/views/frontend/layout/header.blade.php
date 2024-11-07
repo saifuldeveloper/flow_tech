@@ -1,5 +1,5 @@
     <!-- header start -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
 
     <style>
         #search_suggestion {
@@ -12,6 +12,7 @@
         $setting = DB::table('settings')->first();
         $totalQuantity = Cart::count();
     @endphp
+
     <style>
         .cart {
             position: relative;
@@ -58,13 +59,14 @@
             position: absolute;
             display: none;
             top: 100%;
-    
-            /* height: 300px; */
+            width: 100%;
+            height: auto;
+            max-height: 400px;
             /* left: 0; */
-            right: 0PX;
+            right: 0px;
             z-index: 1000;
             background-color: #fff;
-            border: 1px solid #ccc;
+            /* border: 1px solid #ccc; */
             border-top: 0;
             overflow-y: auto;
             border-radius: 5px;
@@ -118,7 +120,7 @@
                     </div>
                 </div>
                 <div class="ht-item search" id="search">
-                    <form  action="{{ route('product.search') }}" method="get">
+                    <form action="{{ route('product.search') }}" method="get">
                         @csrf
                         <input type="hidden" name="not_ajax" value="not_ajax">
                         <input class="search_product" id="search_product" type="search" name="search"
@@ -194,7 +196,7 @@
             </div>
         </div>
         @php
-            $category = DB::table('categories')->limit(15)->get();
+            $category = DB::table('categories')->whereNull('deleted_at')->limit(15)->get();
         @endphp
         <!-- navbar start -->
         <nav class="navbar" id="main-nav">
@@ -254,41 +256,44 @@
                         <a class="nav-link" href="{{ Route('aboutUs') }}">About</a>
                     </li> --}}
                     @foreach ($category as $category)
-                                <li class="nav-item has-child">
-                                    <a class="nav-link"
-                                        href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}">{{ $category->category_name }}</a>
-                                    @php
-                                        $id = $category->id;
-                                        $subcategory = DB::table('sub_categories')->where('category_id', $id)->get();
-                                    @endphp
-                                    @if ($subcategory)
-                                        <ul class="drop-down drop-menu-2">
-                                            @foreach ($subcategory as $subcategory)
-                                                <li class="nav-item">
-                                                    <a class="nav-link"
-                                                        href="{{ route('subcategory.view', ['subcategory_slug' => $subcategory->subcategory_slug]) }}">{{ $subcategory->subcategory_name }}</a>
-                                                    @php
-                                                        $id = $subcategory->id;
-                                                        $childcategory = DB::table('chlild_categories')
-                                                            ->where('sub_category_id', $id)
-                                                            ->get();
-                                                    @endphp
-                                                    @if ($childcategory)
-                                                        <ul class="drop-down drop-menu-2">
-                                                            @foreach ($childcategory as $childcategory)
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link"
-                                                                        href="{{ route('childcategory.view', ['childcategory_slug' => $childcategory->childcategory_slug]) }}">{{ $childcategory->childcategory_name }}</a>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    @endif
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </li>
-                            @endforeach
+                        <li class="nav-item has-child">
+                            <a class="nav-link"
+                                href="{{ route('category.view', ['category_slug' => $category->category_slug]) }}">{{ $category->category_name }}</a>
+                            @php
+                                $id = $category->id;
+                                $subcategories = DB::table('sub_categories')
+                                    ->whereNull('deleted_at')
+                                    ->where('category_id', $id)
+                                    ->get();
+                            @endphp
+                            @if ($subcategories)
+                                <ul class="drop-down">
+                                    @foreach ($subcategories as $subcategory)
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                                href="{{ url($category->category_slug . '/' . $subcategory->subcategory_slug) }}">{{ $subcategory->subcategory_name }}</a>
+                                            @php
+                                                $id = $subcategory->id;
+                                                $childcategory = DB::table('chlild_categories')
+                                                    ->where('sub_category_id', $id)
+                                                    ->get();
+                                            @endphp
+                                            @if ($childcategory)
+                                                <ul class="drop-down drop-menu-3">
+                                                    @foreach ($childcategory as $childcategory)
+                                                        <li class="nav-item">
+                                                            <a class="nav-link"
+                                                                href="{{ url($category->category_slug . '/' . $subcategory->subcategory_slug . '/' . $childcategory->childcategory_slug) }}">{{ $childcategory->childcategory_name }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </nav>
@@ -297,9 +302,6 @@
     </header>
     {{-- popup banner --}}
     {{-- @include('frontend.pages.popup') --}}
-
-
-
 
 
     <script>
@@ -324,7 +326,8 @@
                                 '<img class="lazy" alt="Product" src="/' + value.image_one + '" alt="' +
                                 value.product_name + '"></a>' +
                                 '<div class="product_card_body">' +
-                                '<h3 class="product_title"><a href="/product/' + value.product_slug + '">' +
+                                '<h3 class="product_title"><a href="/product/' + value.product_slug +
+                                '">' +
                                 value.product_name + '</a></h3>' +
                                 '</div>' +
                                 '</div>';
@@ -334,11 +337,11 @@
                     .catch(error => console.error('Error:', error));
             } else {
                 let suggestionBox = document.getElementById("search_suggestion");
-                suggestionBox.style.height = "0";
+                suggestionBox.style.display = "none";
                 suggestionBox.addEventListener("transitionend", function() {
                     suggestionBox.style.display = "none";
                 }, {
-                    once: true
+                    once: false
                 });
             }
         });

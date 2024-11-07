@@ -61,7 +61,7 @@ class SettingController extends Controller
         if ($logo) {
             $logo_name = hexdec(uniqid()) . '.' . $logo->getClientOriginalExtension();
             // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-            Image::make($logo)->resize(300, 300)->save(public_path('media/logo/' . $logo_name));
+            Image::make($logo)->resize(140, 50)->save(public_path('media/logo/' . $logo_name));
             $data['logo'] = 'media/logo/' . $logo_name;
         }
 
@@ -79,8 +79,6 @@ class SettingController extends Controller
     public function updateSetting(Request $request, $id)
     {
 
-
-
         $data = array();
         $data['homepage_active'] = $request->homepage_active;
         $data['shopname'] = $request->shopname;
@@ -90,10 +88,13 @@ class SettingController extends Controller
         $data['address'] = $request->address;
         $data['shipping_charge'] = $request->shipping_charge;
         $data['facebook'] = $request->facebook;
+        $data['facebook_pixel'] = $request->facebook_pixel;
+        $data['google_analytics'] = $request->google_analytics;
         $data['twitter'] = $request->twitter;
         $data['youtube'] = $request->youtube;
         $data['linkedIn'] = $request->linkedIn;
         $data['google_maps'] = $request->google_maps;
+        $data['home_page_text'] = $request->home_page_text;
         $data['instagram'] = $request->instagram;
         // $data['computer_laptop_gameingPc'] = $request->computer_laptop_gameingPc;
         // $data['Best_laptop'] = $request->Best_laptop;
@@ -112,7 +113,7 @@ class SettingController extends Controller
         if ($logo) {
             $logo_name = hexdec(uniqid()) . '.' . $logo->getClientOriginalExtension();
             // Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
-            Image::make($logo)->resize(300, 300)->save(public_path('media/logo/' . $logo_name));
+            Image::make($logo)->resize(180, 80)->save(public_path('media/logo/' . $logo_name));
             $data['logo'] = 'media/logo/' . $logo_name;
         }
 
@@ -120,7 +121,7 @@ class SettingController extends Controller
 
         DB::table('settings')->where('id', $id)->update($data);
 
-        return Redirect()->route('list.setting')->with('success', 'Setting Updated Successfully!');
+        return Redirect()->back()->with('success', 'Setting Updated Successfully!');
     } // End Method
 
 
@@ -224,15 +225,16 @@ class SettingController extends Controller
         return Redirect()->route('laptop.page')->with('success', 'Updated Successfully!');
     }
 
-       // Gamming  page
-       public function gammingComputerPage()
-       {
-           return view('backend.admin.setting.desktop_gammin_pc.gammingpc');
-       }
-       public  function  gammingComputerPageUpdate(Request $request)
-       {
-   
-           DB::table('settings')->where('id', 1)->update(['computer_laptop_gameingPc' => $request->computer_laptop_gameingPc]);
-           return Redirect()->route('gamming.computer.page')->with('success', 'Updated Successfully!');
-       }
+    // Gamming  page
+    public function online_serve()
+    {
+        return view('backend.admin.setting.desktop_gammin_pc.online_service');
+    }
+
+    public  function  gammingComputerPageUpdate(Request $request)
+    {
+
+        DB::table('settings')->where('id', 1)->update(['computer_laptop_gameingPc' => $request->computer_laptop_gameingPc]);
+        return Redirect()->route('gamming.computer.page')->with('success', 'Updated Successfully!');
+    }
 }

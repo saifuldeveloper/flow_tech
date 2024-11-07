@@ -1,19 +1,19 @@
 @extends('fontend_master')
 @php
-$setting = DB::table('settings')->first();
-// <p>{!!$setting->aboutpage!!}</p>
+    $setting = DB::table('settings')->first();
+    // <p>{!! $setting->aboutpage !!}</p>
 @endphp
 @section('content')
     <section class="after-header p-tb-10">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{url('/')}}"><i class="material-icons" title="Home"></i>Home</a></li>
-                <li><a href="https://www.startech.com.bd/emi-terms">EMI Terms</a></li>
+                <li><a href="{{ url('/') }}"><i class="material-icons" title="Home"></i>Home</a></li>
+                <li><a href="{{ route('emi') }}">Warrenty Policy</a></li>
             </ul>
         </div>
     </section>
     <section class="info-page bg-bt-gray p-tb-15 ">
-        <div class="container content ws-box m-auto">
+        <div class="container content ws-box m-auto" style="margin-top: 2px;">
             <style>
                 .emi-terms h1 {
                     margin-bottom: 5px;
@@ -132,16 +132,13 @@ $setting = DB::table('settings')->first();
                 <div class="col-lg-12 col-md-12 col-xs-12 text-center">
                     <h1>Enjoy 0% EMI Facility From The Banks Listed Below</h1>
 
-                 <hr>
+                    <hr>
 
-                 <p>{!!$setting->emipage!!}</p
+                    <p>{!! $setting->emipage !!}</p </div>
+
 
 
                 </div>
-
-
-
-           </div>
-        </div>
+            </div>
     </section>
 @endsection

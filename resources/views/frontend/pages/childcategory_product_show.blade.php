@@ -1,15 +1,15 @@
 @extends('fontend_master')
+@section('meta_title', 'Flow Tech - The Power Of Technology |' . $childcategory->childcategory_name)
 @section('content')
-<link rel="stylesheet" href="{{ asset('assets/fontend/css/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/fontend/css/owl.theme.default.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-    integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fontend/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fontend/css/owl.theme.default.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         #slider-range {
             margin-top: -20px;
@@ -42,17 +42,24 @@
         .price-filter input {
             margin-top: 10px;
         }
+
+        #loader {
+            display: none;
+        }
     </style>
 
     @php
-    $slug = request()->segment(2);// Adjust the segment number based on your URL structure
-    $category = DB::table('chlild_categories')->where('childcategory_slug', $slug)->first();
-    $subcategory = DB::table('sub_categories')->where('subcategory_slug', $slug)->first();
-    // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
-    $id = $category->id;
-        // Assuming the URL is something like http://127.0.0.1:8000/category/product/details/12
-        // $id = request()->segment(4); // Adjust the segment number based on your URL structure
-        // dd($id);
+        $slug = request()->segment(2);
+        $category = DB::table('chlild_categories')
+            ->where('childcategory_slug', $childcategory->childcategory_slug)
+            ->first();
+
+        $categoryId = DB::table('categories')
+            ->where('id', $category->category_id)
+            ->first();
+
+        $id = $category->id;
+
         $slider = DB::table('sliders')->first();
         $category = DB::table('chlild_categories')->get();
         $productHighRange = DB::table('products')->min('selling_price');
@@ -63,13 +70,15 @@
             <ul class="breadcrumb" itemscope itemtype="">
                 <li><a href="{{ url('/') }}"><i class="fa fa-home" title="Home"></i></a></li>
                 <li itemprop="itemListElement" itemscope itemtype="">
+                    <a itemtype="" itemprop="item" href="{{ url($categoryId->category_slug) }}"><span
+                            itemprop="name">{{ $categoryId->category_name }}
+                            /</span>
+                    </a>
                     <a itemtype="" itemprop="item"
-                        href="{{ Route('allcategory') }}"><span itemprop="name">Category /</span>
+                        href="{{ url($categoryId->category_slug . '/' . $childcategory->subcategory_slug) }}"><span
+                            itemprop="name">{{ $childcategory->subcategory_name }} /</span>
                     </a>
-                     <a itemtype="" itemprop="item"
-                        href="{{ route('subcategory.view', $childcategory->subcategory_slug) }}"><span itemprop="name">Subcategory /</span>
-                    </a>
-                     <span>Childcategory</span>
+                    <span>{{ $childcategory->childcategory_name }}</span>
                     <meta itemprop="position" content="1" />
                 </li>
             </ul>
@@ -82,7 +91,9 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div class="shop-banner">
-                        <img src="{{ asset($slider->slider_img) }}" width="100%" height="200px" alt="">
+
+                        <img src="{{ !empty($childcategory->childcategory_banner) ? asset($childcategory->childcategory_banner) : config('app.placeholder') . '/1290X250' }}"
+                            width="100%" height="200px" alt="{{ $childcategory->childcategory_name }}">
                     </div>
 
                 </div>
@@ -95,15 +106,16 @@
     <section class="after-header p-tb-10">
         <div class="container c-intro">
             <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-                <h1>Cateogry Product</h1>
+                {{-- <h1>Cateogry Product</h1> --}}
             </ul>
-            <div class="child-list">
+            {{-- <div class="child-list">
                 <a href="{{ Route('allcategory') }}">All category</a>
                 @foreach ($category as $category)
-                    <a href="{{ route('childcategory.view', ['childcategory_slug' => $category->childcategory_slug]) }}">{{ $category->childcategory_name }}</a>
+                    <a
+                        href="{{ url($categoryId->category_slug . '/' . $childcategory->subcategory_slug . '/' . $childcategory->childcategory_slug) }}">{{ $category->childcategory_name }}</a>
                 @endforeach
 
-            </div>
+            </div> --}}
         </div>
     </section>
 
@@ -209,14 +221,22 @@
                         </div>
 
                     </div>
+
+                    <div class="spinner-border" role="status" id="loader">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     <!-- product list item start -->
                     <div class="p-items-wrap" id="productList_p">
                         <!-- product item start -->
-                        @foreach ($category_all as $item)
+                        @forelse ($category_all as $item)
                             <div class="p-item">
                                 @include('frontend.pages.product_item')
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="col-md-6" style="justify-content: center">
+                                <div class="alert alert-danger"> <strong>No Product Found</strong> </div>
+                            </div>
+                        @endforelse
                     </div>
                     <!-- product item end -->
 
@@ -241,6 +261,21 @@
             </div>
 
         </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="category-description p-15 ws-box">
+
+                        {!! $childcategory->child_footer_text !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </section>
 
 
@@ -326,8 +361,6 @@
 
         });
     </script>
-
-
 
 
     <script>
@@ -441,17 +474,33 @@
         });
 
         function updatePrices(min, max, availability, brand, limitProduct, selectedSortOption) {
-            $.post('{{ url('price/filter/category/' . $id) }}', {
-                "_token": '{{ csrf_token() }}',
-                min: min,
-                max: max,
-                availability: availability,
-                brand: brand,
-                limitProduct: limitProduct,
-                selectedSortOption: selectedSortOption,
-            }, function(data) {
-                console.log(data);
-                $('#productList_p').html(data);
+
+            $.ajax({
+                url: "{{ url('price/filter/category/' . $id) }}",
+                method: "POST",
+                type: "HTML",
+                data: {
+                    min: min,
+                    max: max,
+                    availability: availability,
+                    brand: brand,
+                    type: "childcategory",
+                    limitProduct: limitProduct,
+                    selectedSortOption: selectedSortOption,
+                    _token: "{{ csrf_token() }}"
+                },
+                beforeSend: function() {
+                    $("#loader").show();
+                    $("#productList_p").css('opacity', '0')
+
+                },
+                success: function(data) {
+                    $('#productList_p').html(data);
+                },
+                complete: function() {
+                    $("#loader").hide();
+                    $("#productList_p").css('opacity', '1')
+                }
             });
         };
     </script>

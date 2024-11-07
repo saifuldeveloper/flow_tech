@@ -23,6 +23,8 @@ class CartController extends Controller
             $data['price'] = $product->selling_price;
             $data['weight'] = 1;
             $data['options']['image'] = $product->image_one;
+            $data['options']['brand_id'] = $product->brand_id;
+            $data['options']['category_id'] = $product->category_id;
             $data['options']['color'] = '';
             $data['options']['size'] = '';
             Cart::add($data);
@@ -32,16 +34,17 @@ class CartController extends Controller
             $data['id'] = $product->id;
             $data['name'] = $product->product_name;
             $data['qty'] = $request->quantity;
-            $data['price'] = $product->discount_price;
+            $data['price'] = $product->selling_price - $product->discount_price;
             $data['weight'] = 1;
             $data['options']['image'] = $product->image_one;
+            $data['options']['brand_id'] = $product->brand_id;
+            $data['options']['category_id'] = $product->category_id;
             $data['options']['color'] = '';
             $data['options']['size'] = '';
             Cart::add($data);
             $totalQuantity = Cart::count();
             return \Response::json(['success' => 'Successfully Added on your Cart!', 'totalCart' => $totalQuantity]);
         }
-
     } // End Method
 
     public function check()
@@ -52,24 +55,16 @@ class CartController extends Controller
 
     public function showCart()
     {
-
         $cart = Cart::content();
         $totalQuantity = Cart::count();
-        // dd($totalQuantity);
-
-        //  return response($cart);
         return view('frontend.pages.cart_page', compact('cart', 'totalQuantity'));
-        //   return view('frontend.pages.cart_page');
-
-    } // End Method
+    }
 
     public function removeCart($rowId)
     {
-
         Cart::remove($rowId);
         return Redirect()->back()->with('error', 'Product Remove from Cart!');
-
-    } // End Method
+    }
 
     public function updateCart(Request $request)
     {
@@ -79,35 +74,35 @@ class CartController extends Controller
 
         Cart::update($rowId, $qty);
         return Redirect()->back()->with('success', 'Product Quantity Updated!');
-
     } // End Method
 
     public function Checkout(Request $request)
     {
         $id = $request->id;
         $product = DB::table('products')->where('id', $id)->first();
+        $discount_price = $product->discount_price ?? 0;
         $data = array();
         if ($product) {
             $data['id'] = $product->id;
             $data['name'] = $product->product_name;
             $data['qty'] = $request->quantity;
-            $data['price'] = $product->selling_price;
+            $data['price'] = $product->selling_price - $discount_price;
             $data['weight'] = 1;
             $data['options']['image'] = $product->image_one;
+            $data['options']['brand_id'] = $product->brand_id;
+            $data['options']['category_id'] = $product->category_id;
             $data['options']['color'] = '';
             $data['options']['size'] = '';
             Cart::add($data);
-            $url = route('user.checkout.rediect');
+            $url = route('show.cart');
             return \Response::json(['success' => 'Successfully Added on your Cart!', 'url' => $url]);
         }
         return view('frontend.pages.checkout');
-
     }
 
     public function CheckoutRedirect()
     {
         return view('frontend.pages.checkout');
-
     }
 
     public function Wishlist()
@@ -122,7 +117,6 @@ class CartController extends Controller
 
         // return response()->json($product);
         return view('frontend.pages.wishlist', compact('product'));
-
     } // End Method
 
     public function applyCoupon(Request $request)
@@ -143,7 +137,6 @@ class CartController extends Controller
         } else {
             return Redirect()->back()->with('error', 'Invalid Coupon!');
         }
-
     } // End Method
 
     public function CouponRemove()
@@ -151,7 +144,6 @@ class CartController extends Controller
 
         Session::forget('coupon');
         return Redirect()->back()->with('success', 'Coupon Remove Successfully!');
-
     } // End Method
 
     public function PaymentPage()
@@ -159,7 +151,6 @@ class CartController extends Controller
 
         $cart = Cart::Content();
         return view('frontend.pages.payment', compact('cart'));
-
     } // End Method
 
 }

@@ -15,11 +15,8 @@ return new class extends Migration
     {
         Schema::create('combos', function (Blueprint $table) {
             $table->id();
-            $table->string('product_id')->nullable();
-            $table->string('first_product_name')->nullable();
-            $table->string('first_discount_price')->nullable();
-            $table->string('first_selling_price')->nullable();
-            $table->string('image_one')->nullable();
+            $table->unsignedBigInteger('main_product_id');
+            $table->unsignedBigInteger('sub_product_id');
             $table->string('status')->nullable();
             $table->timestamps();
         });

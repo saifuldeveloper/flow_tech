@@ -1,11 +1,12 @@
 @extends('master_admin')
-@section('content')
-    <!-- include summernote css/js -->
+@section('title', 'Flow Tech BD | ডিজিটাল কমার্স নির্দশিকা')
+@push('css')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+@endpush
+@section('content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title">Laptop</h3>
+            <h3 class="page-title">ডিজিটাল কমার্স নির্দশিকা</h3>
         </div>
         @php
             $setting = DB::table('settings')->first();
@@ -26,7 +27,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Laptop Description</label><br>
+                                        <label class="form-label">Description</label><br>
                                         <textarea class="form-control autosize" name="Best_laptop" id="summernote8" style="height: 200px;">{{ $setting->Best_laptop }} </textarea>
                                         <span style="color: red;">
                                             @error('Best_laptop')
@@ -41,10 +42,15 @@
                     </div>
                 </div>
             </div>
-            <script>
-                $('#summernote8').summernote({
-                    tabsize: 2,
-                    height: 500
-                });
-            </script>
-        @endsection
+        </div>
+    </div>
+@endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+        $('#summernote8').summernote({
+            tabsize: 2,
+            height: 500
+        });
+    </script>
+@endpush

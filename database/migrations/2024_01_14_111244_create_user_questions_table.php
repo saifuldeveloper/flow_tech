@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('user_questions', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('question')->nullable();
-            $table->string('answer');
+            $table->string('answer')->nullable();
             $table->timestamps();
         });
     }

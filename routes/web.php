@@ -65,13 +65,7 @@ Route::get('/download/drive/{id}', [ProductDetailsController::class, 'DownloadDr
 
 Route::get('/latest/offer/page', [ProductDetailsController::class, 'LatestOfferPage'])->name('latest.offer.page');
 // Category wise product view
-// Route::get('/category/{slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
-// Route::get('/category/{slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
-// Route::get('/category/{id}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
-Route::get('/category/{category_slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
 
-Route::get('/subcategory/{subcategory_slug}', [ProductDetailsController::class, 'SubCategoryView'])->name('subcategory.view');
-Route::get('/childcategory/{childcategory_slug}', [ProductDetailsController::class, 'ChildCategoryView'])->name('childcategory.view');
 
 // Product search controller
 Route::get('/product-list', [ProductDetailsController::class, 'ProductListAjax']);
@@ -94,12 +88,17 @@ Route::post('/cart/product/add/buy/{slug}', [ProductDetailsController::class, 'a
 
 // backend routes
 Route::get('/admin/login', [AdminController::class, 'adminLoginForm'])->name('admin.login.form');
+
 //  Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 Route::post('/admin-login', [AdminController::class, 'adminLogin'])->name('admin.login');
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+
+    Route::get('/admin/password/reset', [AdminController::class, 'adminPasswordReset'])->name('admin.pass.reset');
+    Route::post('/admin/password/store', [AdminController::class, 'adminPasswordStore'])->name('admin.password.reset.store');
+
     // home page Slider
     Route::get('/admin/list/slider', [SliderController::class, 'listSlider'])->name('list.slider');
     Route::get('/admin/add/slider', [SliderController::class, 'addSlider'])->name('add.slider');
@@ -152,6 +151,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     // Category
     Route::get('/admin/list/category', [CategoryController::class, 'listCategory'])->name('list.category');
+    Route::get('/admin/get/subcategory/{category_id}', [CategoryController::class, 'getSubcategory'])->name('get.subcategory');
     Route::get('/admin/add/category', [CategoryController::class, 'addCategory'])->name('add.category');
     Route::post('/admin/store/category', [CategoryController::class, 'storeCategory'])->name('store.category');
     Route::get('/delete/category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete.category');
@@ -246,7 +246,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/admin/setting/refund/page', [SettingController::class, 'refundpage'])->name('setting.refund.page');
     Route::post('/admin/setting/refund/page/update', [SettingController::class, 'refundpageUpdate'])->name('setting.refund.page.update');
-    
+
     Route::get('/admin/setting/online-delivery/page', [SettingController::class, 'onlineDeliveryPage'])->name('oline.delivery.page');
     Route::post('/admin/setting/online-delivery/page/update', [SettingController::class, 'onlineDeliveryPageUpdate'])->name('oline.delivery.page.update');
 
@@ -258,7 +258,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/setting/about-us/page', [SettingController::class, 'abountUsPage'])->name('aboutus.page');
     Route::post('/admin/setting/about-us/page/update', [SettingController::class, 'abountUsPageUpdate'])->name('aboutus.page.update');
 
-    
+
     Route::get('/admin/setting/contact-us/page', [SettingController::class, 'contactUsPage'])->name('contactus.page');
     Route::post('/admin/setting/contact-us/page/update', [SettingController::class, 'contactUsPageUpdate'])->name('contactus.page.update');
 
@@ -268,21 +268,21 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/setting/emi/page', [SettingController::class, 'emiPage'])->name('emi.page');
     Route::post('/admin/setting/emi/page/update', [SettingController::class, 'emiPageUpdate'])->name('emi.page.update');
 
-    Route::get('/admin/setting/desktop/page', [SettingController::class, 'desktopPage'])->name('desktop.page');
-    Route::post('/admin/setting/desktop/page/update', [SettingController::class, 'desktopPageUpdate'])->name('desktop.page.update');
-   
+    Route::get('/admin/setting/delivery/return/policy', [SettingController::class, 'desktopPage'])->name('desktop.page');
+    Route::post('/admin/setting/delivery/return/policy', [SettingController::class, 'desktopPageUpdate'])->name('desktop.page.update');
 
-    Route::get('/admin/setting/laptop/page', [SettingController::class, 'laptopPage'])->name('laptop.page');
+
+    Route::get('/admin/setting/digital-commerce', [SettingController::class, 'laptopPage'])->name('laptop.page');
     Route::post('/admin/setting/laptop/page/update', [SettingController::class, 'laptopPageUpdate'])->name('laptop.page.update');
 
-    Route::get('/admin/setting/gamming-computer/page', [SettingController::class, 'gammingComputerPage'])->name('gamming.computer.page');
+    Route::get('/admin/setting/online/service', [SettingController::class, 'online_serve'])->name('online_serve');
     Route::post('/admin/setting/gamming-computer/page/update', [SettingController::class, 'gammingComputerPageUpdate'])->name('gamming.computer.page.update');
 
     // Subscribe
 
     // this controller must be change
     Route::get('/admin/list/subscribe/', [SubscribeController::class, 'listSubscribe'])->name('list.subscribe');
-   
+
 
     // Order List
     Route::get('/admin/list/order', [LeadManagementController::class, 'listOrder'])->name('list.order');
@@ -309,15 +309,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/update/coupon/{id}', [CouponController::class, 'updateCoupon'])->name('update.coupon');
 
 
-    Route::get('/admin/contact-us/list',[ContactusController::class ,'list'])->name('contact-us.list');
-    Route::get('/admin/contact-us/delete/{id}',[ContactusController::class ,'delete'])->name('contact-us.delete');
+    Route::get('/admin/contact-us/list', [ContactusController::class, 'list'])->name('contact-us.list');
+    Route::get('/admin/contact-us/delete/{id}', [ContactusController::class, 'delete'])->name('contact-us.delete');
 
     Route::get('/admin/product/review/list', [FrontendUserReviewController::class, 'reviewList'])->name('review.list');
     Route::post('/admin/product/review/status/{id}', [FrontendUserReviewController::class, 'reviewStatuschages'])->name('review.status.changes');
-
-
-
-
 });
 
 Auth::routes();
@@ -334,17 +330,21 @@ Route::get('/about', [App\Http\Controllers\HomeController::class, 'aboutUs'])->n
 Route::get('/category', [App\Http\Controllers\HomeController::class, 'Category'])->name('allcategory');
 Route::get('/brand', [App\Http\Controllers\HomeController::class, 'BrandAll'])->name('brand.all');
 Route::get('/brand/{name}', [App\Http\Controllers\HomeController::class, 'brand'])->name('brand');
-Route::get('/all/blog', [App\Http\Controllers\HomeController::class, 'Blog'])->name('allblog');
-Route::get('/all/blog/{id}', [App\Http\Controllers\HomeController::class, 'SingleBlog'])->name('SingleBlog');
+Route::get('/blogs', [App\Http\Controllers\HomeController::class, 'Blog'])->name('allblog');
+Route::get('/blog/{slug}', [App\Http\Controllers\HomeController::class, 'SingleBlog'])->name('SingleBlog');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 Route::post('/contact/message', [App\Http\Controllers\HomeController::class, 'contactMessageStore'])->name('contact.message.store');
 
 
 Route::get('/Return/Policy', [App\Http\Controllers\HomeController::class, 'refundAndReturn'])->name('refundAndReturn');
 Route::get('/online/delivery', [App\Http\Controllers\HomeController::class, 'delivery'])->name('delivery');
-Route::get('/emi', [App\Http\Controllers\HomeController::class, 'emi'])->name('emi');
+Route::get('/warrenty-policy', [App\Http\Controllers\HomeController::class, 'emi'])->name('emi');
 Route::get('/privacy/policy', [App\Http\Controllers\HomeController::class, 'policy'])->name('policy');
 Route::get('/terms/condition', [App\Http\Controllers\HomeController::class, 'condition'])->name('condition');
+
+Route::get('/delivery-and-Return-policy', [App\Http\Controllers\HomeController::class, 'deliveryReturnPage'])->name('deliveryReturnPage');
+Route::get('/online/service', [App\Http\Controllers\HomeController::class, 'onlineService'])->name('page.onlineService');
+Route::get('/digital-commerce', [App\Http\Controllers\HomeController::class, 'digitalCommerce'])->name('digitalCommerce');
 // Write a Review
 Route::get('/user/product/review/{id}', [FrontendUserReviewController::class, 'review'])->name('review');
 Route::post('/user/product/review/form', [FrontendUserReviewController::class, 'reviewSection'])->name('review.section');
@@ -365,5 +365,12 @@ Route::get('/account/order/list', [App\Http\Controllers\HomeController::class, '
 
 
 Route::post('/subscribe/store', [SubscribeController::class, 'storeSubscribe'])->name('subscribe.store');
+
+
+Route::get('{category_slug}', [ProductDetailsController::class, 'categoryView'])->name('category.view');
+Route::get('/category/product/{category_slug}', [ProductDetailsController::class, 'categoryWiseProduct'])->name('category.product');
+
+Route::get('{category_slug}/{subcategory_slug}', [ProductDetailsController::class, 'SubCategoryView'])->name('subcategory.view');
+Route::get('{category_slug}/{subcategory_slug}/{childcategory_slug}', [ProductDetailsController::class, 'ChildCategoryView'])->name('childcategory.view');
 
 // });

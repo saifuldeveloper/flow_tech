@@ -1,8 +1,5 @@
 /*-----------------------------------------------------------------------------------
 
-    @version         : 1.0.0
-    @Template Name   : initBill - invoice & Receipt HTML Template.
-    @Template author : https://themeforest.net/user/inittheme
 
 -----------------------------------------------------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Gabriela&family=Inter:wght@300;400;500;600;700;800&display=swap");
@@ -12452,8 +12449,8 @@
 }
 
 /*---------------------------------------------
-Background-color Makes CSS Class 
-@each <variable> in <expression> { ... } 
+Background-color Makes CSS Class
+@each <variable> in <expression> { ... }
 -----------------------------------------------*/
 .bg-primary {
   background-color: var(--primary) !important;
@@ -24101,9 +24098,9 @@ hr {
 
   @version         : 1.0.0
   @Template Name   : init-invoice
-  @Template author : 
+  @Template author :
 
-  :: Regular invoice       
+  :: Regular invoice
   :: Modern invoice
 
 ----------------------------------------------------
